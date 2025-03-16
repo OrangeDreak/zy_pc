@@ -4,7 +4,7 @@
     <el-header class="header">
       <div class="header-left">
         <div class="logo">QC elf</div>
-        <el-input
+        <!-- <el-input
           v-model="searchKeyword"
           :placeholder="$t('header.search')"
           class="search-input"
@@ -14,11 +14,11 @@
           </template>
           <template #append>
             <el-button class="search-btn">
-              <!-- <el-icon><Search /></el-icon> -->
+              <el-icon><Search /></el-icon>
               搜索
             </el-button>
           </template>
-        </el-input>
+        </el-input> -->
       </div>
       
       <div class="header-right">
