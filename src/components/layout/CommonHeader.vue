@@ -2,22 +2,6 @@
   <div class="common-header">
     <div class="header-left">
       <div class="logo">QC elf</div>
-      <div class="search-wrapper">
-        <el-input
-          v-model="searchKeyword"
-          :placeholder="$t('header.search')"
-          class="search-input"
-        >
-          <template #prefix>
-            <el-icon class="search-icon"><Search /></el-icon>
-          </template>
-          <template #append>
-            <el-button class="search-btn">
-              {{ $t('header.searchButton') }}
-            </el-button>
-          </template>
-        </el-input>
-      </div>
     </div>
 
     <div class="header-right">
