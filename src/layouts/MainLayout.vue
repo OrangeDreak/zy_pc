@@ -69,7 +69,7 @@
           router
           :collapse="false"
         >
-          <el-menu-item index="/transfer-list">
+          <el-menu-item index="/orders">
             <el-icon><Van /></el-icon>
             <span>{{ $t('menu.transferOrder') }}</span>
           </el-menu-item>
