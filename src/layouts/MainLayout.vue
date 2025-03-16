@@ -74,15 +74,15 @@
             <span>{{ $t('menu.transferOrder') }}</span>
           </el-menu-item>
 
-          <el-menu-item index="/warehouse">
+          <!-- <el-menu-item index="/warehouse">
             <el-icon><Box /></el-icon>
             <span>{{ $t('menu.warehouse') }}</span>
-          </el-menu-item>
+          </el-menu-item> -->
 
-          <el-menu-item index="/package">
+          <!-- <el-menu-item index="/package">
             <el-icon><Goods /></el-icon>
             <span>{{ $t('menu.package') }}</span>
-          </el-menu-item>
+          </el-menu-item> -->
 
           <el-menu-item index="/assets">
             <el-icon><Wallet /></el-icon>
