@@ -7,7 +7,7 @@
       <!-- 页面标题 -->
       <div class="page-header">
         <div class="title">{{ $t('transfer.addOrder.title') }}</div>
-        <el-link type="primary" @click="$router.push('/transfer-list')"
+        <el-link type="primary" @click="$router.push('/orders')"
           >{{ $t('transfer.addOrder.backToList') }}</el-link
         >
       </div>
