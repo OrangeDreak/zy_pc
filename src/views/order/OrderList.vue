@@ -83,6 +83,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { allOrderList } from '@/api/orderList'
 
 interface Order {
   id: number
@@ -95,39 +96,70 @@ interface Order {
 }
 
 interface SearchForm {
-  trackingNo: string
+  userNo: string
   customerCode: string
+  trackingNumber: string
+  isMark: 0
 }
+const fetchOrderList = async (searchParams: SearchForm) => {
+  try {
+    // 调用获取订单接口，并传入搜索参数
+    const response = await allOrderList.getOrderList({
+      userNo: searchParams.userNo,
+      customerCode: searchParams.customerCode
+      // 可添加其他接口需要的参数
+    })
+    // return response;
+    // 转换接口返回的数据结构（根据实际接口字段调整）
+    return response.map(item => ({
+      id: item.id,
+      trackingNo: item.logisticsNumber,  // 假设接口返回字段为 trackingNumber
+      customerCode: item.userNo,
+      createdAt: item.createTime,  // 需要日期格式化函数
+      // latestTracking: formatTracking(item.trackingInfo),  // 需要物流信息处理
+      isStarred: item.starred,
+      shareCount: item.shareCount
+    }))
+  } catch (error) {
+    console.error('获取订单列表失败:', error)
+    ElMessage.error('获取订单列表失败')
+    throw error  // 抛出错误以便组件层处理
+  }
+}
+
 
 export default defineComponent({
   name: 'OrderList',
   data() {
     return {
       searchForm: {
-        trackingNo: '',
+        userNo: '',
         customerCode: '',
       } as SearchForm,
-      orders: [
-        {
-          id: 1,
-          trackingNo: '1234',
-          customerCode: '1234',
-          createdAt: 'xx年x月x日',
-          latestTracking: 'x月x日，xxxxxx',
-          isStarred: true,
-          shareCount: 1
-        },
-        {
-          id: 2,
-          trackingNo: '5678',
-          customerCode: '5678',
-          createdAt: 'xx年x月x日',
-          latestTracking: 'x月x日，xxxxxx',
-          isStarred: false,
-          shareCount: 0
-        }
-      ] as Order[]
+      orders: [] as Order[],  // 初始化为空数组
+      loading: false,         // 新增加载状态
+      error: null as string | null  // 新增错误状态
     }
+  },
+  methods: {
+    async loadOrders() {
+      try {
+        this.loading = true
+        this.error = null
+        // 调用接口并更新订单数据
+        const result = await fetchOrderList(this.searchForm)
+        console.log(111, result);
+        this.orders = result
+      } catch (error) {
+        this.error = error.message || '获取订单失败'
+      } finally {
+        this.loading = false
+      }
+    }
+  },
+  mounted() {
+    // 组件挂载时自动加载
+    this.loadOrders()
   }
 })
 </script>
