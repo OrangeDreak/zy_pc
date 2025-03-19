@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 export const allOrderList = {
-  // 地址国家
+
   getOrderList(data) {
     return request({
       url: '/app/tp/order/orderList',
@@ -9,4 +9,19 @@ export const allOrderList = {
       data
     })
   },
+  getQcOrderList(data) {
+    return request({
+      url: '/app/tp/order/qcOrderList',
+      method: 'post',
+      data
+    })
+  },
+  myPackageOrderList(data) {
+    return request({
+      url: '/app/package-order/myPackageOrderList',
+      method: 'post',
+      data
+    })
+  },
+  
 } 

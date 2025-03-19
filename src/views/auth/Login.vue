@@ -142,7 +142,7 @@ const handleLogin = async () => {
       try {
         const res = await auth.login(loginForm.value)
         console.log('登录成功:', res)
-        authStore.setToken(res.token)
+        authStore.setToken(res.data.token)
         // authStore.setUserInfo(res.userInfo)
         ElMessage.success('登录成功')
         router.push('/')

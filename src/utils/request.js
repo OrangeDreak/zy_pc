@@ -29,7 +29,7 @@ request.interceptors.response.use(
       ElMessage.error(res.message || '请求失败')
       return Promise.reject(new Error(res.message || '请求失败'))
     }
-    return res.data
+    return res
   },
   error => {
     ElMessage.error(error.message || '请求失败')

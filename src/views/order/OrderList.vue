@@ -2,31 +2,21 @@
   <div class="order-list">
     <!-- 订单状态流程 -->
     <div class="order-flow">
-      <div class="flow-item" :class="{ active: true }">
-        <i class="icon-all"></i>
-        <span>{{ $t('order.flow.all') }}(107)</span>
-      </div>
-      <div class="flow-item">
-        <i class="icon-recorded"></i>
-        <span>{{ $t('order.flow.recorded') }}(45)</span>
-      </div>
-      <div class="flow-item">
-        <i class="icon-qc"></i>
-        <span>{{ $t('order.flow.qc') }}(23)</span>
-      </div>
-      <div class="flow-item">
-        <i class="icon-shipped"></i>
-        <span>{{ $t('order.flow.shipped') }}(35)</span>
-      </div>
-      <div class="flow-item">
-        <i class="icon-received"></i>
-        <span>{{ $t('order.flow.received') }}(18)</span>
+      <div
+        v-for="item in flowItems"
+        :key="item.status"
+        class="flow-item"
+        :class="{ active: item.status === status }"
+        @click="handleFlowItemClick(item.status)"
+      >
+        <i :class="item.icon"></i>
+        <span>{{ item.label }}({{ item.count }})</span>
       </div>
     </div>
 
     <!-- 搜索工具栏 -->
     <div class="search-toolbar">
-      <el-button>{{ $t('order.toolbar.starred') }}</el-button>
+      <el-button>{{ $t("order.toolbar.starred") }}</el-button>
       <el-input
         v-model="searchForm.trackingNo"
         :placeholder="$t('order.toolbar.trackingSearch')"
@@ -37,138 +27,201 @@
         :placeholder="$t('order.toolbar.customerSearch')"
         class="search-input"
       ></el-input>
-      <el-button>{{ $t('order.toolbar.shared') }}</el-button>
+      <el-button>{{ $t("order.toolbar.shared") }}</el-button>
     </div>
 
     <!-- 订单列表 -->
     <div class="order-list-content">
-      <div v-for="order in orders" :key="order.id" class="order-card">
-        <div class="order-header">
-          <div class="tracking-no">
-            {{ $t('order.card.trackingNo') }}：{{ order.trackingNo }}
-            <el-button type="text" icon="el-icon-edit"></el-button>
-          </div>
-          <el-button 
-            type="text" 
-            :icon="order.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
-            class="star-btn"
-          >
-            {{ $t('order.card.star') }}
-          </el-button>
-        </div>
-        <div class="order-info">
-          <div class="info-item">
-            <span class="label">{{ $t('order.card.customerCode') }}：</span>
-            <span>{{ order.customerCode }}</span>
-          </div>
-          <div class="info-item">
-            <span class="label">{{ $t('order.card.recordDate') }}：</span>
-            <span>{{ order.createdAt }}</span>
-          </div>
-          <div class="info-item tracking-info">
-            <span class="label">{{ $t('order.card.latestTracking') }}：</span>
-            <span>{{ order.latestTracking }}</span>
-          </div>
-        </div>
-        <div class="order-footer">
-          <el-button type="primary" size="small">{{ $t('order.card.share') }}</el-button>
-          <span class="share-count" v-if="order.shareCount">
-            {{ $t('order.card.sharedTimes', { count: order.shareCount }) }}
-          </span>
-        </div>
-      </div>
+      <el-table :data="orders" style="width: 100%" stripe>
+        <el-table-column prop="userNo" label="客户编码" width="100" />
+        <el-table-column prop="userNo" label="客户信息" width="300">
+          <template #default="{ row }">
+            <div class="user-info">
+              <div>
+                <div>姓名：{{ row.userAddressInfo.firstName }}</div>
+                <div>邮编：{{ row.userAddressInfo.postcode }}</div>
+                <div>手机号：{{ row.userAddressInfo.mobile }}</div>
+                <div>邮箱：{{ row.userAddressInfo.email }}</div>
+              </div>
+              <div>
+                <div>地址：{{ row.userAddressInfo.address }}</div>
+                <div>城市：{{ row.userAddressInfo.cityName }}</div>
+                <div>省份：{{ row.userAddressInfo.provinceName }}</div>
+                <div>国家：{{ row.userAddressInfo.countryName }}</div>
+              </div>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column prop="logisticsNumber" label="快递信息" >
+          <template #default="{ row }">
+            <span>快递单号：{{ row.logisticsNumber }}</span>
+            <div>物流轨迹：{{ row.trackingList[0]?.logisticsDesc }}</div>
+          </template>
+        </el-table-column>
+        <el-table-column prop="gmtCreate" label="创建日期" width="100" />
+        <el-table-column label="最新状态" width="100">
+          <template #default="{ row }">
+            <el-button
+              type="text"
+              :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
+              class="star-btn"
+            >
+              {{ row.status }}
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
+
+    <!-- 分页 -->
+    <div class="pagination">
+      <div class="total">共 {{ total }} 条</div>
+      <el-pagination
+        v-model:current-page="pagination.currentPage"
+        v-model:page-size="pagination.pageSize"
+        :page-sizes="[10, 20, 50]"
+        :total="total"
+        layout="prev, pager, next, sizes"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { allOrderList } from '@/api/orderList'
+import { defineComponent, reactive, ref } from "vue";
+import { ElMessage } from "element-plus";
+import { allOrderList } from "@/api/orderList";
 
 interface Order {
-  id: number
-  trackingNo: string
-  customerCode: string
-  createdAt: string
-  latestTracking: string
-  isStarred: boolean
-  shareCount: number
+  id: number;
+  trackingNo: string;
+  customerCode: string;
+  createdAt: string;
+  latestTracking: string;
+  isStarred: boolean;
+  shareCount: number;
 }
 
 interface SearchForm {
-  userNo: string
-  customerCode: string
-  trackingNumber: string
-  isMark: 0
-}
-const fetchOrderList = async (searchParams: SearchForm) => {
-  try {
-    // 调用获取订单接口，并传入搜索参数
-    const response = await allOrderList.getOrderList({
-      userNo: searchParams.userNo,
-      customerCode: searchParams.customerCode
-      // 可添加其他接口需要的参数
-    })
-    // return response;
-    // 转换接口返回的数据结构（根据实际接口字段调整）
-    return response.map(item => ({
-      id: item.id,
-      trackingNo: item.logisticsNumber,  // 假设接口返回字段为 trackingNumber
-      customerCode: item.userNo,
-      createdAt: item.createTime,  // 需要日期格式化函数
-      // latestTracking: formatTracking(item.trackingInfo),  // 需要物流信息处理
-      isStarred: item.starred,
-      shareCount: item.shareCount
-    }))
-  } catch (error) {
-    console.error('获取订单列表失败:', error)
-    ElMessage.error('获取订单列表失败')
-    throw error  // 抛出错误以便组件层处理
-  }
+  userNo: string;
+  customerCode: string;
+  trackingNumber: string;
+  isMark: 0;
 }
 
+interface FlowItem {
+  status: number;
+  icon: string;
+  label: string;
+  count: number;
+}
 
 export default defineComponent({
-  name: 'OrderList',
-  data() {
-    return {
-      searchForm: {
-        userNo: '',
-        customerCode: '',
-      } as SearchForm,
-      orders: [] as Order[],  // 初始化为空数组
-      loading: false,         // 新增加载状态
-      error: null as string | null  // 新增错误状态
-    }
-  },
-  methods: {
-    async loadOrders() {
+  name: "OrderList",
+  setup() {
+    // 分页状态
+    const pagination = reactive({
+      currentPage: 1,
+      pageSize: 10,
+    });
+
+    // 搜索表单
+    const searchForm = reactive({
+      userNo: "",
+      customerCode: "",
+    });
+
+    // 订单列表
+    const orders = ref<Order[]>([]);
+    const total = ref(0);
+    const loading = ref(false);
+    const error = ref<string | null>(null);
+
+    // 当前状态
+    const status = ref(1);
+
+    // 流程项数据
+    const flowItems = ref<FlowItem[]>([
+      { status: 1, icon: "icon-all", label: "全部", count: 107 },
+      { status: 2, icon: "icon-recorded", label: "已记录", count: 45 },
+      { status: 3, icon: "icon-qc", label: "质检中", count: 23 },
+      { status: 4, icon: "icon-shipped", label: "已发货", count: 35 },
+      { status: 5, icon: "icon-received", label: "已签收", count: 18 },
+    ]);
+
+    // 加载订单列表
+    const loadOrders = async () => {
       try {
-        this.loading = true
-        this.error = null
-        // 调用接口并更新订单数据
-        const result = await fetchOrderList(this.searchForm)
-        console.log(111, result);
-        this.orders = result
-      } catch (error) {
-        this.error = error.message || '获取订单失败'
+        loading.value = true;
+        error.value = null;
+
+        let params:any = {
+          pageNo: pagination.currentPage,
+          pageSize: pagination.pageSize,
+          ...searchForm,
+        };
+        if(status.value !== 1){
+          params.status = status.value;
+        }
+
+        const result = await allOrderList.getOrderList(params);
+        orders.value = result.data;
+        total.value = result.total;
+      } catch (err) {
+        error.value = err.message || "获取订单失败";
+        ElMessage.error("获取订单列表失败");
       } finally {
-        this.loading = false
+        loading.value = false;
       }
-    }
+    };
+
+    // 分页事件处理
+    const handleSizeChange = (val: number) => {
+      pagination.pageSize = val;
+      loadOrders();
+    };
+
+    const handleCurrentChange = (val: number) => {
+      pagination.currentPage = val;
+      loadOrders();
+    };
+    // 处理流程项点击事件
+    const handleFlowItemClick = (newStatus: number) => {
+      status.value = newStatus;
+      // 根据状态加载对应订单数据
+      loadOrders();
+    };
+
+    // 组件挂载时加载数据
+    loadOrders();
+
+    return {
+      searchForm,
+      orders,
+      total,
+      pagination,
+      status,
+      flowItems,
+      handleSizeChange,
+      handleCurrentChange,
+      handleFlowItemClick,
+    };
   },
-  mounted() {
-    // 组件挂载时自动加载
-    this.loadOrders()
-  }
-})
+});
 </script>
 
 <style scoped>
 .order-list {
   padding: 20px;
 }
-
+.user-info{
+  display: flex;
+  align-items: center;
+  width: 300px;
+  word-break: break-all;
+}
 .order-flow {
   display: flex;
   margin-bottom: 20px;
@@ -185,7 +238,7 @@ export default defineComponent({
 }
 
 .flow-item.active {
-  color: #409EFF;
+  color: #409eff;
 }
 
 .search-toolbar {
@@ -230,7 +283,7 @@ export default defineComponent({
 }
 
 .tracking-info {
-  color: #409EFF;
+  color: #409eff;
 }
 
 .order-footer {
@@ -243,4 +296,13 @@ export default defineComponent({
   color: #666;
   font-size: 14px;
 }
-</style> 
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background: #fff;
+  padding: 10px 20px;
+}
+</style>
