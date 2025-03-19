@@ -143,12 +143,13 @@ export default defineComponent({
     const status = ref(1);
 
     // 流程项数据
+    // 状态：-1已取消、0已录入、1已QC、2已发货、3已签收、4退货
     const flowItems = ref<FlowItem[]>([
       { status: 1, icon: "icon-all", label: "全部", count: 107 },
-      { status: 2, icon: "icon-recorded", label: "已记录", count: 45 },
-      { status: 3, icon: "icon-qc", label: "质检中", count: 23 },
-      { status: 4, icon: "icon-shipped", label: "已发货", count: 35 },
-      { status: 5, icon: "icon-received", label: "已签收", count: 18 },
+      { status: 0, icon: "icon-recorded", label: "已记录", count: 45 },
+      { status: 1, icon: "icon-qc", label: "质检中", count: 23 },
+      { status: 2, icon: "icon-shipped", label: "已发货", count: 35 },
+      { status: 3, icon: "icon-received", label: "已签收", count: 18 },
     ]);
 
     // 加载订单列表
