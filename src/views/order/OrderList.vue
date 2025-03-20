@@ -55,19 +55,48 @@
         <el-table-column prop="logisticsNumber" label="快递信息" >
           <template #default="{ row }">
             <span>快递单号：{{ row.logisticsNumber }}</span>
-            <div>物流轨迹：{{ row.trackingList[0]?.logisticsDesc }}</div>
+            <div>物流轨迹：{{ row.trackingList && row.trackingList[0]?.logisticsDesc }}</div>
           </template>
         </el-table-column>
         <el-table-column prop="gmtCreate" label="创建日期" width="100" />
-        <el-table-column label="最新状态" width="100">
+        <el-table-column prop="statusDesc" label="最新状态" width="100">
+        </el-table-column>
+        <el-table-column label="操作" width="200">
           <template #default="{ row }">
-            <el-button
-              type="text"
-              :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
-              class="star-btn"
-            >
-              {{ row.status }}
-            </el-button>
+            <div v-if="row.status === 0">
+              <el-button
+                type="text"
+                :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
+                class="star-btn"
+                @click="handleStarClick(row)"
+              >
+                分享
+              </el-button>
+              <el-button
+                type="text"
+                :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
+                class="star-btn"
+                @click="handleMarkClick(row)"
+              >
+                {{ row.isMark ? "取消特别关注" : "特别关注" }}
+              </el-button>
+            </div>
+            <div v-if="row.status === 1">
+              <el-button
+                type="text"
+                :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
+                class="star-btn"
+              >
+                退货
+              </el-button>
+              <el-button
+                type="text"
+                :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
+                class="star-btn"
+              >
+                更多服务
+              </el-button>
+            </div>
           </template>
         </el-table-column>
       </el-table>
@@ -97,6 +126,7 @@ import { allOrderList } from "@/api/orderList";
 interface Order {
   id: number;
   trackingNo: string;
+  userNo: string;
   customerCode: string;
   createdAt: string;
   latestTracking: string;
@@ -140,14 +170,14 @@ export default defineComponent({
     const error = ref<string | null>(null);
 
     // 当前状态
-    const status = ref(1);
+    const status = ref(-1);
 
     // 流程项数据
     // 状态：-1已取消、0已录入、1已QC、2已发货、3已签收、4退货
     const flowItems = ref<FlowItem[]>([
-      { status: 1, icon: "icon-all", label: "全部", count: 107 },
+      { status: -1, icon: "icon-all", label: "全部", count: 107 },
       { status: 0, icon: "icon-recorded", label: "已记录", count: 45 },
-      { status: 1, icon: "icon-qc", label: "质检中", count: 23 },
+      { status: 1, icon: "icon-qc", label: "已QC", count: 23 },
       { status: 2, icon: "icon-shipped", label: "已发货", count: 35 },
       { status: 3, icon: "icon-received", label: "已签收", count: 18 },
     ]);
@@ -163,11 +193,21 @@ export default defineComponent({
           pageSize: pagination.pageSize,
           ...searchForm,
         };
-        if(status.value !== 1){
+        if(status.value > -1){
           params.status = status.value;
         }
-
-        const result = await allOrderList.getOrderList(params);
+        let requestName = 'getOrderList';
+        if(status.value === 1){
+          params.status = status.value;
+          // requestName = 'getQcOrderList';
+          requestName = 'getOrderList';
+        }
+        if(status.value === 2 || status.value === 3){
+          params.status = status.value;
+          requestName = 'myPackageOrderList';
+         
+        }
+        const result = await allOrderList[requestName](params);
         orders.value = result.data;
         total.value = result.total;
       } catch (err) {
@@ -187,6 +227,25 @@ export default defineComponent({
     const handleCurrentChange = (val: number) => {
       pagination.currentPage = val;
       loadOrders();
+    };
+    // 处理mark点击事件
+    const handleMarkClick = async (order: any) => {
+      const { data } = await allOrderList.updateAttentionMark({
+        tpSubOrderId: order.id,
+        isMark: order.isMark ? 0 : 1,
+      });
+      ElMessage.success(`标记订单：${order.trackingNo}`);
+      loadOrders();
+    };
+    // 处理share点击事件
+    const handleStarClick = async (order: Order) => {
+      const { data } = await allOrderList.getSharingCode({
+        userNo: order.userNo,
+        orderId: order.id,
+      });
+      console.log(2222, data);
+      // 处理shareCount点击事件
+      ElMessage.success(`分享订单：${order.trackingNo}`);
     };
     // 处理流程项点击事件
     const handleFlowItemClick = (newStatus: number) => {
@@ -208,6 +267,8 @@ export default defineComponent({
       handleSizeChange,
       handleCurrentChange,
       handleFlowItemClick,
+      handleStarClick,
+      handleMarkClick,
     };
   },
 });

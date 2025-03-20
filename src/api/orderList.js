@@ -23,5 +23,28 @@ export const allOrderList = {
       data
     })
   },
+  getSharingCode(params) {
+    return request({
+      url: '/app/tp/order/getSharingCode',
+      method: 'get',
+      params
+    })
+  },
+  decodeSharingCode(data) {
+    return request({
+      url: '/app/tp/order/decodeSharingCode',
+      method: 'post',
+      data
+    })
+  },
+  updateAttentionMark(data) {
+    return request({
+      url: '/app/tp/order/updateAttentionMark',
+      method: 'post',
+      data
+    })
+  },
+  
+  
   
 } 

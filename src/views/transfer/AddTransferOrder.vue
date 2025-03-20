@@ -221,7 +221,7 @@ const remoteSearchCustomCode = async (query) => {
         pageNo: 1,
       });
       // 搜索结果
-      customCodeOptions.value = response.map((item)=>{
+      customCodeOptions.value = response.data.map((item)=>{
         return {
           ...item,
           value: item.userNo,
