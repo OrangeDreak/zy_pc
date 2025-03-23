@@ -40,7 +40,7 @@
 
       <!-- 交易表格 -->
       <el-table :data="transactionList" v-loading="loading">
-        <el-table-column :label="$t('assets.transaction.table.time')" prop="time" width="180" />
+        <el-table-column :label="$t('assets.transaction.table.time')" prop="time" />
         <el-table-column :label="$t('assets.transaction.table.type')" prop="type" width="120" />
         <el-table-column :label="$t('assets.transaction.table.amount')" width="150">
           <template #default="{ row }">
@@ -141,7 +141,7 @@ const handleCurrentChange = (val) => {
 
 .my-assets {
   .assets-card {
-    background: linear-gradient(135deg, @primary-color, darken(@primary-color, 10%));
+    background: @primary-color;
     padding: 30px;
     border-radius: 8px;
     color: #fff;

@@ -14,6 +14,7 @@ export default {
   },
   menu: {
     myAccount: 'My Account',
+    customers: 'My Customers',
     transferOrder: 'Transfer Orders',
     warehouse: 'My Warehouse',
     package: 'My Packages',

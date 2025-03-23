@@ -1,0 +1,249 @@
+<template>
+    <div class="order-list">
+  
+      <!-- 搜索工具栏 -->
+      <div class="search-toolbar">
+        <el-input
+          v-model="searchForm.customerCode"
+          :placeholder="$t('order.toolbar.customerSearch')"
+          class="search-input"
+        ></el-input>
+      </div>
+  
+      <!-- 订单列表 -->
+      <div class="order-list-content">
+        <el-table :data="customers" style="width: 100%" stripe>
+          <el-table-column prop="userNo" label="客户编码" width="100" />
+          <el-table-column prop="userNo" label="客户信息" width="300">
+            <template #default="{ row }">
+              <div class="user-info">
+                <div>
+                  <div>姓名：{{ row.userAddressInfo.firstName }}</div>
+                  <div>邮编：{{ row.userAddressInfo.postcode }}</div>
+                  <div>手机号：{{ row.userAddressInfo.mobile }}</div>
+                  <div>邮箱：{{ row.userAddressInfo.email }}</div>
+                </div>
+                <div>
+                  <div>地址：{{ row.userAddressInfo.address }}</div>
+                  <div>城市：{{ row.userAddressInfo.cityName }}</div>
+                  <div>省份：{{ row.userAddressInfo.provinceName }}</div>
+                  <div>国家：{{ row.userAddressInfo.countryName }}</div>
+                </div>
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column prop="remark" label="备注" >
+            
+          </el-table-column>
+          <el-table-column prop="gmtCreate" label="添加日期" width="100" />
+          <el-table-column prop="statusDesc" label="订单数" width="100">
+          </el-table-column>
+          <el-table-column prop="statusDesc" label="操作" width="100">
+        </el-table-column>
+        </el-table>
+      </div>
+  
+      <!-- 分页 -->
+      <div class="pagination">
+        <div class="total">共 {{ total }} 条</div>
+        <el-pagination
+          v-model:current-page="pagination.currentPage"
+          v-model:page-size="pagination.pageSize"
+          :page-sizes="[10, 20, 50]"
+          :total="total"
+          layout="prev, pager, next, sizes"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        />
+      </div>
+    </div>
+  </template>
+  
+  <script lang="ts">
+  import { defineComponent, reactive, ref } from "vue";
+  import { ElMessage } from "element-plus";
+  import { allCustomerList } from "@/api/customerList";
+  
+  interface Customer {
+    id: number;
+    trackingNo: string;
+    userNo: string;
+    customerCode: string;
+    createdAt: string;
+    latestTracking: string;
+    isStarred: boolean;
+    shareCount: number;
+  }
+  
+  interface SearchForm {
+    userNo: string;
+  }
+  
+  
+  export default defineComponent({
+    name: "CustomerList",
+    setup() {
+      // 分页状态
+      const pagination = reactive({
+        currentPage: 1,
+        pageSize: 10,
+      });
+  
+      // 搜索表单
+      const searchForm = reactive({
+        userNo: "",
+        customerCode: "",
+      });
+  
+      // 订单列表
+      const customers = ref<Customer[]>([]);
+      const total = ref(0);
+      const loading = ref(false);
+      const error = ref<string | null>(null);
+  
+      // 加载订单列表
+      const loadCustomers = async () => {
+        try {
+          loading.value = true;
+          error.value = null;
+  
+          let params:any = {
+            pageNo: pagination.currentPage,
+            pageSize: pagination.pageSize,
+            ...searchForm,
+          };
+          
+          let requestName = 'getCustomerList';
+          const result = await allCustomerList[requestName](params);
+          customers.value = result.data;
+          total.value = result.total;
+        } catch (err) {
+          error.value = err.message || "获取客户失败";
+          ElMessage.error("获取客户列表失败");
+        } finally {
+          loading.value = false;
+        }
+      };
+  
+      // 分页事件处理
+      const handleSizeChange = (val: number) => {
+        pagination.pageSize = val;
+        loadCustomers();
+      };
+  
+      const handleCurrentChange = (val: number) => {
+        pagination.currentPage = val;
+        loadCustomers();
+      };
+
+  
+      // 组件挂载时加载数据
+      loadCustomers();
+  
+      return {
+        searchForm,
+        customers,
+        total,
+        pagination,
+        handleSizeChange,
+        handleCurrentChange,
+      };
+    },
+  });
+  </script>
+  
+  <style scoped>
+  .order-list {
+    padding: 20px;
+  }
+  .user-info{
+    display: flex;
+    align-items: center;
+    width: 300px;
+    word-break: break-all;
+  }
+  .order-flow {
+    display: flex;
+    margin-bottom: 20px;
+    background: #fff;
+    border-radius: 8px;
+  }
+  
+  .flow-item {
+    display: flex;
+    align-items: center;
+    /* margin-right: 40px; */
+    color: #666;
+    padding: 20px;
+  }
+  
+  .flow-item.active {
+    color: #c803be;
+    background: #fcf2fc;
+  }
+  
+  .search-toolbar {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .search-input {
+    width: 200px;
+  }
+  
+  .order-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .tracking-no {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .order-info {
+    margin-bottom: 16px;
+  }
+  
+  .info-item {
+    margin-bottom: 8px;
+  }
+  
+  .info-item .label {
+    color: #666;
+  }
+  
+  .tracking-info {
+    color: #409eff;
+  }
+  
+  .order-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .share-count {
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background: #fff;
+    padding: 10px 20px;
+  }
+  </style>

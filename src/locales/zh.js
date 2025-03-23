@@ -14,6 +14,7 @@ export default {
   },
   menu: {
     myAccount: '我的账号',
+    customers: '我的客户',
     transferOrder: '我的订单',
     warehouse: '我的仓库',
     package: '我的包裹',

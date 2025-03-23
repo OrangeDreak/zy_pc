@@ -69,6 +69,10 @@
           router
           :collapse="false"
         >
+        <el-menu-item index="/customers">
+            <el-icon><User /></el-icon>
+            <span>{{ $t('menu.customers') }}</span>
+          </el-menu-item>
           <el-menu-item index="/orders">
             <el-icon><Van /></el-icon>
             <span>{{ $t('menu.transferOrder') }}</span>
@@ -122,7 +126,8 @@ import {
   Medal,
   Share,
   ArrowDown,
-  Plus
+  Plus,
+  User
 } from '@element-plus/icons-vue'
 
 const route = useRoute()

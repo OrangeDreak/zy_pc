@@ -27,12 +27,19 @@
         :placeholder="$t('order.toolbar.customerSearch')"
         class="search-input"
       ></el-input>
-      <el-button>{{ $t("order.toolbar.shared") }}</el-button>
+      <el-button>搜索</el-button>
     </div>
 
     <!-- 订单列表 -->
     <div class="order-list-content">
-      <el-table :data="orders" style="width: 100%" stripe>
+      <el-table
+        :data="orders"
+        @selection-change="handleSelectionChange"
+        style="width: 100%"
+        stripe
+      >
+        <!-- 选择列 -->
+        <el-table-column v-if="status === 1" type="selection" width="55" />
         <el-table-column prop="userNo" label="客户编码" width="100" />
         <el-table-column prop="userNo" label="客户信息" width="300">
           <template #default="{ row }">
@@ -52,10 +59,14 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="logisticsNumber" label="快递信息" >
+        <el-table-column prop="logisticsNumber" label="快递信息">
           <template #default="{ row }">
             <span>快递单号：{{ row.logisticsNumber }}</span>
-            <div>物流轨迹：{{ row.trackingList && row.trackingList[0]?.logisticsDesc }}</div>
+            <div>
+              物流轨迹：{{
+                row.trackingList && row.trackingList[0]?.logisticsDesc
+              }}
+            </div>
           </template>
         </el-table-column>
         <el-table-column prop="gmtCreate" label="创建日期" width="100" />
@@ -63,7 +74,7 @@
         </el-table-column>
         <el-table-column label="操作" width="200">
           <template #default="{ row }">
-            <div v-if="row.status === 0">
+            <div>
               <el-button
                 type="text"
                 :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
@@ -72,7 +83,9 @@
               >
                 分享
               </el-button>
+
               <el-button
+                v-if="row.status === 0"
                 type="text"
                 :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
                 class="star-btn"
@@ -80,28 +93,23 @@
               >
                 {{ row.isMark ? "取消特别关注" : "特别关注" }}
               </el-button>
-            </div>
-            <div v-if="row.status === 1">
               <el-button
+                v-if="row.status === 1"
                 type="text"
                 :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
                 class="star-btn"
               >
                 退货
               </el-button>
-              <el-button
-                type="text"
-                :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
-                class="star-btn"
-              >
-                更多服务
-              </el-button>
             </div>
           </template>
         </el-table-column>
       </el-table>
     </div>
-
+    <div v-if="status === 1" class="btn-box">
+      <el-button>一键估算运费</el-button
+      ><el-button type="primary" @click="handleSendSubmit">一键发货</el-button>
+    </div>
     <!-- 分页 -->
     <div class="pagination">
       <div class="total">共 {{ total }} 条</div>
@@ -171,41 +179,51 @@ export default defineComponent({
 
     // 当前状态
     const status = ref(-1);
+    const selectedOrders = ref([]);
 
     // 流程项数据
     // 状态：-1已取消、0已录入、1已QC、2已发货、3已签收、4退货
     const flowItems = ref<FlowItem[]>([
       { status: -1, icon: "icon-all", label: "全部", count: 107 },
-      { status: 0, icon: "icon-recorded", label: "已记录", count: 45 },
+      { status: 0, icon: "icon-recorded", label: "已录入", count: 45 },
       { status: 1, icon: "icon-qc", label: "已QC", count: 23 },
       { status: 2, icon: "icon-shipped", label: "已发货", count: 35 },
       { status: 3, icon: "icon-received", label: "已签收", count: 18 },
     ]);
-
+    const handleSelectionChange = async (selectedOrders) => {
+      selectedOrders.value = selectedOrders;
+    };
+    const handleSendSubmit = async () => {
+      if (selectedOrders.value.length === 0) {
+        ElMessage.error("请选择订单");
+        return;
+      }
+      await allOrderList.sendOrders(selectedOrders.value);
+      console.log(112233, selectedOrders.value);
+    };
     // 加载订单列表
     const loadOrders = async () => {
       try {
         loading.value = true;
         error.value = null;
 
-        let params:any = {
+        let params: any = {
           pageNo: pagination.currentPage,
           pageSize: pagination.pageSize,
           ...searchForm,
         };
-        if(status.value > -1){
+        if (status.value > -1) {
           params.status = status.value;
         }
-        let requestName = 'getOrderList';
-        if(status.value === 1){
+        let requestName = "getOrderList";
+        if (status.value === 1) {
           params.status = status.value;
           // requestName = 'getQcOrderList';
-          requestName = 'getOrderList';
+          requestName = "getOrderList";
         }
-        if(status.value === 2 || status.value === 3){
+        if (status.value === 2 || status.value === 3) {
           params.status = status.value;
-          requestName = 'myPackageOrderList';
-         
+          requestName = "myPackageOrderList";
         }
         const result = await allOrderList[requestName](params);
         orders.value = result.data;
@@ -264,11 +282,14 @@ export default defineComponent({
       pagination,
       status,
       flowItems,
+      selectedOrders,
       handleSizeChange,
       handleCurrentChange,
       handleFlowItemClick,
       handleStarClick,
       handleMarkClick,
+      handleSelectionChange,
+      handleSendSubmit,
     };
   },
 });
@@ -278,7 +299,13 @@ export default defineComponent({
 .order-list {
   padding: 20px;
 }
-.user-info{
+.btn-box {
+  padding-top: 20px;
+  display: flex;
+  align-content: center;
+  justify-content: end;
+}
+.user-info {
   display: flex;
   align-items: center;
   width: 300px;
@@ -288,19 +315,19 @@ export default defineComponent({
   display: flex;
   margin-bottom: 20px;
   background: #fff;
-  padding: 20px;
   border-radius: 8px;
 }
 
 .flow-item {
   display: flex;
   align-items: center;
-  margin-right: 40px;
   color: #666;
+  padding: 20px;
 }
 
 .flow-item.active {
-  color: #409eff;
+  color: #c803be;
+  background: #fcf2fc;
 }
 
 .search-toolbar {
