@@ -305,7 +305,7 @@ export default {
    declarationValue: "包裹申报总价值",
    estimatTaxesFee: "预收税费",
    disclaimerReminder: "物流免责提醒",
-   waybill.logistics.tips: "1. 包裹在目的国海关清关时，如被抽查，可能存在被征税的风险。如您有收到征税通知，请积极协助清关，否则可能会产生高额的退件费。\n2. 包裹派送均由第三方物流商承运，如包裹发生丢失，Qcelf可代用户与第三方物流承运商协调赔偿事宜。",
+   waybill_logistics_tips: "1. 包裹在目的国海关清关时，如被抽查，可能存在被征税的风险。如您有收到征税通知，请积极协助清关，否则可能会产生高额的退件费。\n2. 包裹派送均由第三方物流商承运，如包裹发生丢失，Qcelf可代用户与第三方物流承运商协调赔偿事宜。",
    noLineData: "暂无匹配的物流干线",
    pre_package_weight: "包裹预估重量",
    package_weight: "预估包裹重量",
