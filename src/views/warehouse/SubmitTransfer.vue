@@ -402,7 +402,7 @@
             <div class="tips">
               <div class="title">{{ $t("submit.disclaimerReminder") }}</div>
               <div class="text">
-                <pre>{{ $t("submit.submit-waybill.logistics.tips") }}</pre>
+                <pre>{{ $t("submit.submit.waybill.logistics.tips") }}</pre>
               </div>
             </div>
           </div>
