@@ -540,9 +540,9 @@
         </a-spin>
       </div>
       <div v-if="!currComponent" class="modal-footer">
-        <a-button key="back" @click="visible = false">{{ $t("submit.global.cancel") }}</a-button>
+        <a-button key="back" @click="visible = false">{{ $t("submit.global_cancel") }}</a-button>
         <a-button key="submit" type="primary" @click="handleConfirm">{{
-          $t("submit.gloabl.confirm")
+          $t("submit.gloabl_confirm")
           }}</a-button>
       </div>
     </a-modal>
