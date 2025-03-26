@@ -9,6 +9,8 @@ import { createI18n } from 'vue-i18n'
 import en from './locales/en'
 import zh from './locales/zh'
 import Antd from "ant-design-vue"
+import svgIcon from "@/components/SvgIcon/index.vue";
+import 'ant-design-vue/dist/reset.css';
 
 // 自定义 Element Plus 主题
 const app = createApp(App)
@@ -28,6 +30,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 
+app.component('svg-icon', svgIcon);
 app.use(createPinia())
 app.use(router)
 app.use(Antd)

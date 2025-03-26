@@ -24,8 +24,7 @@
                       </span>
                     </template>
                   </a-input>
-                  <img src="@/assets/images/icon/qa.png" alt="" />
-<!--                  <svg-icon class="arrow-icon" name="arrow-down" @click.stop></svg-icon>-->
+                  <svg-icon class="arrow-icon" name="arrow-down" @click.stop></svg-icon>
                 </div>
               </SelectCountry>
             </div>
@@ -70,8 +69,7 @@
                 :placeholder="$t('estimate.selectPlaceholder')"
               >
               </a-cascader>
-              <img src="@/assets/images/icon/qa.png" alt="" />
-<!--              <svg-icon class="arrow-icon" name="arrow-down"></svg-icon>-->
+              <svg-icon class="arrow-icon" name="arrow-down"></svg-icon>
               <div class="selectAb">
                 <span>{{ $t("estimate.ProductTypes") }}</span>
               </div>
@@ -171,7 +169,7 @@
                           <img src="@/assets/images/icon/qa.png" alt="" />
                         </a-popover>
                       </div>
-                      <div class="num">{{ $formatPrice(item, "totalFreightPrice") }}</div>
+                      <div class="num">{{ formatPrice(item, "totalFreightPrice") }}</div>
                     </div>
                     <div class="time">
                       <span class="col999">{{ $t("estimate.ShippingTime") }}</span>
@@ -261,8 +259,8 @@ import SelectCountry from "@/components/SelectCountry/index.vue";
 import { useRoute } from "vue-router";
 import { estimateCalculate, productTypeLabelListAll } from "@/api/order";
 import { CloseOutlined } from '@ant-design/icons-vue';
-import svgIcon from "@/components/SvgIcon/index.vue";
-import { formatTitle } from "@/utils/tools";
+import 'ant-design-vue/dist/reset.css';
+import { formatTitle, formatPrice } from "@/utils/tools";
 import { useI18n } from 'vue-i18n'
 const i18n = useI18n();
 
@@ -510,7 +508,7 @@ onMounted(() => {
 .btn-box {
   :deep(.ant-btn) {
     // background-color: rgba(0, 0, 0, 0.2);
-    background-color: var(--primary-color);
+    background-color: #0bd5d2;
     color: #fff;
     font-size: 14px;
     font-weight: 500;
@@ -539,11 +537,11 @@ onMounted(() => {
   :deep(.ant-btn) {
     // background-color: rgba(0, 0, 0, 0.2);
     background-color: #fff;
-    color: var(--primary-color);
+    color: #0bd5d2;
     font-size: 14px;
     font-weight: 500;
     line-height: 14px;
-    border-color: var(--primary-color);
+    border-color: #0bd5d2;
     padding: 0 26px;
     // border: none;
     .ant-btn:hover,
@@ -641,7 +639,7 @@ onMounted(() => {
     padding: 45px 40px 0;
     line-height: normal;
     // background-color: #ccc;
-    background-image: url("../.././assets/images/order/esBg.png");
+    background-image: url("@/assets/images/common/esBg.png");
     background-position: center;
     background-size: cover;
     .title {
@@ -669,6 +667,7 @@ onMounted(() => {
       }
       .right {
         .search-btn {
+          background-color: #0bd5d2;
           width: 128px;
           height: 92px;
           font-size: 18px;

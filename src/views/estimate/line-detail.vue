@@ -16,12 +16,12 @@
           </div>
           <div class="middle">
             {{ $t("estimate.estTip11") }}
-            <!-- {{ $formatTitle(formData.data, "sizeLimit") }} -->
+            <!-- {{ formatTitle(formData.data, "sizeLimit") }} -->
             <span ref="refSizeLimit"></span>
           </div>
           <div class="bottom">
             {{ $t("estimate.estTip12") }}
-            <!-- {{ $formatTitle(formData.data, "volumeChargeLimit") }} -->
+            <!-- {{ formatTitle(formData.data, "volumeChargeLimit") }} -->
             <!-- {{ formData.data.volumeChargeLimit }} -->
             <span ref="refVolumeChargeLimit"></span>
           </div>
@@ -33,16 +33,16 @@
           </div>
           <div class="con">
             <div v-for="(item, i) in formData.data.productTypeLabelList" :key="i" class="item">
-              <div class="title">{{ $formatTitle(item, "labelName", "en") }}:</div>
+              <div class="title">{{ formatTitle(item, "labelName", "en") }}:</div>
               <div
                 v-for="child in item.children"
                 :key="child.labelId"
                 :class="['tag', !child.logisticsLineSupportFlag ? 'yes' : 'no']"
               >
-                {{ $formatTitle(child, "labelName", "en") }}
+                {{ formatTitle(child, "labelName", "en") }}
               </div>
               <!-- <div :class="['tag']">
-                {{ $formatTitle(item, "labelName", "en") }}
+                {{ formatTitle(item, "labelName", "en") }}
               </div> -->
             </div>
           </div>
@@ -85,7 +85,7 @@
 
 <script setup>
 import { reactive, ref, onMounted, getCurrentInstance } from "vue";
-import { formatNum2 } from "@/utils/tools";
+import { formatNum2, formatTitle } from "@/utils/tools";
 import { logisticsLineDetail } from "@/api/order";
 const { proxy } = getCurrentInstance();
 import { useI18n } from "vue-i18n";
