@@ -47,6 +47,7 @@ const i18n = createI18n({
 })
 
 app.use(i18n)
+app.use(pinia)
 
 app.config.globalProperties.$cs = currencySymbol;
 app.config.globalProperties.$cy = getCurrencyStr;
