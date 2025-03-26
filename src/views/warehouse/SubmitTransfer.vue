@@ -461,7 +461,7 @@
             </div>
             <div class="right">
               <div class="amount">
-                <span class="sign">{{ $cs() }}</span
+                <span class="sign">{{ currencySymbol() }}</span
                 ><span class="num"> {{ realTotalFreight }} </span>&nbsp;
               </div>
               <a-popover
@@ -562,7 +562,7 @@ import {
 } from "vue";
 import { Empty } from "ant-design-vue";
 import { useRoute, useRouter } from "vue-router";
-import { formatTitle, formatNum2, formatPrice } from "@/utils/tools";
+import { formatTitle, formatNum2, formatPrice, currencySymbol } from "@/utils/tools";
 import { useDebounceFn } from "@vueuse/core";
 import {
   createPackageOrder,

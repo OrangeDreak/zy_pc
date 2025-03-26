@@ -3,12 +3,9 @@ import he from "he";
 import { useLangStore } from '@/stores/lang'
 import { storeToRefs } from 'pinia'
 
-const langStore = useLangStore()
-const { currentLang } = storeToRefs(langStore)
-
 // 标题
 export const formatTitle = (record, key, enKey) => {
-  if (currentLang === "zh") {
+  if (useLangStore.currentLang === "zh") {
     return he.decode(record[key] || "--");
   } else {
     enKey = langResponseKey(key, enKey);
