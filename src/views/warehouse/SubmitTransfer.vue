@@ -779,33 +779,12 @@ const addressInfo = reactive({
 
 const countDownEnd = (item) => {};
 
-// 协议
-const visibleRemember = ref(false);
 const checked = ref(false);
-const componentObj = {
-  article1: defineAsyncComponent(() => import("@/components/Protocol/InitiationTax.vue")),
-  article2: defineAsyncComponent(() => import("@/components/Protocol/TaxNotice.vue")),
-  article3: defineAsyncComponent(() => import("@/components/Protocol/Shipping.vue")),
-  // holidayNotice: holidayNotice
-};
 
 const visible = ref(false);
 const articleLoading = ref(false);
 const artBoxRef = ref();
 const currComponent = shallowRef();
-const lookProtocol = async (name) => {
-  visible.value = true;
-  if (name === "holidayNotice") {
-    articleLoading.value = true;
-    const { data } = await articleDetail({ articleId: 99 });
-    nextTick(() => {
-      artBoxRef.value.innerHTML = decodeURIComponent(data.content).replace(/\\/g, "");
-      articleLoading.value = false;
-    });
-  } else {
-    currComponent.value = componentObj[name];
-  }
-};
 const handleConfirm = () => {
   checked.value = true;
   visible.value = false;
