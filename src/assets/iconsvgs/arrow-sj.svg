@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>切片</title>
+    <defs>
+        <path d="M9.76813011,0.79566973 C10.0996988,0.356233472 9.92096441,7.1156393e-15 9.37798084,7.18213561e-15 L0.625877771,8.25395911e-15 C0.078835599,8.32095246e-15 -0.0889438128,0.359596391 0.245373409,0.79566973 L4.43469028,6.26008879 C4.7715857,6.69952505 5.31602034,6.69616213 5.64505159,6.26008879 L9.76813011,0.79566973 Z" id="path-1"></path>
+    </defs>
+    <g id="❤️我的订单&amp;我的仓库&amp;我的包裹" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="我的仓库" transform="translate(-447.000000, -218.000000)">
+            <g id="编组-29" transform="translate(312.000000, 128.000000)">
+                <g id="搜索" transform="translate(24.000000, 84.000000)">
+                    <g id="ic_glo_arrowdown_14" transform="translate(111.000000, 6.000000)">
+                        <g id="caret-down" transform="translate(4.995649, 6.666667)">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <g id="01_PC/01_Basic/06_caret-down"></g>
+                            <g id="🎨-color" mask="url(#mask-2)" fill="#0BD5D2">
+                                <g transform="translate(-4.995649, -6.666667)" id="矩形">
+                                    <rect x="0" y="0" width="20" height="20"></rect>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

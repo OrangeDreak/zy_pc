@@ -24,7 +24,8 @@
                       </span>
                     </template>
                   </a-input>
-                  <svg-icon class="arrow-icon" name="arrow-down" @click.stop></svg-icon>
+                  <img src="@/assets/images/icon/qa.png" alt="" />
+<!--                  <svg-icon class="arrow-icon" name="arrow-down" @click.stop></svg-icon>-->
                 </div>
               </SelectCountry>
             </div>
@@ -69,7 +70,8 @@
                 :placeholder="$t('estimate.selectPlaceholder')"
               >
               </a-cascader>
-              <svg-icon class="arrow-icon" name="arrow-down"></svg-icon>
+              <img src="@/assets/images/icon/qa.png" alt="" />
+<!--              <svg-icon class="arrow-icon" name="arrow-down"></svg-icon>-->
               <div class="selectAb">
                 <span>{{ $t("estimate.ProductTypes") }}</span>
               </div>
