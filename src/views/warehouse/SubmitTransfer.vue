@@ -351,7 +351,7 @@
                 >
                   <template #title>
                       <span>{{
-                        $tr("declarationMethod1Tip", selectedLineItem.cargoValueRatio + "%")
+                        i18ntReplaceVal("declarationMethod1Tip", selectedLineItem.cargoValueRatio + "%")
                       }}</span>
                   </template>
                   <img src="@/assets/images/icon/qa.png" alt=""
@@ -1016,6 +1016,23 @@ const otherInfo = reactive({
   declarationValue: undefined,
   insurance: 0,
 });
+
+export function i18ntReplaceVal(key, values) {
+  let tValue = proxy.$t(key);
+  if (typeof values === "string" || typeof values === "number") {
+    tValue = tValue.replace("%d", "%s");
+    return tValue.replace("%s", values);
+  } else if (values instanceof Array) {
+    let str = tValue;
+    for (const item of values) {
+      str = str.replace("%d", "%s");
+      str = str.replace("%s", item);
+    }
+    return str;
+  } else {
+    return tValue;
+  }
+}
 
 // 预下单
 const renderOrder = (showTip = false) => {
