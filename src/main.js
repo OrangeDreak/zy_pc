@@ -31,9 +31,6 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 
-app.config.globalProperties.$cs = currencySymbol;
-app.config.globalProperties.$cy = getCurrencyStr;
-
 app.use(createPinia())
 app.use(router)
 
@@ -50,5 +47,9 @@ const i18n = createI18n({
 })
 
 app.use(i18n)
+
+app.config.globalProperties.$cs = currencySymbol;
+app.config.globalProperties.$cy = getCurrencyStr;
+
 
 app.mount('#app')
