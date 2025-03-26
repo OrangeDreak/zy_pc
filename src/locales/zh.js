@@ -392,5 +392,6 @@ export default {
    estTip4: "请输入对应参数，查询运费！",
    please_select_country: "请选择国家",
    pleaseInputWeight: "请输入重量",
+   countryHot: "热门",
   }
 } 

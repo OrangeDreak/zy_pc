@@ -62,7 +62,7 @@
                   'border-radius': '4px',
                 }"
                 :field-names="{
-                  label: langStore.currentLang == 'zh' ? 'labelName' : 'labelNameEn',
+                  label: i18n.locale.value == 'zh' ? 'labelName' : 'labelNameEn',
                   value: 'labelId',
                 }"
                 :display-render="displayRender"
@@ -153,7 +153,7 @@
                       </div>
 
                       <div class="name">
-                        {{ $formatTitle(item, "logisticsLineName", "en") }}
+                        {{ formatTitle(item, "logisticsLineName", "en") }}
                       </div>
                       <div v-if="item.includeTaxes" class="tax">
                         {{ $t("estimate.taxExemption") }}
@@ -258,14 +258,14 @@ import LineDetail from "./line-detail.vue";
 import SelectCountry from "@/components/SelectCountry/index.vue";
 import { useRoute } from "vue-router";
 import { estimateCalculate, productTypeLabelListAll } from "@/api/order";
-import { useLangStore } from '@/stores/lang'
 import { CloseOutlined } from '@ant-design/icons-vue';
 import svgIcon from "@/components/SvgIcon/index.vue";
-
+import { formatTitle } from "@/utils/tools";
+import { useI18n } from 'vue-i18n'
+const i18n = useI18n();
 
 
 const route = useRoute();
-const langStore = useLangStore();
 
 const loading = ref(false);
 const searched = ref(false); // 是否请求过接口
@@ -312,7 +312,7 @@ const countryChange = (item) => {
 
 const selectThis = (item) => {
   estimaForm.country = item.id;
-  const afterName = langStore.currentLang === "zh" ? `-${item.areaName}` : "";
+  const afterName = i18n.locale.value === "zh" ? `-${item.areaName}` : "";
   countryName.value = item.areaEnName + afterName;
   console.log(afterName, countryName.value, "name");
   visibleSelect.value = false;
@@ -328,7 +328,7 @@ const onSelect = (i) => {
 
 const productTypeLabelListAllFun = async () => {
   const res = await productTypeLabelListAll();
-  console.log(res, "res");
+
   productTypeList.data = (res?.data || []).map((item) => {
     item.labelNameEn = item.labelNameEn.replace("&amp;", "&");
     return item;
@@ -381,7 +381,7 @@ const searchBtn = async () => {
 };
 
 const displayRender = ({ labels, selectedOptions }) => {
-  // console.log(labels);
+  //console.log(labels);
 
   // console.log(selectedOptions);
   // return labels.join("/");
@@ -390,7 +390,7 @@ const displayRender = ({ labels, selectedOptions }) => {
   } else if (labels.length === 1) {
     let str = "";
     selectedOptions[0].children.forEach((item) => {
-      str += `${proxy.$formatTitle(selectedOptions[0], "labelName", "En")}/${proxy.$formatTitle(
+      str += `${formatTitle(selectedOptions[0], "labelName", "En")}/${formatTitle(
         item,
         "labelName",
         "En",

@@ -15,7 +15,7 @@
             <a-tab-pane v-for="item in tabList" :key="item.value">
               <template #tab>
                 <span>
-                  <template v-if="['HOT'].includes(item.value)">{{ $t(item.label) }}</template>
+                  <template v-if="['HOT'].includes(item.value)">{{ $t("estimate." + item.label) }}</template>
                   <template v-else>{{ item.label }}</template>
                 </span>
               </template>
