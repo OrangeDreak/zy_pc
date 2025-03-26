@@ -27,6 +27,12 @@ const routes = [
     meta: { title: '订单详情' }
   },
   {
+    path: '/estimate',
+    name: 'Estimate',
+    component: () => import('@/views/estimate/index.vue'),
+    meta: { title: '运费预估' }
+  },
+  {
     path: '/',
     component: () => import('@/layouts/MainLayout.vue'),
     redirect: '/transfer-list',

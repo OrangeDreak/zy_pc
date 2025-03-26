@@ -44,3 +44,21 @@ export const createPackageOrder = (data) => {
     data,
   });
 };
+
+// 运费估算
+export const estimateCalculate = (data) => {
+  return request({
+    url: "/app/logisticsLine/calculate",
+    method: "post",
+    data,
+  });
+}
+
+// 商品类型标签
+export const productTypeLabelListAll = (params) => {
+  return request({
+    url: "/app/productTypeLabel/listAll",
+    method: "get",
+    params,
+  });
+}
