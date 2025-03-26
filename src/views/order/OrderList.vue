@@ -194,12 +194,13 @@ export default defineComponent({
       selectedOrders.value = selectedOrders;
     };
     const handleSendSubmit = async () => {
+      console.log(selectedOrders.value);
       if (selectedOrders.value.length === 0) {
         ElMessage.error("请选择订单");
         return;
       }
-      await allOrderList.sendOrders(selectedOrders.value);
-      console.log(112233, selectedOrders.value);
+      const ids = selectedOrders.value.map((item) => item.id);
+      sessionStorage.setItem("SubOrderIds", ids);
     };
     // 加载订单列表
     const loadOrders = async () => {
