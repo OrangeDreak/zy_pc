@@ -161,6 +161,7 @@ export default defineComponent({
   name: "OrderList",
   setup() {
     const router = useRouter();
+    const { proxy } = getCurrentInstance();
     // 分页状态
     const pagination = reactive({
       currentPage: 1,
@@ -197,7 +198,7 @@ export default defineComponent({
     };
     const handleSendSubmit = async () => {
       if (selectedOrders.value.length === 0) {
-        ElMessage.error($t("order.orderSelectTip"));
+        ElMessage.error(proxy.$t("order.orderSelectTip"));
         return;
       }
       let userNo = selectedOrders.value[0].userNo;
@@ -208,7 +209,7 @@ export default defineComponent({
          }
       });
       if (!sameUser) {
-         ElMessage.error($t("order.orderNotSameUserTip"));
+         ElMessage.error(proxy.$t("order.orderNotSameUserTip"));
          return;
       }
       const ids = selectedOrders.value.map((item) => item.id);
