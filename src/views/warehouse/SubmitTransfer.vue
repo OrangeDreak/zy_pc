@@ -351,7 +351,7 @@
                 >
                   <template #title>
                       <span>{{
-                        i18ntReplaceVal("declarationMethod1Tip", selectedLineItem.cargoValueRatio + "%")
+                        i18ntReplaceVal("submit.declarationMethod1Tip", selectedLineItem.cargoValueRatio + "%")
                       }}</span>
                   </template>
                   <img src="@/assets/images/icon/qa.png" alt=""
@@ -1017,7 +1017,7 @@ const otherInfo = reactive({
   insurance: 0,
 });
 
-export function i18ntReplaceVal(key, values) {
+const i18ntReplaceVal = (key, values) => {
   let tValue = proxy.$t(key);
   if (typeof values === "string" || typeof values === "number") {
     tValue = tValue.replace("%d", "%s");
