@@ -67,15 +67,15 @@
                                 <div v-if="goods.logisticsNumber" class="title">
                                   {{ $t("submit.orderNo") }}：{{ goods.logisticsNumber }}
                                 </div>
-                                <div class="title" :title="$formatTitle(goods, 'productName')">
-                                  {{ $formatTitle(goods, "productName") }}
+                                <div class="title" :title="formatTitle(goods, 'productName')">
+                                  {{ formatTitle(goods, "productName") }}
                                 </div>
                                 <div class="size">
                                   <template v-if="goods.attrs">
                                     <span v-for="(sku, index) in goods.attrs" :key="index">
                                       <span
-                                      >{{ $formatTitle(sku, "attrName") }}:{{
-                                          $formatTitle(sku, "attrValue")
+                                      >{{ formatTitle(sku, "attrName") }}:{{
+                                          formatTitle(sku, "attrValue")
                                         }}&nbsp;</span
                                       >
                                     </span>
@@ -92,7 +92,7 @@
                         <div class="cell center type" :style="{ width: leftColumns[2].width }">
                           <template v-if="goods.packageTypeList">
                             <span
-                                    v-for="tag in $t('langProp')
+                                    v-for="tag in $t('submit.langProp')
                                 ? goods.packageTypeListTrans
                                 : goods.packageTypeList"
                                     :key="tag"
@@ -102,7 +102,7 @@
                           </template>
                           <template v-else>
                             <span
-                                    v-for="tag in $t('langProp')
+                                    v-for="tag in $t('submit.langProp')
                                 ? item.packageTypeListTrans
                                 : item.packageTypeList"
                                     :key="tag"
@@ -192,7 +192,7 @@
                       :key="item.value"
                       class="checkbox"
                       :value="item.value"
-              ><div :class="[$t('langProp') ? 'add-service-box-en' : 'add-service-box']">
+              ><div :class="[$t('submit.langProp') ? 'add-service-box-en' : 'add-service-box']">
                 <div v-if="item.value === 13" class="tag-box">
                   <img
                           src="@/assets/images/activity/Christmas/gift2.png"
@@ -218,7 +218,7 @@
                   v-model:value="packageInfo.remark"
                   :bordered="false"
                   :rows="4"
-                  :placeholder="$t('warehouse_submit_tip')"
+                  :placeholder="$t('submit.warehouse_submit_tip')"
                   :maxlength="remarkMaxlength"
           />
           <div class="show-count">{{ packageInfo.remark.length }}/{{ remarkMaxlength }}</div>
@@ -255,7 +255,7 @@
                     </a-popover>
                   </div>
                   <div class="name">
-                    {{ $formatTitle(item, "logisticsLineName", "en") }}
+                    {{ formatTitle(item, "logisticsLineName", "en") }}
                   </div>
                   <div v-if="item.includeTaxes" class="tax">
                     {{ $t("submit.taxExemption") }}
@@ -562,7 +562,7 @@ import {
 } from "vue";
 import { Empty } from "ant-design-vue";
 import { useRoute, useRouter } from "vue-router";
-import { formatTitle, formatNum2, formatPrice, currencySymbol } from "@/utils/tools";
+import { formatTitle, formatNum2, formatPrice, currencySymbol, formatAmount } from "@/utils/tools";
 import { useDebounceFn } from "@vueuse/core";
 import {
   createPackageOrder,
@@ -967,12 +967,12 @@ const visibleChange = (val) => {
 
 const freightPrice = computed(() => {
   const amount = amountInfo.estimatedCostPrice;
-  // const amount = Number(proxy.$formatAmount(amountInfo, "estimatedCostPrice"));
+  // const amount = Number(formatAmount(amountInfo, "estimatedCostPrice"));
   return amount;
 });
 
 const realTotalFreight = computed(() => {
-  const amount = Number(proxy.$formatAmount(amountInfo, "freightDeposit"));
+  const amount = Number(formatAmount(amountInfo, "freightDeposit"));
   return (amount <= 0 ? 0 : amount / 100).toFixed(2);
 });
 
@@ -1120,8 +1120,10 @@ const onSubmit = () => {
 const weightCountMethod = ref(true); // 体积重开关，默认开启
 onMounted(async () => {
   try {
+    const ids = sessionStorage.getItem("SubOrderIds");
+    let idsArr = ids.split(',');
     loading.value = true;
-    const { data = {} } = await getSubmitOrderInfo(sessionStorage.getItem("SubOrderIds"));
+    const { data = {} } = await getSubmitOrderInfo(idsArr);
       dataSource.list = data.subOrders.map((item, i) => {
       item.id = item.innerDeliveryId;
       item.skuDetailList = [
@@ -1140,7 +1142,6 @@ onMounted(async () => {
       item.packageTypeListTrans = item.packageTypeListTrans || ["Common Goods"];
       return item;
       });
-      console.log(dataSource.list);
       let addressObj = data.userAddressInfo;
       addressInfo.id = addressObj.id;
       addressInfo.countryId = addressObj.countryId;

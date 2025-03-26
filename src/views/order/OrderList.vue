@@ -213,6 +213,8 @@ export default defineComponent({
          return;
       }
       const ids = selectedOrders.value.map((item) => item.id);
+      console.log(ids);
+
       sessionStorage.setItem("SubOrderIds", ids);
       router.push("/submit-transfer");
     };

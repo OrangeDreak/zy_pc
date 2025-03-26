@@ -8,6 +8,7 @@ import router from './router'
 import { createI18n } from 'vue-i18n'
 import en from './locales/en'
 import zh from './locales/zh'
+import Antd from "ant-design-vue"
 
 // 自定义 Element Plus 主题
 const app = createApp(App)
@@ -29,6 +30,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 
 app.use(createPinia())
 app.use(router)
+app.use(Antd)
 
 const i18n = createI18n({
   legacy: false,
