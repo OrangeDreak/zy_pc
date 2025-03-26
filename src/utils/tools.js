@@ -73,3 +73,16 @@ export function langResponseKey(zhKey, enKey) {
 export function getCurrencyStr() {
   return Config.defaultCurrency;
 }
+
+// 格式化金额，不会带有逗号间隔数字，也不会带有货币单位，可用于计算
+export function formatAmount(record, zhKey, enKey) {
+  const currency = getCurrencyStr();
+  let result;
+  if (currency === "CNY") {
+    result = record[zhKey] || 0;
+  } else {
+    enKey = langResponseKey(zhKey, enKey);
+    result = record[enKey] || 0;
+  }
+  return result;
+}
