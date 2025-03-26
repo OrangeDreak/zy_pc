@@ -342,5 +342,6 @@ export default {
      declarationValueTip: "请填写包裹申报总价值",
      sumbitSuccess: "订单提交成功",
      langProp: "Trans",
+     warehouse_submit_tip: "If you have any other requirements for the package, please note here",
     }
 } 
