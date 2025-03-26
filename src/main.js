@@ -8,6 +8,10 @@ import router from './router'
 import { createI18n } from 'vue-i18n'
 import en from './locales/en'
 import zh from './locales/zh'
+import {
+  getCurrencyStr,
+  currencySymbol,
+} from "@/utils/tools";
 
 // 自定义 Element Plus 主题
 const app = createApp(App)
@@ -26,6 +30,9 @@ app.use(ElementPlus, {
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
+
+app.config.globalProperties.$cs = currencySymbol;
+app.config.globalProperties.$cy = getCurrencyStr;
 
 app.use(createPinia())
 app.use(router)
