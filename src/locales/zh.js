@@ -351,5 +351,6 @@ export default {
    sumbitSuccess: "订单提交成功",
    langProp: "",
    warehouse_submit_tip: "如果您对包裹还有其他要求，请在这里备注",
+   service_charge: "服务费",
   }
 } 

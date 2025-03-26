@@ -471,42 +471,42 @@
                 <template #content>
                   <p>
                     {{ $t("submit.estimateFreight") }}：{{
-                    $formatPrice(amountInfo, "estimatedCostPrice")
+                    formatPrice(amountInfo, "estimatedCostPrice")
                     }}
                   </p>
                   <p>
                     {{ $t("submit.addedServiceCharge") }}：{{
-                    $formatPrice(amountInfo, "addedServicesFeePrice")
+                    formatPrice(amountInfo, "addedServicesFeePrice")
                     }}
                   </p>
                   <p>
                     {{ $t("submit.carrierProcessingFee") }}：{{
-                    $formatPrice(amountInfo, "logisticsProviderProcessingFee")
+                    formatPrice(amountInfo, "logisticsProviderProcessingFee")
                     }}
                   </p>
-                  <p>{{ $t("submit.operationFee") }}：{{ $formatPrice(amountInfo, "operationFee") }}</p>
-                  <p>{{ $t("submit.fuelCharge") }}：{{ $formatPrice(amountInfo, "fuelCost") }}</p>
-                  <p>{{ $t("submit.service_charge") }}：{{ $formatPrice(amountInfo, "servicePrice") }}</p>
+                  <p>{{ $t("submit.operationFee") }}：{{ formatPrice(amountInfo, "operationFee") }}</p>
+                  <p>{{ $t("submit.fuelCharge") }}：{{ formatPrice(amountInfo, "fuelCost") }}</p>
+                  <p>{{ $t("submit.service_charge") }}：{{ formatPrice(amountInfo, "servicePrice") }}</p>
                   <p v-if="amountInfo.discountReducePrice">
                     {{ $t("submit.memberDiscount")
                     }}<a-tooltip>
                     <template #title>{{ $t("submit.memberDiscountAmountTip") }}</template
                     ><img src="@/assets/images/icon/qa.png" alt="" /></a-tooltip
-                  >：-{{ $formatPrice(amountInfo, "discountReducePrice") }}
+                  >：-{{ formatPrice(amountInfo, "discountReducePrice") }}
                   </p>
                   <p v-if="amountInfo.transportReducePrice">
                     {{ $t("submit.exclusiveDiscount")
                     }}<a-tooltip>
                     <template #title>{{ $t("submit.exclusiveDiscountAmountTip") }}</template
                     ><img src="@/assets/images/icon/qa.png" alt="" /></a-tooltip
-                  >：-{{ $formatPrice(amountInfo, "transportReducePrice") }}
+                  >：-{{ formatPrice(amountInfo, "transportReducePrice") }}
                   </p>
                   <p v-if="amountInfo.taxReportingFee">
                     {{ $t("submit.estimatTaxesFee")
                     }}<a-tooltip>
                     <template #title>{{ $t("submit.estimatTaxesFeeAmountTip") }}</template
                     ><img src="@/assets/images/icon/qa.png" alt="" /></a-tooltip
-                  >：{{ $formatPrice(amountInfo, "taxReportingFee") }}
+                  >：{{ formatPrice(amountInfo, "taxReportingFee") }}
                   </p>
                 </template>
                 <img src="@/assets/images/icon/qa.png" alt="" />
