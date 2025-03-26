@@ -259,6 +259,10 @@ import SelectCountry from "@/components/SelectCountry/index.vue";
 import { useRoute } from "vue-router";
 import { estimateCalculate, productTypeLabelListAll } from "@/api/order";
 import { useLangStore } from '@/stores/lang'
+import { CloseOutlined } from '@ant-design/icons-vue';
+import svgIcon from "@/components/SvgIcon/index.vue";
+
+
 
 const route = useRoute();
 const langStore = useLangStore();
