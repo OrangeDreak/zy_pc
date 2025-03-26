@@ -349,5 +349,6 @@ export default {
    lineSelectTip: "请选择寄送线路！",
    declarationValueTip: "请填写包裹申报总价值",
    sumbitSuccess: "订单提交成功",
+   langProp: "",
   }
 } 
