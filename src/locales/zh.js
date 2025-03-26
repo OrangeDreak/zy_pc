@@ -230,7 +230,9 @@ export default {
       star: '特别关注',
       share: '分享',
       sharedTimes: '已分享{count}次'
-    }
+    },
+    orderSelectTip: '请选择订单',
+    orderNotSameUserTip: '同一客户订单才能一起发货，请按用户编号筛选后再一键发货'
   },
 
   submit: {

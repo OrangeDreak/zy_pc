@@ -579,9 +579,6 @@ const { proxy } = getCurrentInstance();
 const route = useRoute();
 const router = useRouter();
 
-<!--const lang = computed(() => {-->
-<!--  return store.getters.lang;-->
-<!--});-->
 
 // 列表数据
 const leftColumns = ref([

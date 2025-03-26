@@ -130,6 +130,7 @@
 import { defineComponent, reactive, ref } from "vue";
 import { ElMessage } from "element-plus";
 import { allOrderList } from "@/api/orderList";
+import { useRouter } from 'vue-router';
 
 interface Order {
   id: number;
@@ -159,6 +160,7 @@ interface FlowItem {
 export default defineComponent({
   name: "OrderList",
   setup() {
+    const router = useRouter();
     // 分页状态
     const pagination = reactive({
       currentPage: 1,
@@ -190,17 +192,28 @@ export default defineComponent({
       { status: 2, icon: "icon-shipped", label: "已发货", count: 35 },
       { status: 3, icon: "icon-received", label: "已签收", count: 18 },
     ]);
-    const handleSelectionChange = async (selectedOrders) => {
-      selectedOrders.value = selectedOrders;
+    const handleSelectionChange = async (selected) => {
+      selectedOrders.value = selected;
     };
     const handleSendSubmit = async () => {
-      console.log(selectedOrders.value);
       if (selectedOrders.value.length === 0) {
-        ElMessage.error("请选择订单");
+        ElMessage.error($t("order.orderSelectTip"));
         return;
+      }
+      let userNo = selectedOrders.value[0].userNo;
+      let sameUser = true;
+      selectedOrders.value.forEach(item => {
+         if (item.userNo !== userNo) {
+            sameUser = false;
+         }
+      });
+      if (!sameUser) {
+         ElMessage.error($t("order.orderNotSameUserTip"));
+         return;
       }
       const ids = selectedOrders.value.map((item) => item.id);
       sessionStorage.setItem("SubOrderIds", ids);
+      router.push("/submit-transfer");
     };
     // 加载订单列表
     const loadOrders = async () => {

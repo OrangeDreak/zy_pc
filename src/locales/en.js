@@ -223,7 +223,9 @@ export default {
       star: 'Star',
       share: 'Share',
       sharedTimes: 'Shared {count} times'
-    }
+    },
+    orderSelectTip: 'Please select at least one order',
+    orderNotSameUserTip: 'Only orders from the same customer can be shipped together. Please filter by userNO before one click shipping'
   },
   submit: {
      subMitYunOrder: "提交运单",
