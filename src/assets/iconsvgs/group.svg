@@ -1,0 +1,8 @@
+<svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect opacity="0.6" x="1" y="1" width="4.5" height="4.5" rx="0.5" stroke="black"/>
+<rect opacity="0.6" x="1" y="8" width="4.5" height="4.5" rx="0.5" stroke="black"/>
+<path d="M8 2.5H12.5" stroke="black" stroke-opacity="0.6"/>
+<path d="M8 9.5H12.5" stroke="black" stroke-opacity="0.6"/>
+<path d="M8 4.5H12.5" stroke="black" stroke-opacity="0.6"/>
+<path d="M8 11.5H12.5" stroke="black" stroke-opacity="0.6"/>
+</svg>

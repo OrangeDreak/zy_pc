@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>01_PC/01_Basic/20_close</title>
+    <defs>
+        <path d="M13.6238532,0 L15,1.37614679 L8.876,7.5 L15,13.6238532 L13.6238532,15 L7.5,8.876 L1.37614679,15 L0,13.6238532 L6.123,7.5 L0,1.37614679 L1.37614679,0 L7.5,6.123 L13.6238532,0 Z" id="path-1"></path>
+    </defs>
+    <g id="❤️我的订单&amp;我的仓库&amp;我的包裹" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="我的仓库-点击精细拍照" transform="translate(-1002.000000, -320.000000)">
+            <g id="精细拍照提示" transform="translate(399.000000, 307.000000)">
+                <g id="close" transform="translate(603.000000, 13.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="01_PC/01_Basic/20_close" fill="#FFFFFF" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

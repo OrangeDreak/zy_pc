@@ -107,7 +107,7 @@
       </el-table>
     </div>
     <div v-if="status === 1" class="btn-box">
-      <el-button>一键估算运费</el-button
+      <el-button @click="handleEstimate">一键估算运费</el-button
       ><el-button type="primary" @click="handleSendSubmit">一键发货</el-button>
     </div>
     <!-- 分页 -->
@@ -195,6 +195,9 @@ export default defineComponent({
     ]);
     const handleSelectionChange = async (selected) => {
       selectedOrders.value = selected;
+    };
+    const handleEstimate = async () => {
+        router.push("/estimate");
     };
     const handleSendSubmit = async () => {
       if (selectedOrders.value.length === 0) {
@@ -307,6 +310,7 @@ export default defineComponent({
       handleMarkClick,
       handleSelectionChange,
       handleSendSubmit,
+      handleEstimate,
     };
   },
 });

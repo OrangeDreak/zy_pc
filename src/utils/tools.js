@@ -1,11 +1,14 @@
 import Config from "@/config/settings";
 import he from "he";
-import { useLangStore } from '@/stores/lang'
 import { storeToRefs } from 'pinia'
+import { useI18n } from 'vue-i18n'
+
+
 
 // 标题
 export const formatTitle = (record, key, enKey) => {
-  if (useLangStore.currentLang === "zh") {
+  const i18n = useI18n();
+  if (i18n.locale.value === "zh") {
     return he.decode(record[key] || "--");
   } else {
     enKey = langResponseKey(key, enKey);
