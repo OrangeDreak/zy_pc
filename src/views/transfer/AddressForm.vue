@@ -194,7 +194,7 @@ const fetchCountries = async () => {
     const response = await transfer.country({
       areaLevel: 1,
     })
-    countries.value = response.map(item => ({ value: item.id, label: item.areaName }))
+    countries.value = response.data.map(item => ({ value: item.id, label: item.areaName }))
   } catch (error) {
     console.error('获取国家列表失败:', error)
     ElMessage.error('获取国家列表失败')
@@ -208,7 +208,7 @@ const fetchProvinces = async (countryId) => {
     const response = await transfer.province({
       parentId: countryId
     })
-    provinces.value = response.map(item => ({ value: item.id, label: item.areaName }))
+    provinces.value = response.data.map(item => ({ value: item.id, label: item.areaName }))
   } catch (error) {
     console.error('获取省份列表失败:', error)
     ElMessage.error('获取省份列表失败')
