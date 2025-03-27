@@ -4,10 +4,22 @@
       <!-- 搜索工具栏 -->
       <div class="search-toolbar">
         <el-input
-          v-model="searchForm.customerCode"
+          v-model="searchForm.userNo"
           :placeholder="$t('order.toolbar.customerSearch')"
           class="search-input"
         ></el-input>
+        <el-button @click="handleSearch">搜索</el-button>
+        <el-button 
+          type="primary" 
+          link 
+          class="new-address"
+          @click="handleAddAddress"
+        >
+          新增用户地址信息
+          <el-tooltip content="地址信息说明" placement="top">
+            <el-icon class="address-help"><QuestionFilled /></el-icon>
+          </el-tooltip>
+        </el-button>
       </div>
   
       <!-- 订单列表 -->
@@ -57,12 +69,18 @@
         />
       </div>
     </div>
+    <!-- 新增地址对话框 -->
+    <AddressForm
+      v-model="addressDialogVisible"
+      @submit="handleAddressSubmit"
+    />
   </template>
   
   <script lang="ts">
-  import { defineComponent, reactive, ref } from "vue";
-  import { ElMessage } from "element-plus";
-  import { allCustomerList } from "@/api/customerList";
+  import { defineComponent, reactive, ref } from "vue"
+  import { ElMessage } from "element-plus"
+  import { allCustomerList } from "@/api/customerList"
+  import AddressForm from '../transfer/AddressForm.vue'
   
   interface Customer {
     id: number;
@@ -78,10 +96,13 @@
   interface SearchForm {
     userNo: string;
   }
-  
-  
+
+
   export default defineComponent({
     name: "CustomerList",
+    components: {
+      AddressForm
+    },
     setup() {
       // 分页状态
       const pagination = reactive({
@@ -92,9 +113,10 @@
       // 搜索表单
       const searchForm = reactive({
         userNo: "",
-        customerCode: "",
       });
-  
+
+      const addressDialogVisible = ref(false)
+
       // 订单列表
       const customers = ref<Customer[]>([]);
       const total = ref(0);
@@ -124,7 +146,18 @@
           loading.value = false;
         }
       };
-  
+      
+      // 添加搜索处理方法
+      const handleSearch = () => {
+        // 搜索时重置到第一页
+        pagination.currentPage = 1;
+        loadCustomers();
+      };
+      // 添加地址
+      const handleAddAddress = () => {
+        addressDialogVisible.value = true
+      }
+
       // 分页事件处理
       const handleSizeChange = (val: number) => {
         pagination.pageSize = val;
@@ -136,9 +169,18 @@
         loadCustomers();
       };
 
-  
+      
+      // 处理地址提交
+    const handleAddressSubmit = (address) => {
+      //orders.value[currentOrderIndex.value].recentAddress = `${address.name}, ${address.address}, ${address.mobile}`;
+      //orders.value[currentOrderIndex.value].userAddressInfo = address;
+      //showAddress.value = false;
+    };
+
       // 组件挂载时加载数据
       loadCustomers();
+
+      
   
       return {
         searchForm,
@@ -147,6 +189,10 @@
         pagination,
         handleSizeChange,
         handleCurrentChange,
+        handleSearch,
+        handleAddAddress,
+        addressDialogVisible,
+        handleAddressSubmit,
       };
     },
   });
