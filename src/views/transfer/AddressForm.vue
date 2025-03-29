@@ -32,6 +32,12 @@
       <el-row :gutter="20">
         <!-- 左列 -->
         <el-col :span="12">
+          <el-form-item label="用户编码" prop="subCode">
+            <el-input 
+              v-model="addressForm.subCode"
+              placeholder="请输入用户编码"
+            />
+          </el-form-item>
           <el-form-item label="姓名" prop="name">
             <el-input 
               v-model="addressForm.name"
@@ -156,7 +162,8 @@ const addressForm = ref({
   countryId: '',
   provinceId: '',
   cityName: '',
-  postcode: ''
+  postcode: '',
+  subCode: ''
 })
 
 // 下拉选项
@@ -266,7 +273,7 @@ const handleSubmit = async () => {
         const params = addressForm.value;
         params.firstName = params.name;
         params.lastName = params.name;
-        params.subCode = props.subCode;
+        params.subCode = params.subCode !== '' ? params.subCode : props.subCode;
         await transfer.addUserAddress(params);
         emit('submit', addressForm.value)
         ElMessage.success('保存成功')
