@@ -4,7 +4,7 @@ import { useAuthStore } from '@/stores/auth'
 
 const request = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
-  timeout: 5000
+  timeout: 12000
 })
 
 // 请求拦截器

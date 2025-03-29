@@ -6,7 +6,7 @@
     :close-on-click-modal="false"
   >
     <!-- 智能解析区域 -->
-    <div class="parse-area">
+    <!-- <div class="parse-area">
       <el-input
         v-model="fullAddress"
         type="textarea"
@@ -19,7 +19,7 @@
           <el-icon><QuestionFilled /></el-icon>
         </el-tooltip>
       </div>
-    </div>
+    </div> -->
 
     <!-- 表单区域 -->
     <el-form
@@ -34,9 +34,14 @@
         <el-col :span="12">
           <el-form-item label="用户编码" prop="subCode">
             <el-input 
+              :disabled="!!props.subCode"
               v-model="addressForm.subCode"
               placeholder="请输入用户编码"
-            />
+            >
+            <template v-if="!props.subCode" #append>
+              <el-button class="primary-btn" type="primary" @click="showCustomCodeHelp">获取随机编码</el-button>
+            </template>
+            </el-input>
           </el-form-item>
           <el-form-item label="姓名" prop="name">
             <el-input 
@@ -138,19 +143,13 @@ const props = defineProps({
     type: String,
     default: ''
   },
+  formData: {
+    type: Object,
+    default: () => {}
+  }
 })
 
 const emit = defineEmits(['update:modelValue', 'submit'])
-
-// 对话框显示状态
-const dialogVisible = ref(false)
-watch(() => props.modelValue, val => {
-  dialogVisible.value = val
-})
-watch(() => dialogVisible.value, val => {
-  emit('update:modelValue', val)
-})
-
 // 表单数据
 const formRef = ref(null)
 const loading = ref(false)
@@ -163,8 +162,24 @@ const addressForm = ref({
   provinceId: '',
   cityName: '',
   postcode: '',
-  subCode: ''
+  subCode: '',
 })
+// 对话框显示状态
+const dialogVisible = ref(false)
+watch(() => props.modelValue, val => {
+  dialogVisible.value = val;
+  if (props.subCode) {
+    addressForm.value.subCode = props.subCode;
+  }
+  if (props.formData.userAddressInfo) {
+    addressForm.value = {...props.formData.userAddressInfo};
+    addressForm.value.name = props.formData.userAddressInfo.firstName;
+  }
+})
+watch(() => dialogVisible.value, val => {
+  emit('update:modelValue', val)
+})
+
 
 // 下拉选项
 const countries = ref([])
@@ -221,6 +236,14 @@ const fetchProvinces = async (countryId) => {
     ElMessage.error('获取省份列表失败')
   }
 }
+const showCustomCodeHelp = async() =>{
+  try {
+    const response = await transfer.getCustomCode();
+    addressForm.value.subCode = response.data;
+  } catch (error) {
+    ElMessage.error('获取自定义编码失败');
+  }
+};
 
 // 监听完整地址变化，进行智能解析
 watch(fullAddress, async (val) => {
@@ -259,7 +282,6 @@ watch(() => addressForm.value.countryId, async (val) => {
     await fetchProvinces(val)
   }
 })
-
 // 提交表单
 const handleSubmit = async () => {
   if (!formRef.value) return
@@ -290,12 +312,16 @@ const handleSubmit = async () => {
 
 // 初始化获取国家列表
 onMounted(() => {
-  fetchCountries()
+  fetchCountries();
 })
 </script>
 
 <style lang="less" scoped>
 @import '@/styles/variables.less';
+.primary-btn{
+  color: #fff !important;
+  background-color: @primary-color !important;
+}
 
 .parse-area {
   background-color: @primary-light;

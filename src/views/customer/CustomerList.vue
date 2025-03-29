@@ -26,7 +26,7 @@
       <div class="order-list-content">
         <el-table :data="customers" style="width: 100%" stripe>
           <el-table-column prop="userNo" label="客户编码" width="100" />
-          <el-table-column prop="userNo" label="客户信息" width="300">
+          <el-table-column prop="userNo" label="客户信息" min-width="300">
             <template #default="{ row }">
               <div class="user-info">
                 <div>
@@ -44,14 +44,15 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column prop="remark" label="备注" >
-            
-          </el-table-column>
-          <el-table-column prop="gmtCreate" label="添加日期" width="100" />
-          <el-table-column prop="statusDesc" label="订单数" width="100">
+          <!-- <el-table-column prop="remark" label="备注" ></el-table-column> -->
+          <el-table-column prop="gmtCreate" label="添加日期" width="130" />
+          <el-table-column prop="statusDesc" label="订单数" width="130">
           </el-table-column>
           <el-table-column prop="statusDesc" label="操作" width="100">
-        </el-table-column>
+            <template #default="scope">
+              <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
+            </template>
+          </el-table-column>
         </el-table>
       </div>
   
@@ -72,6 +73,8 @@
     <!-- 新增地址对话框 -->
     <AddressForm
       v-model="addressDialogVisible"
+      :formData="formData"
+      :subCode="formData.userNo"
       @submit="handleAddressSubmit"
     />
   </template>
@@ -122,7 +125,8 @@
       const total = ref(0);
       const loading = ref(false);
       const error = ref<string | null>(null);
-  
+      const formData = ref({});
+      
       // 加载订单列表
       const loadCustomers = async () => {
         try {
@@ -155,8 +159,15 @@
       };
       // 添加地址
       const handleAddAddress = () => {
+        formData.value = {};
         addressDialogVisible.value = true
       }
+
+      const handleEdit = (customer: Customer) => {
+        formData.value = customer;
+        addressDialogVisible.value = true;
+      }
+
 
       // 分页事件处理
       const handleSizeChange = (val: number) => {
@@ -187,12 +198,14 @@
         customers,
         total,
         pagination,
+        formData,
         handleSizeChange,
         handleCurrentChange,
         handleSearch,
         handleAddAddress,
         addressDialogVisible,
         handleAddressSubmit,
+        handleEdit,
       };
     },
   });
