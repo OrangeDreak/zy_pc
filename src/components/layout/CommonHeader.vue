@@ -6,9 +6,9 @@
 
     <div class="header-right">
       <div class="nav-items">
-        <div class="nav-item">{{ $t('header.nav.freightEstimate') }}</div>
-        <div class="nav-item">{{ $t('header.nav.transfer') }}</div>
-        <div class="nav-item">{{ $t('header.nav.help') }}</div>
+        <div class="nav-item" @click="handleEstimate">{{ $t('header.nav.freightEstimate') }}</div>
+        <div class="nav-item" @click="handleTransfer">{{ $t('header.nav.transfer') }}</div>
+        <!-- <div class="nav-item">{{ $t('header.nav.help') }}</div> -->
       </div>
       <el-dropdown @command="handleCommand">
         <span class="user-info">
@@ -66,7 +66,12 @@ const handleCommand = (command) => {
     router.push('/profile')
   }
 }
-
+const handleEstimate = async () => {
+    router.push("/estimate");
+};
+const handleTransfer = async () => {
+    router.push("/add-transfer");
+};
 // 处理语言切换
 const handleLangChange = (lang) => {
   langStore.setLang(lang)

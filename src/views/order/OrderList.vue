@@ -140,8 +140,8 @@
       </el-table>
     </div>
     <div v-if="status === 1" class="btn-box">
-      <el-button @click="handleEstimate">一键估算运费</el-button
-      ><el-button type="primary" @click="handleSendSubmit">一键发货</el-button>
+      <!-- <el-button @click="handleEstimate">一键估算运费</el-button> -->
+      <el-button type="primary" @click="handleSendSubmit">一键发货</el-button>
     </div>
     <!-- 分页 -->
     <div class="pagination">

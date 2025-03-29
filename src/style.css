@@ -1,5 +1,5 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -11,18 +11,39 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+ */
+
+  /* 主色系列 */
+  --el-color-primary: #c803be;
+  --el-color-primary-light-1: #f386c2; /* 比 light-3 更浅的变体（需按实际颜色调整）*/
+  --el-color-primary-light-2: #f7b8d8; /* 比 light-1 更浅的变体（需按实际颜色调整）*/
+  --el-color-primary-light-3: #f7e6f7; /* 对应 $--colors-primary-light-3 */
+  --el-color-primary-light-8: #fdf5fd; /* 对应 $--colors-primary-light-8 */
+  --el-color-primary-light-9: #faf0fa; /* 对应 $--colors-primary-light-9 */
+  --el-color-primary-dark-1: #a5039c;  /* 深色变体（可自定义）*/
+
+  /* 文字颜色 */
+  --el-text-color-primary: #303133;    /* 对应 $--text-color-primary */
+  --el-text-color-regular: #606266;    /* 对应 $--text-color-regular */
+  --el-text-color-secondary: #909399;  /* 对应 $--text-color-secondary */
+
+  /* 按钮主题色覆盖 */
+  --el-button-primary-bg-color: var(--el-color-primary);
+  --el-button-primary-hover-bg-color: #b003a1; /* 对应 darken(#c803be, 10%) */
+  --el-button-primary-active-bg-color: #99038a; /* 对应 darken(#c803be, 20%) */
+  
 }
 
-a {
+/* a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
 }
 a:hover {
   color: #535bf2;
-}
+} */
 
-body {
+/* body {
   margin: 0;
   display: flex;
   place-items: center;
@@ -76,4 +97,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */

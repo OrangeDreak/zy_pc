@@ -36,7 +36,8 @@ export default {
     transaction: {
       dateRange: {
         start: 'Start Date',
-        end: 'End Date'
+        end: 'End Date',
+        separator: 'Separator'
       },
       viewStatement: 'View Statement',
       table: {

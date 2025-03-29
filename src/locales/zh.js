@@ -3,7 +3,7 @@ export default {
     search: '请输入商品关键词',
     searchButton: '搜索',
     nav: {
-      freightEstimate: '运费估算',
+      freightEstimate: '运费预估',
       transfer: '转运',
       help: '帮助中心'
     },
@@ -36,7 +36,8 @@ export default {
     transaction: {
       dateRange: {
         start: '开始日期',
-        end: '结束日期'
+        end: '结束日期',
+        separator: '至'
       },
       viewStatement: '查看账单',
       table: {
