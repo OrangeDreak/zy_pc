@@ -72,11 +72,13 @@
                 </div>
               </template>
               <template #default> 
-                <el-timeline>
-                  <el-timeline-item v-for="(item, index) in row.trackingList" :key="index" :timestamp="item.gmtTime" placement="top">
-                    <p>{{ item.logisticsDesc }}</p>
-                  </el-timeline-item>
-                </el-timeline>
+                <div class="timeline">
+                  <el-timeline>
+                    <el-timeline-item v-for="(item, index) in row.trackingList" :key="index" :timestamp="item.gmtTime" placement="top">
+                      <p>{{ item.logisticsDesc }}</p>
+                    </el-timeline-item>
+                  </el-timeline>
+                </div>
               </template>
             </el-popover>
             <div class="image-list">
@@ -371,6 +373,10 @@ export default defineComponent({
 <style lang="less" scoped>
 .order-list {
   padding: 20px;
+}
+.timeline{
+  height: 350px;
+  overflow: scroll;
 }
 .image-list{
   display: flex;
