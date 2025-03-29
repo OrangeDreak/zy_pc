@@ -21,7 +21,7 @@
   --el-color-primary-light-8: #f9caf9; /* 对应 $--colors-primary-light-8 */
   --el-color-primary-light-9: #fbddfb; /* 对应 $--colors-primary-light-9 */
   --el-color-primary-dark-1: #a5039c;  /* 深色变体（可自定义）*/
-
+  --el-color-primary-dark-2: #8b0384;  /* 比 dark-1 更深的变体 */
   /* 文字颜色 */
   --el-text-color-primary: #303133;    /* 对应 $--text-color-primary */
   --el-text-color-regular: #606266;    /* 对应 $--text-color-regular */
@@ -35,6 +35,7 @@
   --el-button-primary-border-color: var(--el-color-primary); /* 新增：主色按钮边框颜色 */
   --el-button-primary-hover-border-color: #b003a1; /* 新增：主色按钮悬停边框颜色 */
   --el-button-primary-active-border-color: #99038a; /* 新增：主色按钮激活边框颜色 */
+  --el-button-active-bg-color: #c803be;
 
   /* 新增按钮主题色 */
   --el-button-success-bg-color: #67c23a;
@@ -66,7 +67,9 @@
   --el-button-info-active-border-color: #74767a; /* 新增：信息按钮激活边框颜色 */
 
 }
-
+.el-button:active{
+  color: #c803be;
+}
 /* a {
   font-weight: 500;
   color: #646cff;
