@@ -15,11 +15,11 @@
 
   /* 主色系列 */
   --el-color-primary: #c803be;
-  --el-color-primary-light-1: #f386c2; /* 比 light-3 更浅的变体（需按实际颜色调整）*/
-  --el-color-primary-light-2: #f7b8d8; /* 比 light-1 更浅的变体（需按实际颜色调整）*/
-  --el-color-primary-light-3: #f7e6f7; /* 对应 $--colors-primary-light-3 */
-  --el-color-primary-light-8: #fdf5fd; /* 对应 $--colors-primary-light-8 */
-  --el-color-primary-light-9: #faf0fa; /* 对应 $--colors-primary-light-9 */
+  --el-color-primary-light-1: #f456ad; /* 比 light-3 更浅的变体（需按实际颜色调整）*/
+  --el-color-primary-light-2: #f17cb7; /* 比 light-1 更浅的变体（需按实际颜色调整）*/
+  --el-color-primary-light-3: #f595f5; /* 对应 $--colors-primary-light-3 */
+  --el-color-primary-light-8: #f9caf9; /* 对应 $--colors-primary-light-8 */
+  --el-color-primary-light-9: #fbddfb; /* 对应 $--colors-primary-light-9 */
   --el-color-primary-dark-1: #a5039c;  /* 深色变体（可自定义）*/
 
   /* 文字颜色 */
@@ -31,7 +31,40 @@
   --el-button-primary-bg-color: var(--el-color-primary);
   --el-button-primary-hover-bg-color: #b003a1; /* 对应 darken(#c803be, 10%) */
   --el-button-primary-active-bg-color: #99038a; /* 对应 darken(#c803be, 20%) */
-  
+  --el-button-hover-link-text-color: var(--el-color-primary); /* 新增：将悬停链接文本颜色设置为主题色 */
+  --el-button-primary-border-color: var(--el-color-primary); /* 新增：主色按钮边框颜色 */
+  --el-button-primary-hover-border-color: #b003a1; /* 新增：主色按钮悬停边框颜色 */
+  --el-button-primary-active-border-color: #99038a; /* 新增：主色按钮激活边框颜色 */
+
+  /* 新增按钮主题色 */
+  --el-button-success-bg-color: #67c23a;
+  --el-button-success-hover-bg-color: #5daf34;
+  --el-button-success-active-bg-color: #529b2e;
+  --el-button-success-border-color: #67c23a; /* 新增：成功按钮边框颜色 */
+  --el-button-success-hover-border-color: #5daf34; /* 新增：成功按钮悬停边框颜色 */
+  --el-button-success-active-border-color: #529b2e; /* 新增：成功按钮激活边框颜色 */
+
+  --el-button-warning-bg-color: #e6a23c;
+  --el-button-warning-hover-bg-color: #d9912b;
+  --el-button-warning-active-bg-color: #c87f1a;
+  --el-button-warning-border-color: #e6a23c; /* 新增：警告按钮边框颜色 */
+  --el-button-warning-hover-border-color: #d9912b; /* 新增：警告按钮悬停边框颜色 */
+  --el-button-warning-active-border-color: #c87f1a; /* 新增：警告按钮激活边框颜色 */
+
+  --el-button-danger-bg-color: #f56c6c;
+  --el-button-danger-hover-bg-color: #e65a5a;
+  --el-button-danger-active-bg-color: #d54848;
+  --el-button-danger-border-color: #f56c6c; /* 新增：危险按钮边框颜色 */
+  --el-button-danger-hover-border-color: #e65a5a; /* 新增：危险按钮悬停边框颜色 */
+  --el-button-danger-active-border-color: #d54848; /* 新增：危险按钮激活边框颜色 */
+
+  --el-button-info-bg-color: #909399;
+  --el-button-info-hover-bg-color: #82848a;
+  --el-button-info-active-bg-color: #74767a;
+  --el-button-info-border-color: #909399; /* 新增：信息按钮边框颜色 */
+  --el-button-info-hover-border-color: #82848a; /* 新增：信息按钮悬停边框颜色 */
+  --el-button-info-active-border-color: #74767a; /* 新增：信息按钮激活边框颜色 */
+
 }
 
 /* a {
