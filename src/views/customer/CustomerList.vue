@@ -247,7 +247,7 @@
   .user-info{
     display: flex;
     align-items: center;
-    min-width: 300px;
+    min-width: 310px;
     word-break: break-all;
   }
   .order-flow {

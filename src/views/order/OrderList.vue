@@ -63,11 +63,23 @@
         <el-table-column prop="logisticsNumber" label="快递信息">
           <template #default="{ row }">
             <span>快递单号：{{ row.logisticsNumber }}</span>
-            <div>
-              物流轨迹：{{
-                row.trackingList && row.trackingList[0]?.logisticsDesc
-              }}
-            </div>
+            <el-popover :width="800">
+              <template #reference>
+                <div v-if="row.trackingList && row.trackingList.length > 0">
+                  物流轨迹：{{
+                    row.trackingList && row.trackingList[0]?.logisticsDesc
+                  }}
+                </div>
+              </template>
+              <template #default> 
+                <el-timeline>
+                  <el-timeline-item v-for="(item, index) in row.trackingList" :key="index" :timestamp="item.gmtTime" placement="top">
+                    <p>{{ item.logisticsDesc }}</p>
+                  </el-timeline-item>
+                </el-timeline>
+              </template>
+            </el-popover>
+            
           </template>
         </el-table-column>
         <el-table-column prop="gmtCreate" label="创建日期" width="100" />
