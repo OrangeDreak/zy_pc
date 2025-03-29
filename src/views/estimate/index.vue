@@ -118,9 +118,9 @@
           </div>
         </div>
         <div class="right">
-          <a-button class="search-btn" type="primary" :loading="loading" @click="searchBtn">{{
+          <el-button class="search-btn" type="primary" :loading="loading" @click="searchBtn">{{
             $t("estimate.Inquire")
-          }}</a-button>
+          }}</el-button>
         </div>
       </div>
     </div>
@@ -667,7 +667,7 @@ onMounted(() => {
       }
       .right {
         .search-btn {
-          background-color: #0bd5d2;
+          background-color: #c803be;
           width: 128px;
           height: 92px;
           font-size: 18px;

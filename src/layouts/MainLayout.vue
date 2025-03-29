@@ -20,11 +20,10 @@
           </template>
         </el-input> -->
       </div>
-      
       <div class="header-right">
         <div class="nav-items">
-          <div class="nav-item" @click="handleEstimate">{{ $t('header.nav.freightEstimate') }}</div>
-          <div class="nav-item" @click="handleTransfer">{{ $t('header.nav.transfer') }}</div>
+          <div class="nav-item text-cursor" @click="handleEstimate">{{ $t('header.nav.freightEstimate') }}</div>
+          <div class="nav-item text-cursor" @click="handleTransfer">{{ $t('header.nav.transfer') }}</div>
           <!-- <div class="nav-item">{{ $t('header.nav.help') }}</div> -->
         </div>
         <el-dropdown @command="handleCommand">
