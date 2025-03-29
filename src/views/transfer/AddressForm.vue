@@ -298,7 +298,12 @@ const handleSubmit = async () => {
         params.firstName = params.name;
         params.lastName = params.name;
         params.subCode = params.subCode !== '' ? params.subCode : props.subCode;
-        await transfer.addUserAddress(params);
+        if (props.formData.id) {
+          params.id = props.formData.id;
+          await transfer.updateUserAddress(params);
+        } else {
+          await transfer.addUserAddress(params);
+        }
         emit('submit', addressForm.value)
         ElMessage.success('保存成功')
         dialogVisible.value = false
