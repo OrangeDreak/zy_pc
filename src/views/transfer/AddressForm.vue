@@ -168,12 +168,14 @@ const addressForm = ref({
 const dialogVisible = ref(false)
 watch(() => props.modelValue, val => {
   dialogVisible.value = val;
+  addressForm.value = {};
   if (props.subCode) {
     addressForm.value.subCode = props.subCode;
   }
   if (props.formData.userAddressInfo) {
     addressForm.value = {...props.formData.userAddressInfo};
     addressForm.value.name = props.formData.userAddressInfo.firstName;
+    addressForm.value.subCode = props.subCode;
   }
 })
 watch(() => dialogVisible.value, val => {

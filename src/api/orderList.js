@@ -44,7 +44,20 @@ export const allOrderList = {
       data
     })
   },
-  
+  getSharingCode(params) {
+    return request({
+      url: '/app/tp/order/getSharingCode',
+      method: 'get',
+      params
+    })
+  },
+  getOrderCount(params) {
+    return request({
+      url: '/app/tp/order/count',
+      method: 'get',
+      params
+    })
+  },
   
   
 } 

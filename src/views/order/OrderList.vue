@@ -10,13 +10,12 @@
         @click="handleFlowItemClick(item.status)"
       >
         <i :class="item.icon"></i>
-        <span>{{ item.label }}({{ item.count }})</span>
+        <span>{{ item.label }}({{ countList[item.count] }})</span>
       </div>
     </div>
 
     <!-- 搜索工具栏 -->
     <div class="search-toolbar">
-      <el-button>{{ $t("order.toolbar.starred") }}</el-button>
       <el-input
         v-model="searchForm.trackingNo"
         :placeholder="$t('order.toolbar.trackingSearch')"
@@ -27,7 +26,8 @@
         :placeholder="$t('order.toolbar.customerSearch')"
         class="search-input"
       ></el-input>
-      <el-button>搜索</el-button>
+      <el-button @click="handleSearch">搜索</el-button>
+      <el-button>{{ $t("order.toolbar.starred") }}</el-button>
     </div>
 
     <!-- 订单列表 -->
@@ -41,7 +41,7 @@
         <!-- 选择列 -->
         <el-table-column v-if="status === 1" type="selection" width="55" />
         <el-table-column prop="userNo" label="客户编码" width="100" />
-        <el-table-column prop="userNo" label="客户信息" width="300">
+        <el-table-column prop="userNo" label="客户信息" width="320">
           <template #default="{ row }">
             <div class="user-info">
               <div>
@@ -49,13 +49,14 @@
                 <div>邮编：{{ row.userAddressInfo.postcode }}</div>
                 <div>手机号：{{ row.userAddressInfo.mobile }}</div>
                 <div>邮箱：{{ row.userAddressInfo.email }}</div>
+                <div>地址：{{ row.userAddressInfo.countryName }} {{ row.userAddressInfo.provinceName }} {{ row.userAddressInfo.cityName }} {{ row.userAddressInfo.address }}</div>
               </div>
-              <div>
+              <!-- <div>
                 <div>地址：{{ row.userAddressInfo.address }}</div>
                 <div>城市：{{ row.userAddressInfo.cityName }}</div>
                 <div>省份：{{ row.userAddressInfo.provinceName }}</div>
                 <div>国家：{{ row.userAddressInfo.countryName }}</div>
-              </div>
+              </div> -->
             </div>
           </template>
         </el-table-column>
@@ -129,7 +130,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, getCurrentInstance } from "vue";
 import { ElMessage } from "element-plus";
-import { allOrderList } from "@/api/orderList";
+import { allOrderList, getOrderCount } from "@/api/orderList";
 import { useRouter } from 'vue-router';
 
 interface Order {
@@ -154,7 +155,7 @@ interface FlowItem {
   status: number;
   icon: string;
   label: string;
-  count: number;
+  count: string;
 }
 
 export default defineComponent({
@@ -179,7 +180,7 @@ export default defineComponent({
     const total = ref(0);
     const loading = ref(false);
     const error = ref<string | null>(null);
-
+    const countList = ref({});
     // 当前状态
     const status = ref(-1);
     const selectedOrders = ref([]);
@@ -187,11 +188,11 @@ export default defineComponent({
     // 流程项数据
     // 状态：-1已取消、0已录入、1已QC、2已发货、3已签收、4退货
     const flowItems = ref<FlowItem[]>([
-      { status: -1, icon: "icon-all", label: "全部", count: 107 },
-      { status: 0, icon: "icon-recorded", label: "已录入", count: 45 },
-      { status: 1, icon: "icon-qc", label: "已QC", count: 23 },
-      { status: 2, icon: "icon-shipped", label: "已发货", count: 35 },
-      { status: 3, icon: "icon-received", label: "已签收", count: 18 },
+      { status: -1, icon: "icon-all", label: "全部", count: 'allOrder' },
+      { status: 0, icon: "icon-recorded", label: "已录入", count: 'enterCount' },
+      { status: 1, icon: "icon-qc", label: "已QC", count: 'qcCount' },
+      { status: 2, icon: "icon-shipped", label: "已发货", count: 'sendCount' },
+      { status: 3, icon: "icon-received", label: "已签收", count: 'signCount' },
     ]);
     const handleSelectionChange = async (selected) => {
       selectedOrders.value = selected;
@@ -255,7 +256,17 @@ export default defineComponent({
         loading.value = false;
       }
     };
+    const handleSearch = () => {
+      loadOrders();
+    };
+    const getCountList = async() => {
+      try {
+        const res =  await allOrderList.getOrderCount();
+        countList.value = res.data;
+      } catch (error) {
+      }
 
+    };
     // 分页事件处理
     const handleSizeChange = (val: number) => {
       pagination.pageSize = val;
@@ -294,6 +305,7 @@ export default defineComponent({
 
     // 组件挂载时加载数据
     loadOrders();
+    getCountList();
 
     return {
       searchForm,
@@ -303,6 +315,7 @@ export default defineComponent({
       status,
       flowItems,
       selectedOrders,
+      countList,
       handleSizeChange,
       handleCurrentChange,
       handleFlowItemClick,
@@ -311,6 +324,8 @@ export default defineComponent({
       handleSelectionChange,
       handleSendSubmit,
       handleEstimate,
+      getCountList,
+      handleSearch,
     };
   },
 });
@@ -329,7 +344,7 @@ export default defineComponent({
 .user-info {
   display: flex;
   align-items: center;
-  width: 300px;
+  min-width: 300px;
   word-break: break-all;
 }
 .order-flow {

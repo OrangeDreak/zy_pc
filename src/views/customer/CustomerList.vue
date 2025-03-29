@@ -26,7 +26,7 @@
       <div class="order-list-content">
         <el-table :data="customers" style="width: 100%" stripe>
           <el-table-column prop="userNo" label="客户编码" width="100" />
-          <el-table-column prop="userNo" label="客户信息" min-width="300">
+          <el-table-column prop="userNo" label="客户信息">
             <template #default="{ row }">
               <div class="user-info">
                 <div>
@@ -34,23 +34,32 @@
                   <div>邮编：{{ row.userAddressInfo.postcode }}</div>
                   <div>手机号：{{ row.userAddressInfo.mobile }}</div>
                   <div>邮箱：{{ row.userAddressInfo.email }}</div>
+                  <div>地址：{{ row.userAddressInfo.countryName }} {{ row.userAddressInfo.provinceName }} {{ row.userAddressInfo.cityName }} {{ row.userAddressInfo.address }}</div>
                 </div>
-                <div>
+                <!-- <div>
                   <div>地址：{{ row.userAddressInfo.address }}</div>
                   <div>城市：{{ row.userAddressInfo.cityName }}</div>
                   <div>省份：{{ row.userAddressInfo.provinceName }}</div>
                   <div>国家：{{ row.userAddressInfo.countryName }}</div>
-                </div>
+                </div> -->
               </div>
             </template>
           </el-table-column>
           <!-- <el-table-column prop="remark" label="备注" ></el-table-column> -->
-          <el-table-column prop="gmtCreate" label="添加日期" width="130" />
-          <el-table-column prop="statusDesc" label="订单数" width="130">
-          </el-table-column>
-          <el-table-column prop="statusDesc" label="操作" width="100">
+          <el-table-column prop="orderCount" label="订单数" width="130" />
+          <el-table-column prop="gmtCreate" label="添加日期" width="150" />
+          <el-table-column prop="statusDesc" label="操作" width="130">
             <template #default="scope">
               <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
+              <el-button
+                v-if="scope.row.orderCount"
+                type="text"
+                :icon="'el-icon-star-on'"
+                class="star-btn"
+                @click="handleStarClick(scope.row)"
+              >
+                分享
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -83,6 +92,7 @@
   import { defineComponent, reactive, ref } from "vue"
   import { ElMessage } from "element-plus"
   import { allCustomerList } from "@/api/customerList"
+  import { allOrderList } from "@/api/orderList"
   import AddressForm from '../transfer/AddressForm.vue'
   
   interface Customer {
@@ -157,6 +167,16 @@
         pagination.currentPage = 1;
         loadCustomers();
       };
+      // 处理share点击事件
+    const handleStarClick = async (row: any) => {
+      const { data } = await allOrderList.getSharingCode({
+        userNo: row.userNo,
+        orderId: row.id,
+      });
+
+      // 处理shareCount点击事件
+      ElMessage.success(`分享订单：${data.trackingNo}`);
+    };
       // 添加地址
       const handleAddAddress = () => {
         formData.value = {};
@@ -206,6 +226,7 @@
         addressDialogVisible,
         handleAddressSubmit,
         handleEdit,
+        handleStarClick,
       };
     },
   });
@@ -218,7 +239,7 @@
   .user-info{
     display: flex;
     align-items: center;
-    width: 300px;
+    min-width: 300px;
     word-break: break-all;
   }
   .order-flow {
