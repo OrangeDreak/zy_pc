@@ -62,7 +62,7 @@
         </el-table-column>
         <el-table-column prop="logisticsNumber" label="快递信息">
           <template #default="{ row }">
-            <span>快递单号：{{ row.logisticsNumber }}</span>
+            <div>快递单号：{{ row.logisticsNumber }}</div>
             <el-popover :width="800">
               <template #reference>
                 <div v-if="row.trackingList && row.trackingList.length > 0">
@@ -79,7 +79,25 @@
                 </el-timeline>
               </template>
             </el-popover>
-            
+            <div class="image-list">
+              <div v-for="(url, index) in row.imgUrlList" :key="url" class="block">
+                <el-image
+                  class="image-list-item"
+                  style="width: 60px; height: 60px"
+                  close-on-press-escape
+                  preview-teleported
+                  :src="url"
+                  :zoom-rate="1.2"
+                  :max-scale="7"
+                  :min-scale="0.2"
+                  :preview-src-list="row.imgUrlList"
+                  :initial-index="index"
+                  z-index="8"
+                  fit="cover"
+                />
+              </div>
+              
+            </div>
           </template>
         </el-table-column>
         <el-table-column prop="gmtCreate" label="创建日期" width="100" />
@@ -350,9 +368,17 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .order-list {
   padding: 20px;
+}
+.image-list{
+  display: flex;
+  .image-list-item{
+    width: 100px;
+    margin-right: 8px;
+    border-radius: 8px;
+  }
 }
 .btn-box {
   padding-top: 20px;
