@@ -298,8 +298,8 @@ const handleSubmit = async () => {
         params.firstName = params.name;
         params.lastName = params.name;
         params.subCode = params.subCode !== '' ? params.subCode : props.subCode;
-        if (props.formData.id) {
-          params.id = props.formData.id;
+        if (props.formData.addressId) {
+          params.addressId = props.formData.addressId;
           await transfer.updateUserAddress(params);
         } else {
           await transfer.addUserAddress(params);
