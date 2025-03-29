@@ -46,7 +46,11 @@
             </template>
           </el-table-column>
           <!-- <el-table-column prop="remark" label="备注" ></el-table-column> -->
-          <el-table-column prop="orderCount" label="订单数" width="130" />
+          <el-table-column prop="orderCount" label="订单数" width="130">
+            <template #default="{ row }">
+              <div @click="handleOrderLink(row)">订单数：{{ row.orderCount }}</div>
+            </template>
+          </el-table-column>
           <el-table-column prop="gmtCreate" label="添加日期" width="150" />
           <el-table-column prop="statusDesc" label="操作" width="130">
             <template #default="scope">
@@ -94,7 +98,8 @@
   import { allCustomerList } from "@/api/customerList"
   import { allOrderList } from "@/api/orderList"
   import AddressForm from '../transfer/AddressForm.vue'
-  
+  import { useRouter } from 'vue-router'
+
   interface Customer {
     id: number;
     trackingNo: string;
@@ -122,7 +127,7 @@
         currentPage: 1,
         pageSize: 10,
       });
-  
+      const router = useRouter();
       // 搜索表单
       const searchForm = reactive({
         userNo: "",
@@ -187,7 +192,9 @@
         formData.value = customer;
         addressDialogVisible.value = true;
       }
-
+      const handleOrderLink = (row) => {
+        router.push('/orders?userNo='+row.userNo);
+      };
 
       // 分页事件处理
       const handleSizeChange = (val: number) => {
@@ -227,6 +234,7 @@
         handleAddressSubmit,
         handleEdit,
         handleStarClick,
+        handleOrderLink,
       };
     },
   });

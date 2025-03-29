@@ -22,7 +22,7 @@
         class="search-input"
       ></el-input>
       <el-input
-        v-model="searchForm.customerCode"
+        v-model="searchForm.userNo"
         :placeholder="$t('order.toolbar.customerSearch')"
         class="search-input"
       ></el-input>
@@ -128,10 +128,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, getCurrentInstance } from "vue";
+import { defineComponent, onMounted, reactive, ref, getCurrentInstance } from "vue";
 import { ElMessage } from "element-plus";
 import { allOrderList, getOrderCount } from "@/api/orderList";
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 interface Order {
   id: number;
@@ -162,6 +162,7 @@ export default defineComponent({
   name: "OrderList",
   setup() {
     const router = useRouter();
+    const route = useRoute();
     const { proxy } = getCurrentInstance();
     // 分页状态
     const pagination = reactive({
@@ -172,7 +173,7 @@ export default defineComponent({
     // 搜索表单
     const searchForm = reactive({
       userNo: "",
-      customerCode: "",
+      trackingNo: "",
     });
 
     // 订单列表
@@ -194,6 +195,13 @@ export default defineComponent({
       { status: 2, icon: "icon-shipped", label: "已发货", count: 'sendCount' },
       { status: 3, icon: "icon-received", label: "已签收", count: 'signCount' },
     ]);
+    // 在组件挂载时获取路由参数
+    onMounted(() => {
+      if(route.query.userNo){
+        searchForm.userNo = route.query.userNo as string; // 获取userNo参数
+      }
+      loadOrders();
+    });
     const handleSelectionChange = async (selected) => {
       selectedOrders.value = selected;
     };
@@ -304,7 +312,6 @@ export default defineComponent({
     };
 
     // 组件挂载时加载数据
-    loadOrders();
     getCountList();
 
     return {
