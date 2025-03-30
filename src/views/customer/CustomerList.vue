@@ -36,19 +36,13 @@
                   <div>{{$t('customers.info.email')}}：{{ row.userAddressInfo.email }}</div>
                   <div>{{$t('customers.info.address')}}：{{ row.userAddressInfo.countryName }} {{ row.userAddressInfo.provinceName }} {{ row.userAddressInfo.cityName }} {{ row.userAddressInfo.address }}</div>
                 </div>
-                <!-- <div>
-                  <div>地址：{{ row.userAddressInfo.address }}</div>
-                  <div>城市：{{ row.userAddressInfo.cityName }}</div>
-                  <div>省份：{{ row.userAddressInfo.provinceName }}</div>
-                  <div>国家：{{ row.userAddressInfo.countryName }}</div>
-                </div> -->
               </div>
             </template>
           </el-table-column>
           <!-- <el-table-column prop="remark" label="备注" ></el-table-column> -->
           <el-table-column prop="orderCount" :label="$t('customers.orderCount')" width="130">
             <template #default="{ row }">
-              <div @click="handleOrderLink(row)">{{$t('customers.orderCount')}}:{{ row.orderCount }}</div>
+              <div @click="handleOrderLink(row)" class="text-cursor">订单数：{{ row.orderCount }}</div>
             </template>
           </el-table-column>
           <el-table-column prop="gmtCreate" :label="$t('customers.createTime')" width="150" />
@@ -209,10 +203,8 @@
 
       
       // 处理地址提交
-    const handleAddressSubmit = (address) => {
-      //orders.value[currentOrderIndex.value].recentAddress = `${address.name}, ${address.address}, ${address.mobile}`;
-      //orders.value[currentOrderIndex.value].userAddressInfo = address;
-      //showAddress.value = false;
+    const handleAddressSubmit = () => {
+      loadCustomers();
     };
 
       // 组件挂载时加载数据

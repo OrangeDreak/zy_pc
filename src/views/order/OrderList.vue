@@ -27,7 +27,7 @@
         class="search-input"
       ></el-input>
       <el-button @click="handleSearch">搜索</el-button>
-      <el-button>{{ $t("order.toolbar.starred") }}</el-button>
+      <el-button :type="searchForm.isMark? 'primary' : 'default'" @click="handleSearchMark">{{ $t("order.toolbar.starred") }}</el-button>
     </div>
 
     <!-- 订单列表 -->
@@ -104,8 +104,13 @@
         </el-table-column>
         <el-table-column prop="gmtCreate" label="创建日期" width="100" />
         <el-table-column prop="statusDesc" label="最新状态" width="100">
+          <template #default="{ row }">
+            <el-tag>
+              {{ row.statusDesc }}
+            </el-tag>
+          </template>
         </el-table-column>
-        <el-table-column label="操作" width="200">
+        <el-table-column label="操作" width="200" align="center">
           <template #default="{ row }">
             <div>
               <el-button
@@ -118,7 +123,6 @@
               </el-button>
 
               <el-button
-                v-if="row.status === 0"
                 type="text"
                 :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
                 class="star-btn"
@@ -126,14 +130,14 @@
               >
                 {{ row.isMark ? "取消特别关注" : "特别关注" }}
               </el-button>
-              <el-button
+              <!-- <el-button
                 v-if="row.status === 1"
                 type="text"
                 :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
                 class="star-btn"
               >
                 退货
-              </el-button>
+              </el-button> -->
             </div>
           </template>
         </el-table-column>
@@ -206,6 +210,7 @@ export default defineComponent({
     const searchForm = reactive({
       userNo: "",
       trackingNo: "",
+      isMark: 0,
     });
 
     // 订单列表
@@ -273,6 +278,9 @@ export default defineComponent({
           pageSize: pagination.pageSize,
           ...searchForm,
         };
+        if (!params.isMark) {
+          delete params.isMark;
+        }
         if (status.value > -1) {
           params.status = status.value;
         }
@@ -297,6 +305,10 @@ export default defineComponent({
       }
     };
     const handleSearch = () => {
+      loadOrders();
+    };
+    const handleSearchMark = () => {
+      searchForm.isMark = searchForm.isMark ? 0 : 1;
       loadOrders();
     };
     const getCountList = async() => {
@@ -365,6 +377,7 @@ export default defineComponent({
       handleEstimate,
       getCountList,
       handleSearch,
+      handleSearchMark,
     };
   },
 });

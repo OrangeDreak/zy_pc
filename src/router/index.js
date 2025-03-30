@@ -29,7 +29,7 @@ const routes = [
   {
     path: '/',
     component: () => import('@/layouts/MainLayout.vue'),
-    redirect: '/transfer-list',
+    redirect: '/orders',
     children: [
       {
         path: 'users',
