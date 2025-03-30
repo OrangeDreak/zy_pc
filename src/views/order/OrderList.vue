@@ -226,11 +226,11 @@ export default defineComponent({
     // 流程项数据
     // 状态：-1已取消、0已录入、1已QC、2已发货、3已签收、4退货
     const flowItems = ref<FlowItem[]>([
-      { status: -1, icon: "icon-all", label: "全部", count: 'allOrder' },
-      { status: 0, icon: "icon-recorded", label: "已录入", count: 'enterCount' },
-      { status: 1, icon: "icon-qc", label: "已QC", count: 'qcCount' },
-      { status: 2, icon: "icon-shipped", label: "已发货", count: 'sendCount' },
-      { status: 3, icon: "icon-received", label: "已签收", count: 'signCount' },
+      { status: -1, icon: "icon-all", label: proxy.$t('package.status.all'), count: 'allOrder' },
+      { status: 0, icon: "icon-recorded", label: proxy.$t('package.status.recorded'), count: 'enterCount' },
+      { status: 1, icon: "icon-qc", label: proxy.$t('package.status.qc'), count: 'qcCount' },
+      { status: 2, icon: "icon-shipped", label: proxy.$t('package.status.shipped'), count: 'sendCount' },
+      { status: 3, icon: "icon-received", label: proxy.$t('package.status.received'), count: 'signCount' },
     ]);
     // 在组件挂载时获取路由参数
     onMounted(() => {

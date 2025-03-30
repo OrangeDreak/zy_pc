@@ -105,11 +105,10 @@ export default {
     title: '我的包裹',
     status: {
       all: '全部',
-      pending: '待入库',
-      inStock: '已入库',
-      shipping: '运输中',
-      delivered: '已送达',
-      cancelled: '已取消'
+      recorded: '已录入',
+      qc: '已QC',
+      shipped: '已发货',
+      received: '已签收',
     },
     search: {
       placeholder: '订单编号',

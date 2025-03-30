@@ -122,11 +122,10 @@ export default {
     title: 'My Packages',
     status: {
       all: 'All',
-      pending: 'Pending',
-      inStock: 'In Stock',
-      shipping: 'Shipping',
-      delivered: 'Delivered',
-      cancelled: 'Cancelled'
+      recorded: 'Recorded',
+      qc: 'Qc',
+      shipped: 'Shipped',
+      received: 'Received'
     },
     table: {
       customerCode: 'customer Code' ,
