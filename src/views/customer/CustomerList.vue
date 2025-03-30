@@ -65,7 +65,7 @@
   
       <!-- 分页 -->
       <div class="pagination">
-        <div class="total">共 {{ total }} 条</div>
+        <div class="total">{{$t('commont.total')}} {{ total }} {{$t('commont.page')}}</div>
         <el-pagination
           v-model:current-page="pagination.currentPage"
           v-model:page-size="pagination.pageSize"

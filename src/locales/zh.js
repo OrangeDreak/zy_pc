@@ -4,6 +4,8 @@ export default {
     share: '分享',
     createTime: '创建时间',
     operation: '操作',
+    total: '共',
+    page: '条',
   },
   header: {
     search: '请输入商品关键词',
@@ -122,6 +124,9 @@ export default {
       trackingNumber: '快递单号',
       logisticsTrack: '物流轨迹',
     },
+    specialFocus: '特别关注',
+    cancelSpecialFocus: '取消特别关注',
+    oneClickDelivery: '一键发货',
   },
   //添加/编辑地址相关
   addressForm: {

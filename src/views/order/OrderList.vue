@@ -128,7 +128,7 @@
                 class="star-btn"
                 @click="handleMarkClick(row)"
               >
-                {{ row.isMark ? "取消特别关注" : "特别关注" }}
+                {{ row.isMark ? $t('package.cancelSpecialFocus') : $t('package.specialFocus') }}
               </el-button>
               <!-- <el-button
                 v-if="row.status === 1"
@@ -145,11 +145,11 @@
     </div>
     <div v-if="status === 1" class="btn-box">
       <!-- <el-button @click="handleEstimate">一键估算运费</el-button> -->
-      <el-button type="primary" @click="handleSendSubmit">一键发货</el-button>
+      <el-button type="primary" @click="handleSendSubmit">{{$t('package.oneClickDelivery')}}</el-button>
     </div>
     <!-- 分页 -->
     <div class="pagination">
-      <div class="total">共 {{ total }} 条</div>
+      <div class="total">{{$t('commont.total')}} {{ total }} {{$t('commont.page')}}</div>
       <el-pagination
         v-model:current-page="pagination.currentPage"
         v-model:page-size="pagination.pageSize"

@@ -4,6 +4,8 @@ export default {
     share: 'Share',
     createTime: 'Create Time',
     operation: 'Operation',
+    total: 'total',
+    page: 'page',
   },
   header: {
     search: 'Search products',
@@ -139,6 +141,9 @@ export default {
       placeholder: 'Order No.',
       button: 'Search'
     },
+    specialFocus: 'Special Focus',
+    cancelSpecialFocus: 'Cancel Special Focus',
+    oneClickDelivery: 'One Click Delivery',
   },
   transfer: {
     addOrder: {
