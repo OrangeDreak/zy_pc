@@ -1,4 +1,10 @@
 export default {
+  commont: {
+    edit: '编辑',
+    share: '分享',
+    createTime: '创建时间',
+    operation: '操作',
+  },
   header: {
     search: '请输入商品关键词',
     searchButton: '搜索',
@@ -26,6 +32,7 @@ export default {
     notification: '消息通知'
   },
   customers: {
+    add: '添加客户信息',
     code: '客户编码',
     info: {
       title: '客户信息',
@@ -109,17 +116,37 @@ export default {
       button: '搜索'
     },
     table: {
-      packageInfo: '包裹信息',
-      packageNo: '包裹编号',
-      submitTime: '提交时间',
-      images: '张',
-      weight: '重量(g)',
-      size: '尺寸(cm)',
-      status: '状态',
-      actions: '操作'
-    }
+      customerCode: '客户编码' ,
+      addressInfo: '地址信息' ,
+      expressDelivery: '快递信息',
+      latestStatus: '最新状态',
+      trackingNumber: '快递单号',
+      logisticsTrack: '物流轨迹',
+    },
   },
-
+  //添加/编辑地址相关
+  addressForm: {
+    title: '添加/修改客户信息',
+    customerCode: '客户编码',
+    customerCodeTip: '请输入用户编码',
+    country: '国家',
+    countryTip: '请填写国家',
+    province: '省份',
+    provinceTip: '请填写省份',
+    city: '城市',
+    cityTip: '请填写城市',
+    postCode: '邮编',
+    postCodeTip: '请填写邮编',
+    email: '邮箱',
+    emailTip: '请填写邮箱',
+    phoneNumber: '手机号码',
+    phoneNumberTip: '请填写手机号码',
+    name: '姓名',
+    nameTip: '请填写姓名',
+    address: '详细地址',
+    addressTip: '请填写详细地址',
+    customCodeRandom: '获取随机编码',
+  },
   // 转运相关
   transfer: {
     addOrder: {

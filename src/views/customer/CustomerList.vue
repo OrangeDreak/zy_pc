@@ -15,7 +15,7 @@
           class="new-address"
           @click="handleAddAddress"
         >
-          新增用户地址信息
+          {{$t('customers.add')}}
           <el-tooltip content="地址信息说明" placement="top">
             <el-icon class="address-help"><QuestionFilled /></el-icon>
           </el-tooltip>
@@ -25,7 +25,7 @@
       <!-- 订单列表 -->
       <div class="order-list-content">
         <el-table :data="customers" style="width: 100%" stripe>
-          <el-table-column prop="userNo" :label="$t('customers.code')" width="100" />
+          <el-table-column prop="userNo" :label="$t('customers.code')" width="150" />
           <el-table-column prop="userNo" :label="$t('customers.info.title')">
             <template #default="{ row }">
               <div class="user-info">
@@ -42,13 +42,13 @@
           <!-- <el-table-column prop="remark" label="备注" ></el-table-column> -->
           <el-table-column prop="orderCount" :label="$t('customers.orderCount')" width="130">
             <template #default="{ row }">
-              <div @click="handleOrderLink(row)" class="text-cursor">订单数：{{ row.orderCount }}</div>
+              <div @click="handleOrderLink(row)" class="text-cursor">{{$t('customers.orderCount')}}：{{ row.orderCount }}</div>
             </template>
           </el-table-column>
-          <el-table-column prop="gmtCreate" :label="$t('customers.createTime')" width="150" />
-          <el-table-column prop="statusDesc" :label="$t('customers.operation')" width="130">
+          <el-table-column prop="gmtCreate" :label="$t('commont.createTime')" width="180" />
+          <el-table-column prop="statusDesc" :label="$t('commont.operation')" width="130">
             <template #default="scope">
-              <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
+              <el-button type="text" @click="handleEdit(scope.row)">{{$t('commont.edit')}}</el-button>
               <el-button
                 v-if="scope.row.orderCount"
                 type="text"
@@ -56,7 +56,7 @@
                 class="star-btn"
                 @click="handleStarClick(scope.row)"
               >
-                分享
+              {{$t('commont.share')}}
               </el-button>
             </template>
           </el-table-column>

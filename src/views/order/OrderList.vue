@@ -26,7 +26,7 @@
         :placeholder="$t('order.toolbar.customerSearch')"
         class="search-input"
       ></el-input>
-      <el-button @click="handleSearch">搜索</el-button>
+      <el-button @click="handleSearch">{{$t('header.searchButton')}}</el-button>
       <el-button :type="searchForm.isMark? 'primary' : 'default'" @click="handleSearchMark">{{ $t("order.toolbar.starred") }}</el-button>
     </div>
 
@@ -40,16 +40,16 @@
       >
         <!-- 选择列 -->
         <el-table-column v-if="status === 1" type="selection" width="55" />
-        <el-table-column prop="userNo" label="客户编码" width="100" />
-        <el-table-column prop="userNo" label="客户信息" width="320">
+        <el-table-column prop="userNo" :label="$t('package.table.customerCode')" width="100" />
+        <el-table-column prop="userNo" :label="$t('package.table.addressInfo')" width="320">
           <template #default="{ row }">
             <div class="user-info">
               <div>
-                <div>姓名：{{ row.userAddressInfo.firstName }}</div>
-                <div>邮编：{{ row.userAddressInfo.postcode }}</div>
-                <div>手机号：{{ row.userAddressInfo.mobile }}</div>
-                <div>邮箱：{{ row.userAddressInfo.email }}</div>
-                <div>地址：{{ row.userAddressInfo.countryName }} {{ row.userAddressInfo.provinceName }} {{ row.userAddressInfo.cityName }} {{ row.userAddressInfo.address }}</div>
+                <div>{{$t('customers.info.name')}}：{{ row.userAddressInfo.firstName }}</div>
+                <div>{{$t('customers.info.postcode')}}：{{ row.userAddressInfo.postcode }}</div>
+                <div>{{$t('customers.info.phoneNumber')}}：{{ row.userAddressInfo.mobile }}</div>
+                <div>{{$t('customers.info.email')}}：{{ row.userAddressInfo.email }}</div>
+                <div>{{$t('customers.info.address')}}：{{ row.userAddressInfo.countryName }} {{ row.userAddressInfo.provinceName }} {{ row.userAddressInfo.cityName }} {{ row.userAddressInfo.address }}</div>
               </div>
               <!-- <div>
                 <div>地址：{{ row.userAddressInfo.address }}</div>
@@ -60,13 +60,13 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="logisticsNumber" label="快递信息">
+        <el-table-column prop="logisticsNumber" :label="$t('package.table.expressDelivery')">
           <template #default="{ row }">
-            <div>快递单号：{{ row.logisticsNumber }}</div>
+            <div>{{$t('trackingNumber')}}：{{ row.logisticsNumber }}</div>
             <el-popover :width="800">
               <template #reference>
                 <div v-if="row.trackingList && row.trackingList.length > 0">
-                  物流轨迹：{{
+                  {{$t('logisticsTrack')}}：{{
                     row.trackingList && row.trackingList[0]?.logisticsDesc
                   }}
                 </div>
@@ -102,15 +102,15 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="gmtCreate" label="创建日期" width="100" />
-        <el-table-column prop="statusDesc" label="最新状态" width="100">
+        <el-table-column prop="gmtCreate" :label="$t('commont.createTime')" width="100" />
+        <el-table-column prop="statusDesc" :label="$t('package.table.latestStatus')" width="100">
           <template #default="{ row }">
             <el-tag>
               {{ row.statusDesc }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200" align="center">
+        <el-table-column :label="$t('commont.operation')" width="200" align="center">
           <template #default="{ row }">
             <div>
               <el-button
@@ -119,7 +119,7 @@
                 class="star-btn"
                 @click="handleStarClick(row)"
               >
-                分享
+                {{$t('commont.share')}}
               </el-button>
 
               <el-button

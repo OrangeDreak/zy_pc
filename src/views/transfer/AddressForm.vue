@@ -1,7 +1,7 @@
 <template>
   <el-dialog
     v-model="dialogVisible"
-    title="新增/修改用户地址"
+    :title="$t('addressForm.title')"
     width="800px"
     :close-on-click-modal="false"
   >
@@ -32,50 +32,50 @@
       <el-row :gutter="20">
         <!-- 左列 -->
         <el-col :span="12">
-          <el-form-item label="用户编码" prop="subCode">
+          <el-form-item :label="$t('addressForm.customerCode')" prop="subCode">
             <el-input 
               :disabled="!!props.subCode"
               v-model="addressForm.subCode"
-              placeholder="请输入用户编码"
+              :placeholder="$t('addressForm.customerCodeTip')"
             >
             <template v-if="!props.subCode" #append>
-              <el-button class="primary-btn" type="primary" @click="showCustomCodeHelp">获取随机编码</el-button>
+              <el-button class="primary-btn" type="primary" @click="showCustomCodeHelp">{{$t('addressForm.customCodeRandom')}}</el-button>
             </template>
             </el-input>
           </el-form-item>
-          <el-form-item label="姓名" prop="name">
+          <el-form-item :label="$t('addressForm.name')" prop="name">
             <el-input 
               v-model="addressForm.name"
-              placeholder="请输入姓名"
+              :placeholder="$t('addressForm.nameTip')"
             />
           </el-form-item>
           
-          <el-form-item label="地址" prop="address">
+          <el-form-item :label="$t('addressForm.address')" prop="address">
             <el-input 
               v-model="addressForm.address"
-              placeholder="请输入详细地址"
+              :placeholder="$t('addressForm.addressTip')"
             />
           </el-form-item>
-          <el-form-item label="邮箱" prop="email">
+          <el-form-item :label="$t('addressForm.email')" prop="email">
             <el-input 
               v-model="addressForm.email"
-              placeholder="请输入邮箱"
+              :placeholder="$t('addressForm.emailTip')"
             />
           </el-form-item>
-          <el-form-item label="电话" prop="mobile">
+          <el-form-item :label="$t('addressForm.phoneNumber')" prop="mobile">
             <el-input 
               v-model="addressForm.mobile"
-              placeholder="请输入联系电话"
+              :placeholder="$t('addressForm.phoneNumberTip')"
             />
           </el-form-item>
         </el-col>
 
         <!-- 右列 -->
         <el-col :span="12">
-          <el-form-item label="国家" prop="countryId">
+          <el-form-item :label="$t('addressForm.country')" prop="countryId">
             <el-select 
               v-model="addressForm.countryId"
-              placeholder="请选择国家"
+              :placeholder="$t('addressForm.countryTip')"
               filterable
             >
               <el-option
@@ -86,10 +86,10 @@
               />
             </el-select>
           </el-form-item>
-          <el-form-item label="省份" prop="provinceId">
+          <el-form-item :label="$t('addressForm.province')" prop="provinceId">
             <el-select 
               v-model="addressForm.provinceId"
-              placeholder="请选择省份"
+              :placeholder="$t('addressForm.provinceTip')"
               filterable
             >
               <el-option
@@ -100,16 +100,16 @@
               />
             </el-select>
           </el-form-item>
-          <el-form-item label="城市" prop="cityName">
+          <el-form-item :label="$t('addressForm.city')" prop="cityName">
             <el-input 
               v-model="addressForm.cityName"
-              placeholder="请输入城市"
+              :placeholder="$t('addressForm.cityTip')"
             />
           </el-form-item>
-          <el-form-item label="邮编" prop="postcode">
+          <el-form-item :label="$t('addressForm.postCode')" prop="postcode">
             <el-input 
               v-model="addressForm.postcode"
-              placeholder="请输入邮政编码"
+              :placeholder="$t('addressForm.postCodeTip')"
             />
           </el-form-item>
         </el-col>
@@ -119,9 +119,9 @@
     <!-- 底部按钮 -->
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button @click="dialogVisible = false">{{$t('submit.global_cancel')}}</el-button>
         <el-button type="primary" @click="handleSubmit" :loading="loading">
-          确定
+          {{$t('submit.gloabl_confirm')}}
         </el-button>
       </span>
     </template>
