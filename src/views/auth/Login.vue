@@ -11,7 +11,7 @@
     <div class="login-content">
       <!-- 左侧 Logo 和标语 -->
       <div class="login-left">
-        <div class="logo">QC elf</div>
+        <div class="logo"><img src="@/assets/images/common/logo.jpg" height="60px"> </img></div>
         <div class="slogan">
           <div class="slogan-text">中国购物，递送全球</div>
           <div class="features">

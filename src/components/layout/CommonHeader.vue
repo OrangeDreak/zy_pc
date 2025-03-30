@@ -1,7 +1,7 @@
 <template>
   <div class="common-header">
     <div class="header-left">
-      <div class="logo">QC elf</div>
+      <div class="logo"><img src="@/assets/images/common/logo.jpg" height="60px"> </img></div>
     </div>
 
     <div class="header-right">

@@ -3,7 +3,7 @@
     <!-- 顶部导航 -->
     <el-header class="header">
       <div class="header-left">
-        <div class="logo">QC elf</div>
+        <div class="logo"><img src="@/assets/images/common/logo.jpg" height="60px"> </img></div>
         <!-- <el-input
           v-model="searchKeyword"
           :placeholder="$t('header.search')"
