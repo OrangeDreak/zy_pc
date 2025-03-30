@@ -92,6 +92,12 @@ const routes = [
         meta: { title: '我的客户', requiresAuth: true }
       },
       {
+        path: 'profile',
+        name: 'Profile',
+        component: () => import('@/views/profile/Profile.vue'),
+        meta: { title: '个人中心', requiresAuth: true }
+      },
+      {
         path: '/estimate',
         name: 'Estimate',
         component: () => import('@/views/estimate/index.vue'),
