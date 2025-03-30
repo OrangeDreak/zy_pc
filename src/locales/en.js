@@ -25,6 +25,20 @@ export default {
     help: 'Help Center',
     notification: 'Notifications'
   },
+  customers: {
+    code: 'Customers Code',
+    info: {
+      title: 'Customers Info',
+      name: 'name',
+      postcode: 'postcode',
+      phoneNumber: 'phone number',
+      email: 'emial',
+      address: 'address',
+    },
+    orderCount: 'Order Count',
+    createTime: 'Create Time',
+    operation: 'Operation',
+  },
   assets: {
     balance: {
       title: 'Available Balance (USD)',

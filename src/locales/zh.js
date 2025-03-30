@@ -25,6 +25,20 @@ export default {
     help: '帮助中心',
     notification: '消息通知'
   },
+  customers: {
+    code: '客户编码',
+    info: {
+      title: '客户信息',
+      name: '姓名',
+      postcode: '邮编',
+      phoneNumber: '手机号码',
+      email: '邮箱',
+      address: '地址',
+    },
+    orderCount: '订单数',
+    createTime: '添加日期',
+    operation: '操作',
+  },
   assets: {
     balance: {
       title: '可用余额 (USD)',

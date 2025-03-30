@@ -8,7 +8,7 @@
           :placeholder="$t('order.toolbar.customerSearch')"
           class="search-input"
         ></el-input>
-        <el-button @click="handleSearch">搜索</el-button>
+        <el-button @click="handleSearch">{{$t('header.searchButton')}}</el-button>
         <el-button 
           type="primary" 
           link 
@@ -25,16 +25,16 @@
       <!-- 订单列表 -->
       <div class="order-list-content">
         <el-table :data="customers" style="width: 100%" stripe>
-          <el-table-column prop="userNo" label="客户编码" width="100" />
-          <el-table-column prop="userNo" label="客户信息">
+          <el-table-column prop="userNo" :label="$t('customers.code')" width="100" />
+          <el-table-column prop="userNo" :label="$t('customers.info.title')">
             <template #default="{ row }">
               <div class="user-info">
                 <div>
-                  <div>姓名：{{ row.userAddressInfo.firstName }}</div>
-                  <div>邮编：{{ row.userAddressInfo.postcode }}</div>
-                  <div>手机号：{{ row.userAddressInfo.mobile }}</div>
-                  <div>邮箱：{{ row.userAddressInfo.email }}</div>
-                  <div>地址：{{ row.userAddressInfo.countryName }} {{ row.userAddressInfo.provinceName }} {{ row.userAddressInfo.cityName }} {{ row.userAddressInfo.address }}</div>
+                  <div>{{$t('customers.info.name')}}：{{ row.userAddressInfo.firstName }}</div>
+                  <div>{{$t('customers.info.postcode')}}：{{ row.userAddressInfo.postcode }}</div>
+                  <div>{{$t('customers.info.phoneNumber')}}：{{ row.userAddressInfo.mobile }}</div>
+                  <div>{{$t('customers.info.email')}}：{{ row.userAddressInfo.email }}</div>
+                  <div>{{$t('customers.info.address')}}：{{ row.userAddressInfo.countryName }} {{ row.userAddressInfo.provinceName }} {{ row.userAddressInfo.cityName }} {{ row.userAddressInfo.address }}</div>
                 </div>
                 <!-- <div>
                   <div>地址：{{ row.userAddressInfo.address }}</div>
@@ -46,13 +46,13 @@
             </template>
           </el-table-column>
           <!-- <el-table-column prop="remark" label="备注" ></el-table-column> -->
-          <el-table-column prop="orderCount" label="订单数" width="130">
+          <el-table-column prop="orderCount" :label="$t('customers.orderCount')" width="130">
             <template #default="{ row }">
-              <div @click="handleOrderLink(row)">订单数：{{ row.orderCount }}</div>
+              <div @click="handleOrderLink(row)">{{$t('customers.orderCount')}}:{{ row.orderCount }}</div>
             </template>
           </el-table-column>
-          <el-table-column prop="gmtCreate" label="添加日期" width="150" />
-          <el-table-column prop="statusDesc" label="操作" width="130">
+          <el-table-column prop="gmtCreate" :label="$t('customers.createTime')" width="150" />
+          <el-table-column prop="statusDesc" :label="$t('customers.operation')" width="130">
             <template #default="scope">
               <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
               <el-button
