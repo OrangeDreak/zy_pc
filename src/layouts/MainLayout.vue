@@ -69,7 +69,7 @@
           :collapse="false"
         >
         <el-menu-item index="/profile">
-            <el-icon><User /></el-icon>
+            <el-icon><Star /></el-icon>
             <span>{{ $t('menu.profile') }}</span>
           </el-menu-item>
         <el-menu-item index="/customers">
@@ -130,7 +130,8 @@ import {
   Share,
   ArrowDown,
   Plus,
-  User
+  User,
+  Star,
 } from '@element-plus/icons-vue'
 
 const route = useRoute()
