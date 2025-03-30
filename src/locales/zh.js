@@ -21,6 +21,7 @@ export default {
     }
   },
   menu: {
+    profile: '个人中心',
     myAccount: '会员中心',
     customers: '我的客户',
     transferOrder: '我的订单',

@@ -21,6 +21,7 @@ export default {
     }
   },
   menu: {
+    profile: 'Profile',
     myAccount: 'My Account',
     customers: 'My Customers',
     transferOrder: 'Transfer Orders',

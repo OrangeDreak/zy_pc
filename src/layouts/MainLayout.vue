@@ -68,6 +68,10 @@
           router
           :collapse="false"
         >
+        <el-menu-item index="/profile">
+            <el-icon><User /></el-icon>
+            <span>{{ $t('menu.profile') }}</span>
+          </el-menu-item>
         <el-menu-item index="/customers">
             <el-icon><User /></el-icon>
             <span>{{ $t('menu.customers') }}</span>
