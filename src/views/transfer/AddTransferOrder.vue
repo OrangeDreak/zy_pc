@@ -302,12 +302,10 @@ const getWarehouseAddress = () => {
 const showCustomCodeHelp = async() =>{
   try {
     const response = await transfer.getCustomCode();
-    orders.value[currentOrderIndex.value].userNo = response;
+    orders.value[currentOrderIndex.value].userNo = response.data;
   } catch (error) {
-    console.error('获取仓库地址失败:', error);
-    ElMessage.error('获取仓库地址失败');
+    ElMessage.error('获取自定义编码失败');
   }
-  ElMessage.info('请输入自定义编码，系统会自动生成订单号');
 };
 // 显示地址表单
 const showAddressForm = (orderIndex) => {

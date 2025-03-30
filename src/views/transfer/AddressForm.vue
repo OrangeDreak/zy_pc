@@ -1,12 +1,12 @@
 <template>
   <el-dialog
     v-model="dialogVisible"
-    title="新增/修改用户地址"
+    :title="$t('addressForm.title')"
     width="800px"
     :close-on-click-modal="false"
   >
     <!-- 智能解析区域 -->
-    <div class="parse-area">
+    <!-- <div class="parse-area">
       <el-input
         v-model="fullAddress"
         type="textarea"
@@ -19,7 +19,7 @@
           <el-icon><QuestionFilled /></el-icon>
         </el-tooltip>
       </div>
-    </div>
+    </div> -->
 
     <!-- 表单区域 -->
     <el-form
@@ -32,39 +32,50 @@
       <el-row :gutter="20">
         <!-- 左列 -->
         <el-col :span="12">
-          <el-form-item label="姓名" prop="name">
+          <el-form-item :label="$t('addressForm.customerCode')" prop="subCode">
+            <el-input 
+              :disabled="!!props.subCode"
+              v-model="addressForm.subCode"
+              :placeholder="$t('addressForm.customerCodeTip')"
+            >
+            <template v-if="!props.subCode" #append>
+              <el-button class="primary-btn" type="primary" @click="showCustomCodeHelp">{{$t('addressForm.customCodeRandom')}}</el-button>
+            </template>
+            </el-input>
+          </el-form-item>
+          <el-form-item :label="$t('addressForm.name')" prop="name">
             <el-input 
               v-model="addressForm.name"
-              placeholder="请输入姓名"
+              :placeholder="$t('addressForm.nameTip')"
             />
           </el-form-item>
           
-          <el-form-item label="地址" prop="address">
+          <el-form-item :label="$t('addressForm.address')" prop="address">
             <el-input 
               v-model="addressForm.address"
-              placeholder="请输入详细地址"
+              :placeholder="$t('addressForm.addressTip')"
             />
           </el-form-item>
-          <el-form-item label="邮箱" prop="email">
+          <el-form-item :label="$t('addressForm.email')" prop="email">
             <el-input 
               v-model="addressForm.email"
-              placeholder="请输入邮箱"
+              :placeholder="$t('addressForm.emailTip')"
             />
           </el-form-item>
-          <el-form-item label="电话" prop="mobile">
+          <el-form-item :label="$t('addressForm.phoneNumber')" prop="mobile">
             <el-input 
               v-model="addressForm.mobile"
-              placeholder="请输入联系电话"
+              :placeholder="$t('addressForm.phoneNumberTip')"
             />
           </el-form-item>
         </el-col>
 
         <!-- 右列 -->
         <el-col :span="12">
-          <el-form-item label="国家" prop="countryId">
+          <el-form-item :label="$t('addressForm.country')" prop="countryId">
             <el-select 
               v-model="addressForm.countryId"
-              placeholder="请选择国家"
+              :placeholder="$t('addressForm.countryTip')"
               filterable
             >
               <el-option
@@ -75,10 +86,10 @@
               />
             </el-select>
           </el-form-item>
-          <el-form-item label="省份" prop="provinceId">
+          <el-form-item :label="$t('addressForm.province')" prop="provinceId">
             <el-select 
               v-model="addressForm.provinceId"
-              placeholder="请选择省份"
+              :placeholder="$t('addressForm.provinceTip')"
               filterable
             >
               <el-option
@@ -89,16 +100,16 @@
               />
             </el-select>
           </el-form-item>
-          <el-form-item label="城市" prop="cityName">
+          <el-form-item :label="$t('addressForm.city')" prop="cityName">
             <el-input 
               v-model="addressForm.cityName"
-              placeholder="请输入城市"
+              :placeholder="$t('addressForm.cityTip')"
             />
           </el-form-item>
-          <el-form-item label="邮编" prop="postcode">
+          <el-form-item :label="$t('addressForm.postCode')" prop="postcode">
             <el-input 
               v-model="addressForm.postcode"
-              placeholder="请输入邮政编码"
+              :placeholder="$t('addressForm.postCodeTip')"
             />
           </el-form-item>
         </el-col>
@@ -108,9 +119,9 @@
     <!-- 底部按钮 -->
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button @click="dialogVisible = false">{{$t('submit.global_cancel')}}</el-button>
         <el-button type="primary" @click="handleSubmit" :loading="loading">
-          确定
+          {{$t('submit.gloabl_confirm')}}
         </el-button>
       </span>
     </template>
@@ -132,19 +143,13 @@ const props = defineProps({
     type: String,
     default: ''
   },
+  formData: {
+    type: Object,
+    default: () => {}
+  }
 })
 
 const emit = defineEmits(['update:modelValue', 'submit'])
-
-// 对话框显示状态
-const dialogVisible = ref(false)
-watch(() => props.modelValue, val => {
-  dialogVisible.value = val
-})
-watch(() => dialogVisible.value, val => {
-  emit('update:modelValue', val)
-})
-
 // 表单数据
 const formRef = ref(null)
 const loading = ref(false)
@@ -156,8 +161,27 @@ const addressForm = ref({
   countryId: '',
   provinceId: '',
   cityName: '',
-  postcode: ''
+  postcode: '',
+  subCode: '',
 })
+// 对话框显示状态
+const dialogVisible = ref(false)
+watch(() => props.modelValue, val => {
+  dialogVisible.value = val;
+  addressForm.value = {};
+  if (props.subCode) {
+    addressForm.value.subCode = props.subCode;
+  }
+  if (props.formData.userAddressInfo) {
+    addressForm.value = {...props.formData.userAddressInfo};
+    addressForm.value.name = props.formData.userAddressInfo.firstName;
+    addressForm.value.subCode = props.subCode;
+  }
+})
+watch(() => dialogVisible.value, val => {
+  emit('update:modelValue', val)
+})
+
 
 // 下拉选项
 const countries = ref([])
@@ -194,7 +218,7 @@ const fetchCountries = async () => {
     const response = await transfer.country({
       areaLevel: 1,
     })
-    countries.value = response.map(item => ({ value: item.id, label: item.areaName }))
+    countries.value = response.data.map(item => ({ value: item.id, label: item.areaName }))
   } catch (error) {
     console.error('获取国家列表失败:', error)
     ElMessage.error('获取国家列表失败')
@@ -208,12 +232,20 @@ const fetchProvinces = async (countryId) => {
     const response = await transfer.province({
       parentId: countryId
     })
-    provinces.value = response.map(item => ({ value: item.id, label: item.areaName }))
+    provinces.value = response.data.map(item => ({ value: item.id, label: item.areaName }))
   } catch (error) {
     console.error('获取省份列表失败:', error)
     ElMessage.error('获取省份列表失败')
   }
 }
+const showCustomCodeHelp = async() =>{
+  try {
+    const response = await transfer.getCustomCode();
+    addressForm.value.subCode = response.data;
+  } catch (error) {
+    ElMessage.error('获取自定义编码失败');
+  }
+};
 
 // 监听完整地址变化，进行智能解析
 watch(fullAddress, async (val) => {
@@ -252,7 +284,6 @@ watch(() => addressForm.value.countryId, async (val) => {
     await fetchProvinces(val)
   }
 })
-
 // 提交表单
 const handleSubmit = async () => {
   if (!formRef.value) return
@@ -266,8 +297,13 @@ const handleSubmit = async () => {
         const params = addressForm.value;
         params.firstName = params.name;
         params.lastName = params.name;
-        params.subCode = props.subCode;
-        await transfer.addUserAddress(params);
+        params.subCode = params.subCode !== '' ? params.subCode : props.subCode;
+        if (props.formData.addressId) {
+          params.addressId = props.formData.addressId;
+          await transfer.updateUserAddress(params);
+        } else {
+          await transfer.addUserAddress(params);
+        }
         emit('submit', addressForm.value)
         ElMessage.success('保存成功')
         dialogVisible.value = false
@@ -283,12 +319,16 @@ const handleSubmit = async () => {
 
 // 初始化获取国家列表
 onMounted(() => {
-  fetchCountries()
+  fetchCountries();
 })
 </script>
 
 <style lang="less" scoped>
 @import '@/styles/variables.less';
+.primary-btn{
+  color: #fff !important;
+  background-color: @primary-color !important;
+}
 
 .parse-area {
   background-color: @primary-light;

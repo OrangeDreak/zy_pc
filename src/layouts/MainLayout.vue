@@ -3,7 +3,7 @@
     <!-- 顶部导航 -->
     <el-header class="header">
       <div class="header-left">
-        <div class="logo">QC elf</div>
+        <div class="logo"><img src="@/assets/images/common/logo.jpg" height="60px"> </img></div>
         <!-- <el-input
           v-model="searchKeyword"
           :placeholder="$t('header.search')"
@@ -20,12 +20,11 @@
           </template>
         </el-input> -->
       </div>
-      
       <div class="header-right">
         <div class="nav-items">
-          <div class="nav-item">{{ $t('header.nav.freightEstimate') }}</div>
-          <div class="nav-item">{{ $t('header.nav.transfer') }}</div>
-          <div class="nav-item">{{ $t('header.nav.help') }}</div>
+          <div class="nav-item text-cursor" @click="handleEstimate">{{ $t('header.nav.freightEstimate') }}</div>
+          <div class="nav-item text-cursor" @click="handleTransfer">{{ $t('header.nav.transfer') }}</div>
+          <!-- <div class="nav-item">{{ $t('header.nav.help') }}</div> -->
         </div>
         <el-dropdown @command="handleCommand">
           <span class="user-info">
@@ -35,7 +34,7 @@
           </span>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item command="profile">个人资料</el-dropdown-item>
+              <el-dropdown-item command="profile">个人中心</el-dropdown-item>
               <el-dropdown-item command="logout">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>
@@ -69,6 +68,10 @@
           router
           :collapse="false"
         >
+        <el-menu-item index="/profile">
+            <el-icon><Star /></el-icon>
+            <span>{{ $t('menu.profile') }}</span>
+          </el-menu-item>
         <el-menu-item index="/customers">
             <el-icon><User /></el-icon>
             <span>{{ $t('menu.customers') }}</span>
@@ -127,7 +130,8 @@ import {
   Share,
   ArrowDown,
   Plus,
-  User
+  User,
+  Star,
 } from '@element-plus/icons-vue'
 
 const route = useRoute()
@@ -153,6 +157,13 @@ const handleCommand = (command) => {
 const handleLangChange = (lang) => {
   langStore.setLang(lang)
 }
+
+const handleEstimate = async () => {
+    router.push("/estimate");
+};
+const handleTransfer = async () => {
+    router.push("/add-transfer");
+};
 </script>
 
 <style lang="less" scoped>

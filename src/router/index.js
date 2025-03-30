@@ -29,7 +29,7 @@ const routes = [
   {
     path: '/',
     component: () => import('@/layouts/MainLayout.vue'),
-    redirect: '/transfer-list',
+    redirect: '/orders',
     children: [
       {
         path: 'users',
@@ -90,6 +90,12 @@ const routes = [
         name: 'CustomerList',
         component: () => import('@/views/customer/CustomerList.vue'),
         meta: { title: '我的客户', requiresAuth: true }
+      },
+      {
+        path: 'profile',
+        name: 'Profile',
+        component: () => import('@/views/profile/Profile.vue'),
+        meta: { title: '个人中心', requiresAuth: true }
       },
       {
         path: '/estimate',
