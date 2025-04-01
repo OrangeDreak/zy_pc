@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import { useAuthStore } from '@/stores/auth'
+import { useI18n } from 'vue-i18n'
 
 const request = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -14,6 +15,8 @@ request.interceptors.request.use(
     if (authStore.token) {
       config.headers['Authorization'] = `${authStore.token}`
     }
+    const i18n = useI18n();
+    config.headers['Language'] = `${i18n.locale.value}`
     return config
   },
   error => {
