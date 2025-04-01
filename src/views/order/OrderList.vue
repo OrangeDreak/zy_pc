@@ -287,12 +287,11 @@ export default defineComponent({
           params.status = status.value;
         }
         let requestName = "getOrderList";
-        if (status.value === 1) {
+        if (status.value < 10) {
           params.status = status.value;
           // requestName = 'getQcOrderList';
           requestName = "getOrderList";
-        }
-        if (status.value === 2 || status.value === 3) {
+        } else {
           params.status = status.value;
           requestName = "myPackageOrderList";
         }
@@ -425,6 +424,7 @@ export default defineComponent({
   align-items: center;
   color: #666;
   padding: 20px;
+  cursor: pointer;
 }
 
 .flow-item.active {
