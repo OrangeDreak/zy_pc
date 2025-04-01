@@ -173,6 +173,7 @@ export default {
         customCodeHelp: '获取随机用户编码',
         recentAddress: '最近地址',
         addAddress: '新增地址信息',
+        editAddress: '编辑地址信息',
         trackingNumber: '快递单号',
         value: '物品价值(CNY)',
         photo: '商品照片',

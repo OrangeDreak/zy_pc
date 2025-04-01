@@ -89,7 +89,7 @@
                       class="add-address-btn"
                       @click="showAddressForm(orderIndex)"
                     >
-                      {{ $t('transfer.addOrder.form.addAddress') }}
+                      {{order.userAddressId ?  $t('transfer.addOrder.form.editAddress') : $t('transfer.addOrder.form.addAddress') }}
                       <el-tooltip content="地址说明" placement="top">
                         <el-icon class="address-help"><QuestionFilled /></el-icon>
                       </el-tooltip>
@@ -177,7 +177,7 @@
     </div>
 
     <!-- 地址表单对话框 -->
-    <address-form v-model="showAddress" :subCode="orders[currentOrderIndex].userNo" @submit="handleAddressSubmit" />
+    <address-form v-model="showAddress" :subCode="orders[currentOrderIndex].userNo" :formData="orders[currentOrderIndex]" @submit="handleAddressSubmit" />
   </div>
 </template>
 
@@ -245,7 +245,7 @@ const handleUserNoChange= (orderIndex)=>{
     if(item.value === orders.value[orderIndex].userNo){
       orders.value[orderIndex].recentAddress = `${item.userAddressInfo.firstName}, ${item.userAddressInfo.address}, ${item.userAddressInfo.mobile}`;
       orders.value[orderIndex].userAddressInfo = item.userAddressInfo;
-      orders.value[orderIndex].userAddressId = item.userAddressId;
+      orders.value[orderIndex].userAddressId = item.userAddressInfo.id;
     }
   })
 };
@@ -303,6 +303,9 @@ const showCustomCodeHelp = async() =>{
   try {
     const response = await transfer.getCustomCode();
     orders.value[currentOrderIndex.value].userNo = response.data;
+    orders.value[currentOrderIndex.value].recentAddress = '';
+    orders.value[currentOrderIndex.value].userAddressInfo = {};
+    orders.value[currentOrderIndex.value].userAddressId = '';
   } catch (error) {
     ElMessage.error('获取自定义编码失败');
   }

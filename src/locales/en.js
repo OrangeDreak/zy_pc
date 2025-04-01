@@ -166,6 +166,7 @@ export default {
         customCodeHelp: 'Get Random User Code',
         recentAddress: 'Recent Address',
         addAddress: 'Add Address',
+        editAddress: 'Edit Address',
         trackingNumber: 'Express No.',
         value: 'Item Value(CNY)',
         photo: 'Item Photo',
