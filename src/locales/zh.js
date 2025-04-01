@@ -110,8 +110,10 @@ export default {
       all: '全部',
       recorded: '已录入',
       qc: '已QC',
-      shipped: '已发货',
-      received: '已签收',
+      waitPay: '待支付',
+      processing: '待发货',
+      delivered: '已发货',
+      finished: '已签收'
     },
     search: {
       placeholder: '订单编号',

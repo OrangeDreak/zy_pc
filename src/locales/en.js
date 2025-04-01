@@ -124,11 +124,13 @@ export default {
   package: {
     title: 'My Packages',
     status: {
-      all: 'All',
-      recorded: 'Recorded',
-      qc: 'Qc',
-      shipped: 'Shipped',
-      received: 'Received'
+      all: 'ALL',
+      recorded: 'RECORDED',
+      qc: 'QC',
+      waitPay: 'WAITPAY',
+      processing: 'PROCESSING',
+      delivered: 'DELIVERED',
+      finished: 'FINISHED'
     },
     table: {
       customerCode: 'customer Code' ,
