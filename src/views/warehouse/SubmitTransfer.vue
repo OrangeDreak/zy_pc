@@ -280,17 +280,17 @@
                   </div>
                 </div>
                 <div class="action">
-                  <a-button
+                  <el-button
                           v-if="selectedLine !== item.logisticsLineCostId"
                           type="primary"
                           :class="['btn', !item.checkFlag ? 'disabled' : '']"
                           :disabled="!item.checkFlag"
                           @click="onSelect(item)"
-                  >{{ $t("submit.select") }}</a-button
+                  >{{ $t("submit.select") }}</el-button
                   >
-                  <a-button v-else type="primary" ghost class="edit-btn" @click="onChangeLine">{{
+                  <el-button v-else type="primary" ghost class="edit-btn" @click="onChangeLine">{{
                     $t("submit.changeLine")
-                    }}</a-button>
+                    }}</el-button>
                 </div>
               </div>
               <ul v-if="!item.checkFlag && item.uncheckDesc" class="notice">
@@ -511,14 +511,13 @@
                 </template>
                 <img src="@/assets/images/icon/qa.png" alt="" />
               </a-popover>
-              <a-button
+              <el-button
                       class="btn"
                       type="primary"
                       :disabled="subLoading2"
                       :loading="subLoading"
                       @click="onSubmit"
-              >{{ $t("submit.submit_package") }}</a-button
-              >
+              >{{ $t("submit.submit_package") }}</el-button>
             </div>
           </div>
         </div>
@@ -540,10 +539,10 @@
         </a-spin>
       </div>
       <div v-if="!currComponent" class="modal-footer">
-        <a-button key="back" @click="visible = false">{{ $t("submit.global_cancel") }}</a-button>
-        <a-button key="submit" type="primary" @click="handleConfirm">{{
+        <el-button key="back" @click="visible = false">{{ $t("submit.global_cancel") }}</el-button>
+        <el-button key="submit" type="primary" @click="handleConfirm">{{
           $t("submit.gloabl_confirm")
-          }}</a-button>
+          }}</el-button>
       </div>
     </a-modal>
   </div>

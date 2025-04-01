@@ -89,7 +89,7 @@
                       class="add-address-btn"
                       @click="showAddressForm(orderIndex)"
                     >
-                      {{ $t('transfer.addOrder.form.addAddress') }}
+                      {{order.userAddressId ?  $t('transfer.addOrder.form.editAddress') : $t('transfer.addOrder.form.addAddress') }}
                       <el-tooltip content="地址说明" placement="top">
                         <el-icon class="address-help"><QuestionFilled /></el-icon>
                       </el-tooltip>
@@ -177,7 +177,7 @@
     </div>
 
     <!-- 地址表单对话框 -->
-    <address-form v-model="showAddress" :subCode="orders[currentOrderIndex].userNo" @submit="handleAddressSubmit" />
+    <address-form v-model="showAddress" :subCode="orders[currentOrderIndex].userNo" :formData="orders[currentOrderIndex]" @submit="handleAddressSubmit" />
   </div>
 </template>
 
@@ -245,7 +245,7 @@ const handleUserNoChange= (orderIndex)=>{
     if(item.value === orders.value[orderIndex].userNo){
       orders.value[orderIndex].recentAddress = `${item.userAddressInfo.firstName}, ${item.userAddressInfo.address}, ${item.userAddressInfo.mobile}`;
       orders.value[orderIndex].userAddressInfo = item.userAddressInfo;
-      orders.value[orderIndex].userAddressId = item.userAddressId;
+      orders.value[orderIndex].userAddressId = item.userAddressInfo.id;
     }
   })
 };
@@ -302,12 +302,13 @@ const getWarehouseAddress = () => {
 const showCustomCodeHelp = async() =>{
   try {
     const response = await transfer.getCustomCode();
-    orders.value[currentOrderIndex.value].userNo = response;
+    orders.value[currentOrderIndex.value].userNo = response.data;
+    orders.value[currentOrderIndex.value].recentAddress = '';
+    orders.value[currentOrderIndex.value].userAddressInfo = {};
+    orders.value[currentOrderIndex.value].userAddressId = '';
   } catch (error) {
-    console.error('获取仓库地址失败:', error);
-    ElMessage.error('获取仓库地址失败');
+    ElMessage.error('获取自定义编码失败');
   }
-  ElMessage.info('请输入自定义编码，系统会自动生成订单号');
 };
 // 显示地址表单
 const showAddressForm = (orderIndex) => {
@@ -384,7 +385,7 @@ const removeOrder = (orderIndex) => {
 .add-transfer {
   padding-top: 60px;
   min-height: 100vh;
-  background: linear-gradient(135deg, @primary-bg 0%, @primary-lighter 100%);
+  // background: linear-gradient(135deg, @primary-bg 0%, @primary-lighter 100%);
 
   .content {
     margin: 60px auto 0;
@@ -414,6 +415,7 @@ const removeOrder = (orderIndex) => {
       margin-bottom: 25px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
       transition: all 0.3s ease;
+      border: 2px solid rgba(0, 0, 0, 0.08);
 
       &:hover {
         transform: translateY(-2px);
@@ -565,6 +567,8 @@ const removeOrder = (orderIndex) => {
   padding: 25px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;
+  border: 2px solid rgba(0, 0, 0, 0.08);
+
   
   &:hover {
     transform: translateY(-3px);

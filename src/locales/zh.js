@@ -1,9 +1,17 @@
 export default {
+  commont: {
+    edit: '编辑',
+    share: '分享',
+    createTime: '创建时间',
+    operation: '操作',
+    total: '共',
+    page: '条',
+  },
   header: {
     search: '请输入商品关键词',
     searchButton: '搜索',
     nav: {
-      freightEstimate: '运费估算',
+      freightEstimate: '运费预估',
       transfer: '转运',
       help: '帮助中心'
     },
@@ -13,6 +21,7 @@ export default {
     }
   },
   menu: {
+    profile: '个人中心',
     myAccount: '会员中心',
     customers: '我的客户',
     transferOrder: '我的订单',
@@ -25,6 +34,21 @@ export default {
     help: '帮助中心',
     notification: '消息通知'
   },
+  customers: {
+    add: '添加客户信息',
+    code: '客户编码',
+    info: {
+      title: '客户信息',
+      name: '姓名',
+      postcode: '邮编',
+      phoneNumber: '手机号码',
+      email: '邮箱',
+      address: '地址',
+    },
+    orderCount: '订单数',
+    createTime: '添加日期',
+    operation: '操作',
+  },
   assets: {
     balance: {
       title: '可用余额 (USD)',
@@ -36,7 +60,8 @@ export default {
     transaction: {
       dateRange: {
         start: '开始日期',
-        end: '结束日期'
+        end: '结束日期',
+        separator: '至'
       },
       viewStatement: '查看账单',
       table: {
@@ -83,28 +108,52 @@ export default {
     title: '我的包裹',
     status: {
       all: '全部',
-      pending: '待入库',
-      inStock: '已入库',
-      shipping: '运输中',
-      delivered: '已送达',
-      cancelled: '已取消'
+      recorded: '已录入',
+      qc: '已QC',
+      waitPay: '待支付',
+      processing: '待发货',
+      delivered: '已发货',
+      finished: '已签收'
     },
     search: {
       placeholder: '订单编号',
       button: '搜索'
     },
     table: {
-      packageInfo: '包裹信息',
-      packageNo: '包裹编号',
-      submitTime: '提交时间',
-      images: '张',
-      weight: '重量(g)',
-      size: '尺寸(cm)',
-      status: '状态',
-      actions: '操作'
-    }
+      customerCode: '客户编码' ,
+      addressInfo: '地址信息' ,
+      expressDelivery: '快递信息',
+      latestStatus: '最新状态',
+      trackingNumber: '快递单号',
+      logisticsTrack: '物流轨迹',
+    },
+    specialFocus: '特别关注',
+    cancelSpecialFocus: '取消特别关注',
+    oneClickDelivery: '一键发货',
   },
-
+  //添加/编辑地址相关
+  addressForm: {
+    title: '添加/修改客户信息',
+    customerCode: '客户编码',
+    customerCodeTip: '请输入用户编码',
+    country: '国家',
+    countryTip: '请填写国家',
+    province: '省份',
+    provinceTip: '请填写省份',
+    city: '城市',
+    cityTip: '请填写城市',
+    postCode: '邮编',
+    postCodeTip: '请填写邮编',
+    email: '邮箱',
+    emailTip: '请填写邮箱',
+    phoneNumber: '手机号码',
+    phoneNumberTip: '请填写手机号码',
+    name: '姓名',
+    nameTip: '请填写姓名',
+    address: '详细地址',
+    addressTip: '请填写详细地址',
+    customCodeRandom: '获取随机编码',
+  },
   // 转运相关
   transfer: {
     addOrder: {
@@ -124,6 +173,7 @@ export default {
         customCodeHelp: '获取随机用户编码',
         recentAddress: '最近地址',
         addAddress: '新增地址信息',
+        editAddress: '编辑地址信息',
         trackingNumber: '快递单号',
         value: '物品价值(CNY)',
         photo: '商品照片',

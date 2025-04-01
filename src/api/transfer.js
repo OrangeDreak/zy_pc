@@ -26,6 +26,14 @@ export const transfer = {
       data
     })
   },
+   // 地址
+   updateUserAddress(data) {
+    return request({
+      url: '/app/userAddress/update',
+      method: 'post',
+      data
+    })
+  },
   // 获取自定义编码
   getCustomCode(params) {
     return request({

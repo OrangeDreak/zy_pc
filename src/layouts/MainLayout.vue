@@ -1,60 +1,7 @@
 <template>
   <el-container class="layout-container">
-    <!-- 顶部导航 -->
-    <el-header class="header">
-      <div class="header-left">
-        <div class="logo">QC elf</div>
-        <!-- <el-input
-          v-model="searchKeyword"
-          :placeholder="$t('header.search')"
-          class="search-input"
-        >
-          <template #prefix>
-            <el-icon><Search /></el-icon>
-          </template>
-          <template #append>
-            <el-button class="search-btn">
-              <el-icon><Search /></el-icon>
-              搜索
-            </el-button>
-          </template>
-        </el-input> -->
-      </div>
-      
-      <div class="header-right">
-        <div class="nav-items">
-          <div class="nav-item">{{ $t('header.nav.freightEstimate') }}</div>
-          <div class="nav-item">{{ $t('header.nav.transfer') }}</div>
-          <div class="nav-item">{{ $t('header.nav.help') }}</div>
-        </div>
-        <el-dropdown @command="handleCommand">
-          <span class="user-info">
-            <el-avatar :size="32" :src="userAvatar" />
-            <span class="username">{{ authStore.userInfo.username }}</span>
-            <el-icon><ArrowDown /></el-icon>
-          </span>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item command="profile">个人资料</el-dropdown-item>
-              <el-dropdown-item command="logout">退出登录</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
-        <el-dropdown @command="handleLangChange">
-          <span class="lang-switch">
-            {{ currentLang === 'zh' ? '中文' : 'English' }}
-            <el-icon><ArrowDown /></el-icon>
-          </span>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item command="zh">中文</el-dropdown-item>
-              <el-dropdown-item command="en">English</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
-      </div>
-    </el-header>
-
+    <!-- 使用公共头部 -->
+    <common-header />
     <el-container>
       <!-- 侧边栏 -->
       <el-aside width="200px" class="aside">
@@ -69,6 +16,10 @@
           router
           :collapse="false"
         >
+        <el-menu-item index="/profile">
+            <el-icon><Star /></el-icon>
+            <span>{{ $t('menu.profile') }}</span>
+          </el-menu-item>
         <el-menu-item index="/customers">
             <el-icon><User /></el-icon>
             <span>{{ $t('menu.customers') }}</span>
@@ -114,6 +65,8 @@ import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useLangStore } from '@/stores/lang'
 import { storeToRefs } from 'pinia'
+import CommonHeader from '@/components/layout/CommonHeader.vue'
+
 import { 
   Search,
   Camera,
@@ -127,7 +80,8 @@ import {
   Share,
   ArrowDown,
   Plus,
-  User
+  User,
+  Star,
 } from '@element-plus/icons-vue'
 
 const route = useRoute()
@@ -153,6 +107,13 @@ const handleCommand = (command) => {
 const handleLangChange = (lang) => {
   langStore.setLang(lang)
 }
+
+const handleEstimate = async () => {
+    router.push("/estimate");
+};
+const handleTransfer = async () => {
+    router.push("/add-transfer");
+};
 </script>
 
 <style lang="less" scoped>
@@ -161,101 +122,11 @@ const handleLangChange = (lang) => {
 .layout-container {
   min-height: 100vh;
 
-  .header {
-    background-color: #fff;
-    border-bottom: 1px solid @border-color;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
-    padding: 0 20px;
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 40px;
-
-      .logo {
-        font-size: 24px;
-        font-weight: bold;
-        color: @primary-color;
-      }
-
-      .search-input {
-        width: 400px;
-
-        :deep(.el-input__wrapper) {
-          background-color: #f5f7fa;
-        }
-
-        :deep(.el-input-group__append) {
-          padding: 0;
-          .el-button {
-            border: none;
-            height: 32px;
-            padding: 0 15px;
-          }
-        }
-      }
-      .search-btn {
-        width: 120px;
-        border: none;
-        padding: 0 15px;
-        cursor: pointer;
-      }
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 40px;
-
-      .nav-items {
-        display: flex;
-        gap: 30px;
-
-        .nav-item {
-          font-size: 14px;
-          color: @text-regular;
-          cursor: pointer;
-
-          &:hover {
-            color: @primary-color;
-          }
-        }
-      }
-
-      .user-info {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        cursor: pointer;
-
-        .username {
-          font-size: 14px;
-          color: @text-regular;
-        }
-      }
-
-      .lang-switch {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        cursor: pointer;
-        color: @text-regular;
-        font-size: 14px;
-
-        &:hover {
-          color: @primary-color;
-        }
-      }
-    }
-  }
-
   .aside {
     background-color: #fff;
     border-right: 1px solid @border-color;
-
+    padding-top: 60px;
+    
     .user-panel {
       padding: 20px;
       border-bottom: 1px solid @border-color;
@@ -296,7 +167,7 @@ const handleLangChange = (lang) => {
 
   .el-main {
     background-color: #f5f7fa;
-    padding: 20px;
+    padding:60px 20px 20px;
   }
 }
 </style> 

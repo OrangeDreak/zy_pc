@@ -21,6 +21,12 @@ const routes = [
     meta: { title: '添加转运订单' }
   },
   {
+    path: '/estimate',
+    name: 'Estimate',
+    component: () => import('@/views/estimate/index.vue'),
+    meta: { title: '运费预估' }
+  },
+  {
     path: '/share/:id',
     name: 'ShareOrder',
     component: () => import('@/views/transfer/ShareOrder.vue'),
@@ -41,7 +47,7 @@ const routes = [
   {
     path: '/',
     component: () => import('@/layouts/MainLayout.vue'),
-    redirect: '/transfer-list',
+    redirect: '/orders',
     children: [
       {
         path: 'users',
@@ -104,10 +110,10 @@ const routes = [
         meta: { title: '我的客户', requiresAuth: true }
       },
       {
-        path: '/estimate',
-        name: 'Estimate',
-        component: () => import('@/views/estimate/index.vue'),
-        meta: { title: '运费预估' }
+        path: 'profile',
+        name: 'Profile',
+        component: () => import('@/views/profile/Profile.vue'),
+        meta: { title: '个人中心', requiresAuth: true }
       },
     ]
   }
