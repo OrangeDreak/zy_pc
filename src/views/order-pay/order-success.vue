@@ -1,4 +1,7 @@
 <template>
+  <!-- 使用公共头部 -->
+  <common-header />
+  <div class="content">
   <div class="orderPayBox">
     <div class="orderPayText">{{ $t("pay.mine_cart_orderPay_nav") }}</div>
     <div>
@@ -32,7 +35,7 @@
                 v-else
                 type="primary"
                 class="chaKan"
-                @click="goPage('/mine/' + (route.query.path ?? 'order-list'))"
+                @click="goPage('/orders'))"
                 >{{ $t("pay.viewOrder") }}</a-button
               >
             </div>
@@ -46,11 +49,14 @@
       </a-spin>
     </div>
   </div>
+  </div>
 </template>
 
 <script setup>
 import { ref, onBeforeMount, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import CommonHeader from '@/components/layout/CommonHeader.vue'
+
 const router = useRouter();
 const route = useRoute();
 
@@ -75,52 +81,61 @@ onMounted(async () => {
 </script>
 
 <style lang="less" scoped>
-.orderPayBox {
-  width: 1200px;
-  margin: 0 auto;
-  padding: 24px 0 0 0;
-  background-color: #f3f3f3;
-  .orderPayText {
-    font-size: 20px;
-    margin-bottom: 24px;
-  }
-  .paySuccessBox {
-    padding: 100px 230px;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 100px;
-    .paySuccessImg {
-      width: 36px;
-      height: 36px;
-    }
-    .paySuccessTitle {
-      font-size: 28px;
-      font-weight: 500;
-      margin: 12px 0 24px 0;
-    }
-    .paySuccessText {
-      font-size: 14px;
-      text-align: center;
-      line-height: 24px;
-      margin-bottom: 24px;
-    }
-    .paySuccessBtnBox {
-      :deep(.ant-btn) {
-        padding: 0 30px;
-        height: 40px;
-        font-size: 18px;
-        margin: 0 10px;
-        font-weight: 500;
+
+.content {
+    margin: 60px auto 0;
+    max-width: 100%;
+    height: 100%;
+    padding: 20px;
+    background-color: #f3f3f3;
+    animation: fadeIn 0.3s ease-in-out;
+    .orderPayBox {
+      width: 1200px;
+      margin: 0 auto;
+      padding: 24px 0 0 0;
+      background-color: #f3f3f3;
+      .orderPayText {
+        font-size: 20px;
+        margin-bottom: 24px;
       }
-      .jiXu {
-        border: 1px solid #cccccc;
-      }
-      .chaKan {
+      .paySuccessBox {
+        padding: 100px 230px;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 100px;
+        .paySuccessImg {
+          width: 36px;
+          height: 36px;
+        }
+        .paySuccessTitle {
+          font-size: 28px;
+          font-weight: 500;
+          margin: 12px 0 24px 0;
+        }
+        .paySuccessText {
+          font-size: 14px;
+          text-align: center;
+          line-height: 24px;
+          margin-bottom: 24px;
+        }
+        .paySuccessBtnBox {
+          :deep(.ant-btn) {
+            padding: 0 30px;
+            height: 40px;
+            font-size: 18px;
+            margin: 0 10px;
+            font-weight: 500;
+          }
+          .jiXu {
+            border: 1px solid #cccccc;
+          }
+          .chaKan {
+          }
+        }
       }
     }
-  }
 }
 </style>

@@ -460,7 +460,7 @@ export default {
     cancel_pay: "取消支付",
     property_recharge_title: "充值",
     confirmPay: "确认付款",
-    common_please_select_channel: "请选择支付方式"
+    common_please_select_channel: "请选择支付方式",
     rechargeSuccess: "充值成功",
     paySuccess: "支付成功",
     paySuccessTip2: "您的包裹火速运输中，请耐心等待，包裹状态可通过物流单号查询跟踪。",
@@ -468,5 +468,6 @@ export default {
     goback_assets: "返回我的资产",
     viewOrder: "查看订单",
     payFail: "支付失败",
+    payResult: "支付结果",
   }
 } 
