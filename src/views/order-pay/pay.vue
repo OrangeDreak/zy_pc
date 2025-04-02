@@ -225,7 +225,7 @@ onBeforeMount(async () => {
   getBalance().then((res) => {
     amountInfo.balance = res.data.availableBalance;
     amountInfo.balanceTrans = res.data.availableBalanceTrans;
-    if (amountInfo.balance < payInfo.value.amount) {
+    if (amountInfo.balance < payInfo.value.amount || route.query.source === "recharge") {
        payMode.value = payMethodList.value[0];
        console.log(payMode.value);
     } else {

@@ -43,11 +43,9 @@
 <script setup>
 import { reactive, ref, computed, getCurrentInstance } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
 import { useI18n } from "vue-i18n";
 import { charge } from "@/api/balance";
-
-const { getters } = useStore();
+import { formatTitle, formatNum2, formatPrice, currencySymbol, getCurrencyStr, formatAmount } from "@/utils/tools";
 const { t } = useI18n();
 const router = useRouter();
 const { proxy } = getCurrentInstance();
@@ -59,10 +57,6 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["finish"]);
-
-const currLang = computed(() => {
-  return getters.lang;
-});
 
 const val = ref(false);
 const rechargeFormRef = ref(null);
@@ -85,7 +79,7 @@ const opRechargeModal = () => {
 const rechargeTrans = computed(() => {
   const ex = props.exchange;
   const num = formState.money;
-  const symbol = proxy.$cs();
+  const symbol = getCurrencyStr();
   if (ex > 0 && num) {
     return `≈ ${symbol} ${(num / ex).toFixed(2)}`;
   } else {

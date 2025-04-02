@@ -7,8 +7,8 @@
           {{ $t('assets.balance.title') }}
           <span>({{ getCurrencyStr() }})</span>
         </div>
-        <div class="amount">{{ formatPrice(balanceInfo, balance) }}</div>
-        <div class="frozen">({{ $t('assets.balance.frozen') }}：{{ formatPrice(balanceInfo, nonWithdrawBalance) }})</div>
+        <div class="amount">{{ formatPrice(balanceInfo, "balance") }}</div>
+        <div class="frozen">({{ $t('assets.balance.frozen') }}：{{ formatPrice(balanceInfo, "nonWithdrawBalance") }})</div>
       </div>
       <div class="actions">
         <el-button  @click="handleWithdraw">
@@ -27,7 +27,7 @@
     <div class="transaction-list">
       <!-- 搜索区域 -->
       <div class="search-area">
-        <span class="FormMingXi">{{ t("assets.transaction.balanceDetails") }}</span>
+        <span class="FormMingXi">{{ $t("assets.transaction.balanceDetails") }}</span>
         <el-date-picker
           v-model="dateRange"
           type="daterange"
@@ -79,7 +79,8 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from 'vue'
+import { ref, onBeforeMount, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import rechargeForm from "./components/rechargeForm.vue";
 import { QuestionFilled, DocumentCopy } from '@element-plus/icons-vue'
 import { formatTitle, formatNum2, formatPrice, currencySymbol, getCurrencyStr, formatAmount } from "@/utils/tools";
@@ -89,6 +90,8 @@ import {
   listDebtFlow,
   charge,
 } from "@/api/balance";
+
+const router = useRouter()
 const rechargeFormRef = ref(null);
 const loading = ref(false)
 const dateRange = ref([])
@@ -117,14 +120,7 @@ const handleRecharge = () => {
   // 实现充值逻辑
   const currency = getCurrencyStr();
   if (currency !== "CNY") {
-    <!--try {
-      const { data, success } = await payExchange();
-      if (data && success) {
-        exchange.value = data;
-      }
-    } catch (e) {
-      console.log(e);
-    }-->
+    //todo 查询汇率
     exchange.value = 1;
   } else {
     exchange.value = 1;
