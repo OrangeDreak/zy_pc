@@ -8,26 +8,26 @@ export const getBalance = (params) => {
   });
 }
 
-export const listBalanceFlow = (params) => {
+export const listBalanceFlow = (data) => {
   return request({
     url: "/app/balance/listBalanceFlow",
     method: "post",
-    params,
+    data,
   });
 }
 
-export const listDebtFlow = (params) => {
+export const listDebtFlow = (data) => {
   return request({
     url: "/app/balance/listDebtFlow",
     method: "post",
-    params,
+    data,
   });
 }
 
-export const charge = (params) => {
+export const charge = (data) => {
   return request({
     url: "/app/balance/charge",
     method: "post",
-    params,
+    data,
   });
 }
