@@ -58,7 +58,12 @@ export default {
       help: "充值意味着你可以充值一些钱到你的账户钱包，直接使用余额支付可以给你节省时间。",
       rechargeMoney: "充值金额",
       inputPlaceholder: "请输入",
-      rechargeIptTip: "请输入充值金额"
+      rechargeIptTip: "请输入充值金额",
+      arrears: "欠款",
+      arrearsTip:
+          "欠款指的是您未支付/未补款但我们优先帮您处理以免耽误时效的包裹费用、订单退换货运费或者是货到付款等费用。请及时偿还欠款，否则下次无法交易。",
+      paymentOfArrears: "偿还欠款",
+      arrears_records: "欠款记录"
     },
     transaction: {
       dateRange: {
@@ -72,7 +77,11 @@ export default {
         time: '交易时间',
         type: '类型',
         amount: '收入/支出',
+        amount2: '金额',
         balance: '账号余额',
+        serviceNumber: "业务编号",
+        options: "操作",
+        repaymented: "已还清",
         details: {
           orderNo: '订单编号',
           description: '交易说明',

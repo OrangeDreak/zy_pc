@@ -1,5 +1,6 @@
-<template>
-  <div class="my-assets">
+<template xmlns="http://www.w3.org/1999/html">
+  <div>
+  <div class="my-assets" v-if="showWithDraw === 0">
     <!-- 资产卡片 -->
     <div class="assets-card">
       <div class="balance-info">
@@ -20,6 +21,29 @@
         <el-tooltip :content="$t('assets.balance.help')" placement="top">
           <el-icon class="help-icon"><QuestionFilled /></el-icon>
         </el-tooltip>
+      </div>
+    </div>
+    <div class="availableBalance">
+      <div class="availableBalanceBottom">
+        <div class="availableBalanceBottomLeft">
+          <span>{{ $t("assets.balance.arrears") }}</span>
+          <el-tooltip :content="$t('assets.balance.arrearsTip')" placement="top">
+            <el-icon class="help-icon"><QuestionFilled /></el-icon>
+          </el-tooltip>
+          <span class="qiaKuaNum">{{ $formatPrice(balanceInfo, "debtBalance", true) }}</span>
+          <el-button
+                  v-if="balanceInfo.debtBalance"
+                  class="huanKuanBtn"
+                  type="primary"
+                  @click="showDebtFun()"
+          >{{ $t("assets.balance.paymentOfArrears") }}</el-button
+          >
+        </div>
+        <div class="availableBalanceBottomRight">
+          <div class="lookRecords">
+            <el-button @click="showDebtFun()">{{ $t("assets.transaction.viewStatement") }}</el-button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -74,7 +98,9 @@
         />
       </div>
     </div>
-    <rechargeForm ref="rechargeFormRef" :exchange="exchange" @finish="finish"></rechargeForm>
+  </div>
+  <rechargeForm ref="rechargeFormRef" :exchange="exchange" @finish="finish"></rechargeForm>
+  <debtRecords v-if="showWithDraw === 3" @back="backFun"></debtRecords>
   </div>
 </template>
 
@@ -82,6 +108,7 @@
 import { ref, onBeforeMount, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import rechargeForm from "./components/rechargeForm.vue";
+import debtRecords from "./debtRecords.vue";
 import { QuestionFilled, DocumentCopy } from '@element-plus/icons-vue'
 import { formatTitle, formatNum2, formatPrice, currencySymbol, getCurrencyStr, formatAmount } from "@/utils/tools";
 import {
@@ -103,16 +130,28 @@ const balanceInfo = reactive({
   balance: 0,
   balanceTrans: 0,
   nonWithdrawBalance: 0,
-  nonWithdrawBalanceTrans: 0
+  nonWithdrawBalanceTrans: 0,
+  debtBalance: 0,
+  debtBalanceTrans: 0
+
 });
 
 // 余额明细数据
 const transactionList = ref([])
+const showWithDraw = ref(0);
 
 // 提现
 const handleWithdraw = () => {
   // 实现提现逻辑
 }
+
+// 欠款记录
+const showDebtFun = () => {
+  showWithDraw.value = 3;
+};
+const backFun = () => {
+  showWithDraw.value = 0;
+};
 
 // 充值
 const exchange = ref(1);
@@ -171,6 +210,8 @@ onBeforeMount(() => {
     balanceInfo.balanceTrans = res.data.availableBalanceTrans;
     balanceInfo.nonWithdrawBalance = res.data.nonWithdrawBalance;
     balanceInfo.nonWithdrawBalanceTrans = res.data.nonWithdrawBalanceTrans;
+    balanceInfo.debtBalance = res.data.debtBalance;
+    balanceInfo.debtBalanceTrans = res.data.debtBalanceTrans;
   });
   getList();
 });
@@ -342,5 +383,54 @@ const finish = (data) => {
       margin-left: 10px;
     }
   }
+.availableBalance {
+    background-color: #fff;
+    padding: 0 24px;
+    .availableBalanceBottom {
+      width: 100%;
+      height: 60px;
+      background-color: #f8f8f8;
+      border-radius: 0 0 8px 8px;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+      .availableBalanceBottomLeft {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .qiaKuaImg {
+          width: 12px;
+          height: 12px;
+          margin-left: 2px;
+          margin-right: 12px;
+        }
+        .huanKuanBtn {
+          border: none;
+          // color: #fff;
+          padding: 0 16px;
+          border-radius: 14px;
+          height: 28px;
+          font-size: 12px;
+          margin-left: 12px;
+        }
+        .qiaKuaNum {
+          font-weight: 500;
+          color: var(--amount-color);
+        }
+        .disButton {
+          // color: #000;
+          background-color: transparent !important;
+          color: #ccc !important;
+          border: 1px solid #ccc;
+        }
+      }
+      .availableBalanceBottomRight {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+      }
+    }
+}
+
 }
 </style> 

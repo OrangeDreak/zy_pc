@@ -56,7 +56,12 @@ export default {
       help: "Recharge means you can top up some money into your account wallet, and paying directly with your balance can save you time.",
       rechargeMoney: "Recharge Amount",
       inputPlaceholder: "Please enter",
-      rechargeIptTip: "Please enter the top-up amount"
+      rechargeIptTip: "Please enter the top-up amount",
+      arrears: "Underpaid",
+      arrearsTip:
+          "'Underpaid' refers to the package fees, order return and exchange freight, or cash on delivery fees that you have not paid/replenished but we will give priority to helping you deal with them to avoid delaying timeliness. Please repay the balance in time, otherwise you will not be able to order on Sifubuy next time.",
+      paymentOfArrears: "Repayment",
+      arrears_records: "Debt Records"
     },
     transaction: {
       dateRange: {
@@ -70,7 +75,11 @@ export default {
         time: 'Time',
         type: 'Type',
         amount: 'Amount',
+        amount2: 'Amount',
         balance: 'Balance',
+        options: "Operation",
+        repaymented: "Paid Off",
+        serviceNumber: "Transaction Number",
         details: {
           orderNo: 'Order No',
           description: 'Description',
