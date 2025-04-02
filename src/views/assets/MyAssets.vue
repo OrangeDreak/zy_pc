@@ -77,7 +77,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { QuestionFilled, DocumentCopy } from '@element-plus/icons-vue'
 import { formatTitle, formatNum2, formatPrice, currencySymbol, getCurrencyStr, formatAmount } from "@/utils/tools";
 import {
