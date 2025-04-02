@@ -55,7 +55,10 @@ export default {
       frozen: '不可提现',
       withdraw: '提现',
       recharge: '充值',
-      help: "充值意味着你可以充值一些钱到你的账户钱包，直接使用余额支付可以给你节省时间。"
+      help: "充值意味着你可以充值一些钱到你的账户钱包，直接使用余额支付可以给你节省时间。",
+      rechargeMoney: "充值金额",
+      inputPlaceholder: "请输入",
+      rechargeIptTip: "请输入充值金额"
     },
     transaction: {
       dateRange: {
@@ -64,6 +67,7 @@ export default {
         separator: '至'
       },
       viewStatement: '查看账单',
+      balanceDetails: '余额明细',
       table: {
         time: '交易时间',
         type: '类型',

@@ -53,7 +53,10 @@ export default {
       frozen: 'Frozen Amount',
       withdraw: 'Withdraw',
       recharge: 'Recharge',
-      help: "Recharge means you can top up some money into your account wallet, and paying directly with your balance can save you time."
+      help: "Recharge means you can top up some money into your account wallet, and paying directly with your balance can save you time.",
+      rechargeMoney: "Recharge Amount",
+      inputPlaceholder: "Please enter",
+      rechargeIptTip: "Please enter the top-up amount"
     },
     transaction: {
       dateRange: {
@@ -62,6 +65,7 @@ export default {
         separator: 'Separator'
       },
       viewStatement: 'View Statement',
+      balanceDetails: 'Balance Details',
       table: {
         time: 'Time',
         type: 'Type',

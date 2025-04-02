@@ -7,14 +7,14 @@
           {{ $t('assets.balance.title') }}
           <span>({{ getCurrencyStr() }})</span>
         </div>
-        <div class="amount">{{ balance }}</div>
-        <div class="frozen">({{ $t('assets.balance.frozen') }}：{{ frozenAmount }})</div>
+        <div class="amount">{{ formatPrice(balanceInfo, balance) }}</div>
+        <div class="frozen">({{ $t('assets.balance.frozen') }}：{{ formatPrice(balanceInfo, nonWithdrawBalance) }})</div>
       </div>
       <div class="actions">
-        <el-button type="primary" @click="handleWithdraw">
+        <el-button  @click="handleWithdraw">
           {{ $t('assets.balance.withdraw') }}
         </el-button>
-        <el-button @click="handleRecharge">
+        <el-button type="primary" @click="handleRecharge">
           {{ $t('assets.balance.recharge') }}
         </el-button>
         <el-tooltip :content="$t('assets.balance.help')" placement="top">
@@ -27,6 +27,7 @@
     <div class="transaction-list">
       <!-- 搜索区域 -->
       <div class="search-area">
+        <span class="FormMingXi">{{ t("assets.transaction.balanceDetails") }}</span>
         <el-date-picker
           v-model="dateRange"
           type="daterange"
@@ -73,11 +74,13 @@
         />
       </div>
     </div>
+    <rechargeForm ref="rechargeFormRef" :exchange="exchange" @finish="finish"></rechargeForm>
   </div>
 </template>
 
 <script setup>
 import { ref, onBeforeMount } from 'vue'
+import rechargeForm from "./components/rechargeForm.vue";
 import { QuestionFilled, DocumentCopy } from '@element-plus/icons-vue'
 import { formatTitle, formatNum2, formatPrice, currencySymbol, getCurrencyStr, formatAmount } from "@/utils/tools";
 import {
@@ -86,16 +89,21 @@ import {
   listDebtFlow,
   charge,
 } from "@/api/balance";
+const rechargeFormRef = ref(null);
 const loading = ref(false)
-const balance = ref('753.64')
-const frozenAmount = ref('0')
 const dateRange = ref([])
 const page = ref(1)
 const pageSize = ref(10)
 const total = ref(0)
 const expandedRows = ref([])
+const balanceInfo = reactive({
+  balance: 0,
+  balanceTrans: 0,
+  nonWithdrawBalance: 0,
+  nonWithdrawBalanceTrans: 0
+});
 
-// 模拟交易数据
+// 余额明细数据
 const transactionList = ref([])
 
 // 提现
@@ -104,8 +112,24 @@ const handleWithdraw = () => {
 }
 
 // 充值
+const exchange = ref(1);
 const handleRecharge = () => {
   // 实现充值逻辑
+  const currency = getCurrencyStr();
+  if (currency !== "CNY") {
+    <!--try {
+      const { data, success } = await payExchange();
+      if (data && success) {
+        exchange.value = data;
+      }
+    } catch (e) {
+      console.log(e);
+    }-->
+    exchange.value = 1;
+  } else {
+    exchange.value = 1;
+  }
+  rechargeFormRef.value.opRechargeModal();
 }
 
 // 查看账单
@@ -146,8 +170,25 @@ const getList = () => {
     });
 };
 onBeforeMount(() => {
+  getBalance().then((res) => {
+    balanceInfo.balance = res.data.availableBalance;
+    balanceInfo.balanceTrans = res.data.availableBalanceTrans;
+    balanceInfo.nonWithdrawBalance = res.data.nonWithdrawBalance;
+    balanceInfo.nonWithdrawBalanceTrans = res.data.nonWithdrawBalanceTrans;
+  });
   getList();
 });
+
+const finish = (data) => {
+  router.push({
+    path: "/pay",
+    query: {
+      source: data.source,
+      payType: 6,
+      userPayId: data.userPayId,
+    },
+  });
+};
 </script>
 
 <style lang="less" scoped>
@@ -230,6 +271,11 @@ onBeforeMount(() => {
       justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
+      margin-top: 32px;
+      padding: 0 24px;
+      .FormMingXi {
+        margin-right: 12px;
+      }
     }
 
     .income {
