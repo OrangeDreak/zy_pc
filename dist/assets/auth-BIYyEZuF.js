@@ -1,0 +1,1 @@
+import{r as e}from"./request-Ci6vZ18k.js";const o={login(r){return e({url:"/app/user/login",method:"post",data:r})},register(r){return e({url:"/app/user/register",method:"post",data:r})}};export{o as a};
