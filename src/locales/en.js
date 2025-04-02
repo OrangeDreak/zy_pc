@@ -441,7 +441,7 @@ export default {
         cancel_pay: "Cancel Payment",
         property_recharge_title: "Recharge",
         confirmPay: "Confirm Payment",
-        common_please_select_channel: "Please choose a payment method"
+        common_please_select_channel: "Please choose a payment method",
         rechargeSuccess: "Recharge successful",
         paySuccess: "Payment Successful",
         paySuccessTip2:
