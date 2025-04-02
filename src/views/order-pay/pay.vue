@@ -151,6 +151,7 @@ const getPayParams = () => {
   params.userPayId = +route.query?.userPayId || undefined;
   params.payChannel = payMode.value;
   params.payScene = 0;
+  params.callbackAddress = encodeURIComponent('https://qcelf.com/pay-success?path=${route.query.source || ""}');
   return params;
 };
 
