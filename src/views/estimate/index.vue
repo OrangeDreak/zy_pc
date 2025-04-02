@@ -1,5 +1,8 @@
 <template>
   <div class="estima">
+    <!-- 使用公共头部 -->
+    <common-header />
+
     <div class="form">
       <div class="title">{{ $t("estimate.ShippingCostEstimate") }}</div>
       <div class="tips">{{ $t("estimate.estTip1") }}</div>
@@ -263,6 +266,8 @@ import 'ant-design-vue/dist/reset.css';
 import { formatTitle, formatPrice } from "@/utils/tools";
 import { useI18n } from 'vue-i18n'
 const i18n = useI18n();
+import CommonHeader from '@/components/layout/CommonHeader.vue'
+
 
 
 const route = useRoute();
@@ -635,6 +640,7 @@ onMounted(() => {
   font-size: 14px;
   color: #333;
   .form {
+    margin-top: 80px;
     height: 350px;
     padding: 45px 40px 0;
     line-height: normal;

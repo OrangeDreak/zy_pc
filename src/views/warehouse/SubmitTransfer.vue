@@ -1878,8 +1878,8 @@ onMounted(async () => {
         justify-content: center;
         font-weight: normal;
         background-color: #fff;
-        // color: #333;
-        // border-color: #333;
+        color: #333;
+        border-color: #333;
       }
       .other {
         // border: 1px solid #eeeeee;

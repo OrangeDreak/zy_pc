@@ -1,40 +1,42 @@
 <template>
-  <div class="common-header">
-    <div class="header-left">
-      <div class="logo"><img src="@/assets/images/common/logo.jpg" height="60px"> </img></div>
-    </div>
-
-    <div class="header-right">
-      <div class="nav-items">
-        <div class="nav-item text-cursor" @click="handleEstimate">{{ $t('header.nav.freightEstimate') }}</div>
-        <div class="nav-item text-cursor" @click="handleTransfer">{{ $t('header.nav.transfer') }}</div>
-        <!-- <div class="nav-item">{{ $t('header.nav.help') }}</div> -->
+  <div class="border-bottom">
+    <div class="common-header">
+      <div class="header-left">
+        <div class="logo"><img src="@/assets/images/common/logo.jpg" height="60px"> </img></div>
       </div>
-      <el-dropdown @command="handleCommand">
-        <span class="user-info">
-          <el-avatar :size="32" :src="userAvatar" />
-          <span class="username">{{ authStore.userInfo.username }}</span>
-          <el-icon><ArrowDown /></el-icon>
-        </span>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="profile">{{ $t('header.user.profile') }}</el-dropdown-item>
-            <el-dropdown-item command="logout">{{ $t('header.user.logout') }}</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
-      <el-dropdown @command="handleLangChange">
-        <span class="lang-switch">
-          {{ currentLang === 'zh' ? '中文' : 'English' }}
-          <el-icon><ArrowDown /></el-icon>
-        </span>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="zh">中文</el-dropdown-item>
-            <el-dropdown-item command="en">English</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+
+      <div class="header-right">
+        <div class="nav-items">
+          <div class="nav-item text-cursor" @click="handleEstimate">{{ $t('header.nav.freightEstimate') }}</div>
+          <div class="nav-item text-cursor" @click="handleTransfer">{{ $t('header.nav.transfer') }}</div>
+          <!-- <div class="nav-item">{{ $t('header.nav.help') }}</div> -->
+        </div>
+        <el-dropdown @command="handleCommand">
+          <span class="user-info">
+            <el-avatar :size="32" :src="userAvatar" />
+            <span class="username">{{ authStore.userInfo.username }}</span>
+            <el-icon><ArrowDown /></el-icon>
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="profile">{{ $t('header.user.profile') }}</el-dropdown-item>
+              <el-dropdown-item command="logout">{{ $t('header.user.logout') }}</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+        <el-dropdown @command="handleLangChange">
+          <span class="lang-switch">
+            {{ currentLang === 'zh' ? '中文' : 'English' }}
+            <el-icon><ArrowDown /></el-icon>
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="zh">中文</el-dropdown-item>
+              <el-dropdown-item command="en">English</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </div>
     </div>
   </div>
 </template>
@@ -81,13 +83,9 @@ const handleLangChange = (lang) => {
 
 <style lang="less" scoped>
 @import '@/styles/variables.less';
-
-.common-header {
-  background-color: #fff;
+.border-bottom {
+  height: 60px;
   border-bottom: 1px solid @border-color;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   height: 60px;
   padding: 0 20px;
   position: fixed;
@@ -95,16 +93,28 @@ const handleLangChange = (lang) => {
   left: 0;
   right: 0;
   z-index: 100;
+  background-color: #fff;
+}
+.common-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // max-width: 1440px;
+  margin: 0 auto;
 
   .header-left {
     display: flex;
     align-items: center;
     gap: 40px;
-
+    overflow: hidden;
     .logo {
       font-size: 24px;
       font-weight: bold;
       color: @primary-color;
+      overflow: hidden;
+      img{
+        height: 56px;
+      }
     }
 
     .search-wrapper {
