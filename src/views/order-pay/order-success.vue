@@ -35,7 +35,7 @@
                 v-else
                 type="primary"
                 class="chaKan"
-                @click="goPage('/orders'))"
+                @click="goPage('/orders')"
                 >{{ $t("pay.viewOrder") }}</a-button
               >
             </div>
