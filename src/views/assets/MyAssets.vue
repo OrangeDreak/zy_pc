@@ -42,15 +42,15 @@
       <!-- 交易表格 -->
       <el-table :data="transactionList" v-loading="loading">
         <el-table-column :label="$t('assets.transaction.table.time')" prop="gmtCreated" />
-        <el-table-column :label="$t('assets.transaction.table.type')" prop="flowDesc" width="120" />
-        <el-table-column :label="$t('assets.transaction.table.amount')" width="150">
+        <el-table-column :label="$t('assets.transaction.table.type')" prop="flowDesc"  />
+        <el-table-column :label="$t('assets.transaction.table.amount')">
           <template #default="{ row }">
-            <span :class="{ 'income': row.amount > 0, 'expense': row.amount < 0 }">
-              {{ row.amount > 0 ? '+' : '' }}{{ formatPrice(row, "amount", true) }}
+            <span :class="{ 'income': row.disburseFlag <= 0, 'expense': row.disburseFlag > 0 }">
+              {{ row.disburseFlag <= 0 ? '+' : '-' }}{{ formatPrice(row, "amount", true) }}
             </span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('assets.transaction.table.balance')" width="150" >
+        <el-table-column :label="$t('assets.transaction.table.balance')"  >
           <template #default="{ row }">
             <span>
               {{ formatPrice(row, "afterBalance", true) }}
@@ -132,9 +132,9 @@ const getList = () => {
     pageNo: page.value,
     pageSize: pageSize.value
   }
-  if (dateRange.length > 0) {
-    requestParameters.gmtCreatedStart = `${dateRange[0]} 00:00:00`;
-    requestParameters.gmtCreatedEnd = `${dateRange[1]} 23:59:59`;
+  if (dateRange.value && dateRange.value.length > 0) {
+    requestParameters.gmtCreatedStart = `${dateRange.value[0]} 00:00:00`;
+    requestParameters.gmtCreatedEnd = `${dateRange.value[1]} 23:59:59`;
   }
   listBalanceFlow(requestParameters)
     .then((res) => {
