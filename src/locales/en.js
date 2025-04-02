@@ -276,7 +276,7 @@ export default {
     orderSelectTip: 'Please select at least one order',
     orderNotSameUserTip: 'Only orders from the same customer can be shipped together. Please filter by userNO before one click shipping'
   },
-  
+
     submit: {
       subMitYunOrder: "Submit Shipping Order",
       address: "Delivery Address",
@@ -424,5 +424,31 @@ export default {
       please_select_country: "Please select a country",
       pleaseInputWeight: "Please enter weight",
       countryHot: "Popular"
+    },
+    pay: {
+        mine_cart_orderPay_nav: "Checkout",
+        payMode: "Payment Method",
+        Balance: "Balance",
+        balanceOverTip: "Your balance is insufficient, please recharge before proceeding with payment",
+        globalRecharge: "Top Up",
+        Alipay: "Alipay",
+        alipayTip: "",
+        payAmount: "Total Price",
+        property_recharge_money: "Recharge Amount",
+        orderAmount: "Total amount due",
+        handCharge: "Handling fee",
+        cancelRecharge: "Cancel Recharge ",
+        cancel_pay: "Cancel Payment",
+        property_recharge_title: "Recharge",
+        confirmPay: "Confirm Payment",
+        common_please_select_channel: "Please choose a payment method"
+        rechargeSuccess: "Recharge successful",
+        paySuccess: "Payment Successful",
+        paySuccessTip2:
+            "Your package is being transported rapidly. Please wait patiently. You can track the status of your package using the logistics tracking number.",
+        paySuccessTip: "Thank you for your business!",
+        goback_assets: "Return My Wallet",
+        viewOrder: "View Order",
+        payFail: "Payment Failure",
     }
   }

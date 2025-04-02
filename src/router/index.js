@@ -33,6 +33,18 @@ const routes = [
     meta: { title: '订单详情' }
   },
   {
+      path: '/pay',
+      name: 'Pay',
+      component: () => import('@/views/order-pay/pay.vue'),
+      meta: { title: '支付' }
+  },
+  {
+      path: '/pay-success',
+      name: 'PaySuccess',
+      component: () => import('@/views/order-pay/order-success.vue'),
+      meta: { title: '支付成功' }
+  },
+  {
     path: '/',
     component: () => import('@/layouts/MainLayout.vue'),
     redirect: '/orders',
