@@ -36,6 +36,7 @@
         :data="orders"
         @selection-change="handleSelectionChange"
         style="width: 100%"
+        :row-class-name="tableRowClassName"
         stripe
       >
         <!-- 选择列 -->
@@ -44,61 +45,87 @@
         <el-table-column prop="userNo" :label="$t('package.table.addressInfo')" width="320">
           <template #default="{ row }">
             <div class="user-info">
-              <div>
+              <!-- <div>
                 <div>{{$t('customers.info.name')}}：{{ row.userAddressInfo.firstName }}</div>
                 <div>{{$t('customers.info.postcode')}}：{{ row.userAddressInfo.postcode }}</div>
                 <div>{{$t('customers.info.phoneNumber')}}：{{ row.userAddressInfo.mobile }}</div>
                 <div>{{$t('customers.info.email')}}：{{ row.userAddressInfo.email }}</div>
                 <div>{{$t('customers.info.address')}}：{{ row.userAddressInfo.countryName }} {{ row.userAddressInfo.provinceName }} {{ row.userAddressInfo.cityName }} {{ row.userAddressInfo.address }}</div>
-              </div>
-              <!-- <div>
-                <div>地址：{{ row.userAddressInfo.address }}</div>
-                <div>城市：{{ row.userAddressInfo.cityName }}</div>
-                <div>省份：{{ row.userAddressInfo.provinceName }}</div>
-                <div>国家：{{ row.userAddressInfo.countryName }}</div>
               </div> -->
             </div>
           </template>
         </el-table-column>
         <el-table-column prop="logisticsNumber" :label="$t('package.table.expressDelivery')">
           <template #default="{ row }">
-            <div>{{$t('trackingNumber')}}：{{ row.logisticsNumber }}</div>
-            <el-popover :width="800">
-              <template #reference>
-                <div v-if="row.trackingList && row.trackingList.length > 0">
-                  {{$t('logisticsTrack')}}：{{
-                    row.trackingList && row.trackingList[0]?.logisticsDesc
-                  }}
+            <div v-if="row.status > 10">
+              <div>{{$t('trackingNumber')}}：{{ row.logisticsNumber }}</div>
+              <el-popover :width="800">
+                <template #reference>
+                  <div v-if="row.trackingList && row.trackingList.length > 0">
+                    {{$t('logisticsTrack')}}：{{
+                      row.trackingList && row.trackingList[0]?.logisticsDesc
+                    }}
+                  </div>
+                </template>
+                <template #default> 
+                  <div class="timeline">
+                    <el-timeline>
+                      <el-timeline-item v-for="(item, index) in row.trackingList" :key="index" :timestamp="item.gmtTime" placement="top">
+                        <p>{{ item.logisticsDesc }}</p>
+                      </el-timeline-item>
+                    </el-timeline>
+                  </div>
+                </template>
+              </el-popover>
+              <div class="image-list">
+                <div v-for="(url, index) in row.imgUrlList" :key="url" class="block">
+                  <el-image
+                    class="image-list-item"
+                    style="width: 60px; height: 60px"
+                    close-on-press-escape
+                    preview-teleported
+                    :src="url"
+                    :zoom-rate="1.2"
+                    :max-scale="7"
+                    :min-scale="0.2"
+                    :preview-src-list="row.imgUrlList"
+                    :initial-index="index"
+                    z-index="8"
+                    fit="cover"
+                  />
                 </div>
-              </template>
-              <template #default> 
-                <div class="timeline">
-                  <el-timeline>
-                    <el-timeline-item v-for="(item, index) in row.trackingList" :key="index" :timestamp="item.gmtTime" placement="top">
-                      <p>{{ item.logisticsDesc }}</p>
-                    </el-timeline-item>
-                  </el-timeline>
-                </div>
-              </template>
-            </el-popover>
-            <div class="image-list">
-              <div v-for="(url, index) in row.imgUrlList" :key="url" class="block">
-                <el-image
-                  class="image-list-item"
-                  style="width: 60px; height: 60px"
-                  close-on-press-escape
-                  preview-teleported
-                  :src="url"
-                  :zoom-rate="1.2"
-                  :max-scale="7"
-                  :min-scale="0.2"
-                  :preview-src-list="row.imgUrlList"
-                  :initial-index="index"
-                  z-index="8"
-                  fit="cover"
-                />
+                
               </div>
-              
+            </div>
+            <div v-else class="estimate-info">
+              <div>
+                <div>国际单号：{{ row.orderNo }}</div>
+                <div>物流线路：{{ row.logisticsLine }}</div>
+                <el-popover :width="800">
+                  <template #reference>
+                    <div v-if="row.trackingList && row.trackingList.length > 0">
+                      {{$t('logisticsTrack')}}：{{
+                        row.trackingList && row.trackingList[0]?.logisticsDesc
+                      }}
+                    </div>
+                  </template>
+                  <template #default> 
+                    <div class="timeline">
+                      <el-timeline>
+                        <el-timeline-item v-for="(item, index) in row.trackingList" :key="index" :timestamp="item.gmtTime" placement="top">
+                          <p>{{ item.logisticsDesc }}</p>
+                        </el-timeline-item>
+                      </el-timeline>
+                    </div>
+                  </template>
+                </el-popover>
+                <div>包裹运费：{{ row.estimateFreightPrice }}</div>
+              </div>
+              <div>
+                <div>长 {{row.length}}，宽{{row.width}}，高{{row.height}}</div>
+                <div>{{row.realWeight}}kg；内含8件</div>
+                <div>在途 7 天</div>
+              </div>
             </div>
           </template>
         </el-table-column>
@@ -138,6 +165,22 @@
               >
                 退货
               </el-button> -->
+            </div>
+            <div v-if="row.status >= 10">
+              <el-button
+                type="text"
+                :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
+                class="star-btn"
+              >
+                包裹详情
+              </el-button>
+              <el-button
+                v-if="row.status == 10"
+                type="text"
+                class="star-btn"
+              >
+                去支付
+              </el-button>
             </div>
           </template>
         </el-table-column>
@@ -200,6 +243,13 @@ export default defineComponent({
     const router = useRouter();
     const route = useRoute();
     const { proxy } = getCurrentInstance();
+    // 定义行类名函数
+    const tableRowClassName = ({ row }) => {
+      if (row.isMark) {
+        return 'status-mark';
+      } 
+      return '';
+    };
     // 分页状态
     const pagination = reactive({
       currentPage: 1,
@@ -379,6 +429,7 @@ export default defineComponent({
       getCountList,
       handleSearch,
       handleSearchMark,
+      tableRowClassName,
     };
   },
 });
@@ -387,6 +438,14 @@ export default defineComponent({
 <style lang="less" scoped>
 .order-list {
   padding: 20px;
+}
+.estimate-info{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.status-mark{
+  background: #ef8eea;
 }
 .timeline{
   height: 350px;
