@@ -131,7 +131,7 @@ const getList = () => {
   const requestParameters = {
     pageNo: page.value,
     pageSize: pageSize.value
-  },
+  }
   if (dateRange.length > 0) {
     requestParameters.gmtCreatedStart = `${dateRange[0]} 00:00:00`;
     requestParameters.gmtCreatedEnd = `${dateRange[1]} 23:59:59`;
