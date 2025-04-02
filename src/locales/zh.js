@@ -51,11 +51,11 @@ export default {
   },
   assets: {
     balance: {
-      title: '可用余额 (USD)',
+      title: '可用余额 ',
       frozen: '不可提现',
       withdraw: '提现',
       recharge: '充值',
-      help: '查看帮助'
+      help: "充值意味着你可以充值一些钱到你的账户钱包，直接使用余额支付可以给你节省时间。"
     },
     transaction: {
       dateRange: {

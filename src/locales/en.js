@@ -49,11 +49,11 @@ export default {
   },
   assets: {
     balance: {
-      title: 'Available Balance (USD)',
+      title: 'Available Balance',
       frozen: 'Frozen Amount',
       withdraw: 'Withdraw',
       recharge: 'Recharge',
-      help: 'View Help'
+      help: "Recharge means you can top up some money into your account wallet, and paying directly with your balance can save you time."
     },
     transaction: {
       dateRange: {

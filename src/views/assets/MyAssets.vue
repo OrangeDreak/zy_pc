@@ -3,7 +3,10 @@
     <!-- 资产卡片 -->
     <div class="assets-card">
       <div class="balance-info">
-        <div class="title">{{ $t('assets.balance.title') }}</div>
+        <div class="title">
+          {{ $t('assets.balance.title') }}
+          <span>({{ getCurrencyStr() }})</span>
+        </div>
         <div class="amount">{{ balance }}</div>
         <div class="frozen">({{ $t('assets.balance.frozen') }}：{{ frozenAmount }})</div>
       </div>
@@ -32,24 +35,28 @@
           :end-placeholder="$t('assets.transaction.dateRange.end')"
           format="YYYY-MM-DD"
           value-format="YYYY-MM-DD"
+          @change="getList"
         />
-        <el-button link type="primary" @click="viewStatement">
-          {{ $t('assets.transaction.viewStatement') }}
-        </el-button>
       </div>
 
       <!-- 交易表格 -->
       <el-table :data="transactionList" v-loading="loading">
-        <el-table-column :label="$t('assets.transaction.table.time')" prop="time" />
-        <el-table-column :label="$t('assets.transaction.table.type')" prop="type" width="120" />
+        <el-table-column :label="$t('assets.transaction.table.time')" prop="gmtCreated" />
+        <el-table-column :label="$t('assets.transaction.table.type')" prop="flowDesc" width="120" />
         <el-table-column :label="$t('assets.transaction.table.amount')" width="150">
           <template #default="{ row }">
             <span :class="{ 'income': row.amount > 0, 'expense': row.amount < 0 }">
-              {{ row.amount > 0 ? '+' : '' }}{{ row.amount }}
+              {{ row.amount > 0 ? '+' : '' }}{{ formatPrice(row, "amount", true) }}
             </span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('assets.transaction.table.balance')" prop="balance" width="150" />
+        <el-table-column :label="$t('assets.transaction.table.balance')" width="150" >
+          <template #default="{ row }">
+            <span>
+              {{ formatPrice(row, "afterBalance", true) }}
+            </span>
+          </template>
+        </el-table-column>
       </el-table>
 
       <!-- 分页 -->
@@ -72,7 +79,13 @@
 <script setup>
 import { ref } from 'vue'
 import { QuestionFilled, DocumentCopy } from '@element-plus/icons-vue'
-
+import { formatTitle, formatNum2, formatPrice, currencySymbol, getCurrencyStr, formatAmount } from "@/utils/tools";
+import {
+  getBalance,
+  listBalanceFlow,
+  listDebtFlow,
+  charge,
+} from "@/api/balance";
 const loading = ref(false)
 const balance = ref('753.64')
 const frozenAmount = ref('0')
@@ -83,31 +96,7 @@ const total = ref(0)
 const expandedRows = ref([])
 
 // 模拟交易数据
-const transactionList = ref([
-  {
-    id: '1',
-    time: '2024-02-07 15:07:36',
-    type: '订单退款',
-    amount: 13.33,
-    balance: '753.64',
-    orderNo: 'REF20240207150736',
-    description: '订单取消退款',
-    paymentMethod: '原路退回',
-    transactionNo: 'TX20240207150736'
-  },
-  {
-    id: '2',
-    time: '2024-02-07 15:07:24',
-    type: '下单支付',
-    amount: -13.33,
-    balance: '740.32',
-    orderNo: 'ORD20240207150724',
-    description: '购买商品',
-    paymentMethod: '余额支付',
-    transactionNo: 'TX20240207150724'
-  }
-  // ... 其他交易记录
-])
+const transactionList = ref([])
 
 // 提现
 const handleWithdraw = () => {
@@ -122,18 +111,43 @@ const handleRecharge = () => {
 // 查看账单
 const viewStatement = () => {
   // 实现查看账单逻辑
+  getList();
 }
 
 // 分页相关方法
 const handleSizeChange = (val) => {
-  pageSize.value = val
-  // 重新加载数据
+  page.value = 1;
+  pageSize.value = val;
+  getList();
 }
 
 const handleCurrentChange = (val) => {
-  page.value = val
-  // 重新加载数据
+  page.value = val;
+  getList();
 }
+
+const getList = () => {
+  loading.value = true;
+  const requestParameters = {
+    pageNo: page.value,
+    pageSize: pageSize.value
+  },
+  if (dateRange.length > 0) {
+    requestParameters.gmtCreatedStart = `${dateRange[0]} 00:00:00`;
+    requestParameters.gmtCreatedEnd = `${dateRange[1]} 23:59:59`;
+  }
+  listBalanceFlow(requestParameters)
+    .then((res) => {
+      transactionList.value = res.data || [];
+      total.value = res.total;
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+};
+onBeforeMount(() => {
+  getList();
+});
 </script>
 
 <style lang="less" scoped>
