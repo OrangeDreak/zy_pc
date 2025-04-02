@@ -30,7 +30,7 @@
           <el-tooltip :content="$t('assets.balance.arrearsTip')" placement="top">
             <el-icon class="help-icon"><QuestionFilled /></el-icon>
           </el-tooltip>
-          <span class="qiaKuaNum">{{ $formatPrice(balanceInfo, "debtBalance", true) }}</span>
+          <span class="qiaKuaNum">{{ formatPrice(balanceInfo, "debtBalance", true) }}</span>
           <el-button
                   v-if="balanceInfo.debtBalance"
                   class="huanKuanBtn"
@@ -352,85 +352,52 @@ const finish = (data) => {
       }
     }
   }
-}
-
-.detail-info {
-  padding: 20px;
-  background: mix(@primary-color, #fff, 5%);
-  border-radius: 4px;
-  margin: 10px 0;
-
-  .detail-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    
-    &:last-child {
-      margin-bottom: 0;
-    }
-
-    .label {
-      width: 100px;
-      color: @text-regular;
-    }
-
-    .value {
-      color: @text-primary;
-      flex: 1;
-    }
-
-    .copy-btn {
-      margin-left: 10px;
-    }
-  }
-.availableBalance {
-    background-color: #fff;
-    padding: 0 24px;
-    .availableBalanceBottom {
-      width: 100%;
-      height: 60px;
-      background-color: #f8f8f8;
-      border-radius: 0 0 8px 8px;
-      display: flex;
-      justify-content: space-between;
-      padding: 0 20px;
-      .availableBalanceBottomLeft {
+  .availableBalance {
+      background-color: #fff;
+      .availableBalanceBottom {
+        width: 100%;
+        height: 60px;
+        background-color: #f8f8f8;
+        border-radius: 0 0 8px 8px;
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        .qiaKuaImg {
-          width: 12px;
-          height: 12px;
-          margin-left: 2px;
-          margin-right: 12px;
+        padding: 0 20px;
+        .availableBalanceBottomLeft {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .qiaKuaImg {
+            width: 12px;
+            height: 12px;
+            margin-left: 2px;
+            margin-right: 12px;
+          }
+          .huanKuanBtn {
+            border: none;
+            // color: #fff;
+            padding: 0 16px;
+            border-radius: 14px;
+            height: 28px;
+            font-size: 12px;
+            margin-left: 12px;
+          }
+          .qiaKuaNum {
+            font-weight: 500;
+            color: var(--amount-color);
+          }
+          .disButton {
+            // color: #000;
+            background-color: transparent !important;
+            color: #ccc !important;
+            border: 1px solid #ccc;
+          }
         }
-        .huanKuanBtn {
-          border: none;
-          // color: #fff;
-          padding: 0 16px;
-          border-radius: 14px;
-          height: 28px;
-          font-size: 12px;
-          margin-left: 12px;
-        }
-        .qiaKuaNum {
-          font-weight: 500;
-          color: var(--amount-color);
-        }
-        .disButton {
-          // color: #000;
-          background-color: transparent !important;
-          color: #ccc !important;
-          border: 1px solid #ccc;
+        .availableBalanceBottomRight {
+          display: flex;
+          align-items: center;
+          font-size: 14px;
         }
       }
-      .availableBalanceBottomRight {
-        display: flex;
-        align-items: center;
-        font-size: 14px;
-      }
-    }
-}
-
+  }
 }
 </style> 

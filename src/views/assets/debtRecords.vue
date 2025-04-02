@@ -14,7 +14,7 @@
             <el-table-column :label="$t('assets.transaction.table.type')" prop="flowDesc"  />
             <el-table-column :label="$t('assets.transaction.table.amount2')">
                 <template #default="{ row }">
-                    <span> formatPrice(row, "amount", true) </span>
+                    <span> {{ formatPrice(row, "amount", true) }} </span>
                 </template>
             </el-table-column>
             <el-table-column :label="$t('assets.transaction.table.serviceNumber')" prop="outFlowId"  />
@@ -50,7 +50,7 @@
 import { getCurrentInstance, reactive, ref, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
-import CommonTable from "./components/table.vue";
+import { formatTitle, formatNum2, formatPrice, currencySymbol, getCurrencyStr, formatAmount } from "@/utils/tools";
 import {
   listDebtFlow,
 } from "@/api/balance";
@@ -59,7 +59,6 @@ const router = useRouter();
 const { t } = useI18n();
 const { proxy } = getCurrentInstance();
 
-const commonTableRef = ref();
 const loading = ref(false);
 const formData = reactive({ timeValue: null, typeValue: null });
 const dataSource = reactive({ data: [] });
@@ -74,9 +73,9 @@ const getListDebtFlowFun = async () => {
   };
   try {
     const res = await listDebtFlow(data);
-    if (res?.success) {
-      dataSource.data = res?.data || [];
-      pageInfo.total = res.cnt;
+    if (res.success) {
+      dataSource.data = res.data || [];
+      pageInfo.total = res.total;
       loading.value = false;
     }
   } catch (e) {
@@ -96,12 +95,12 @@ const showModalFun = (item) => {
 };
 
 // 页码变更
-const pageSizeChange = (page, pageSize) => {
+const handleCurrentChange = (page, pageSize) => {
   pageInfo.pageNum = page;
   pageInfo.pageSize = pageSize;
   getListDebtFlowFun();
 };
-const sizeChange = (current, size) => {
+const handleSizeChange = (current, size) => {
   pageInfo.pageNum = 1;
   pageInfo.pageSize = size;
   getListDebtFlowFun();
@@ -117,6 +116,7 @@ onBeforeMount(() => {
 });
 </script>
 <style lang="less" scoped>
+@import '@/styles/variables.less';
 .titleRow {
   display: flex;
   justify-content: space-between;
