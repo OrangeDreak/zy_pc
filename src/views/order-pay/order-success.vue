@@ -28,7 +28,7 @@
                 v-if="route.query.path === 'recharge' || route.query.path === 'repayment'"
                 type="primary"
                 class="chaKan"
-                @click="goPage('/mine/property')"
+                @click="goPage('/assets')"
                 >{{ $t("pay.goback_assets") }}</a-button
               >
               <a-button
