@@ -464,5 +464,9 @@ export default {
         viewOrder: "View Order",
         payFail: "Payment Failure",
         payResult: "Payment Result",
+        paypalTip:
+            "As a trusted e-wallet with over 400 million active users in more than 200 countries, PayPal is a guaranteed global service provider. Together with PayPal, Qcelf allows you to have a fast and secure payment experience.",
+        notApplyPayTip:
+            "This payment method doesn't support CNY, please switch currency/Choose another payment method",
     }
   }

@@ -482,5 +482,8 @@ export default {
     viewOrder: "查看订单",
     payFail: "支付失败",
     payResult: "支付结果",
+    paypalTip:
+        "PayPal 作为备受信赖的电子钱包，在200 多个国家拥有超4 亿活跃用户，是名副其实的全球服务供应商。携手PayPal，Qcelf让您拥有快速安全的付款体验。",
+    notApplyPayTip: "该支付方式不支持人民币，请切换币种或选择另一支付方式",
   }
 } 
