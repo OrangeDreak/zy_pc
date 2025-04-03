@@ -166,11 +166,12 @@
                 退货
               </el-button> -->
             </div>
-            <div v-if="row.status >= 10">
+            <div v-if="row.status >= 0">
               <el-button
                 type="text"
                 :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
                 class="star-btn"
+                @click="handlePackageClick(row)"
               >
                 包裹详情
               </el-button>
@@ -209,7 +210,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, reactive, ref, getCurrentInstance } from "vue";
 import { ElMessage } from "element-plus";
-import { allOrderList, getOrderCount } from "@/api/orderList";
+import { allOrderList } from "@/api/orderList";
 import { useRouter, useRoute } from 'vue-router';
 
 interface Order {
@@ -318,6 +319,9 @@ export default defineComponent({
 
       sessionStorage.setItem("SubOrderIds", ids);
       router.push("/submit-transfer");
+    };
+    const handlePackageClick = (row) => {
+      router.push("/package-detail?id="+row.orderNo);
     };
     // 加载订单列表
     const loadOrders = async () => {
@@ -430,6 +434,7 @@ export default defineComponent({
       handleSearch,
       handleSearchMark,
       tableRowClassName,
+      handlePackageClick,
     };
   },
 });
@@ -444,8 +449,8 @@ export default defineComponent({
   justify-content: space-between;
   align-items: center;
 }
-.status-mark{
-  background: #ef8eea;
+:deep .el-table tr.status-mark{
+  background: #ffebfe;
 }
 .timeline{
   height: 350px;

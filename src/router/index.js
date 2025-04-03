@@ -80,7 +80,7 @@ const routes = [
         meta: { title: '我的包裹', requiresAuth: true }
       },
       {
-        path: 'package/:id',
+        path: 'package-detail',
         name: 'PackageDetail',
         component: () => import('@/views/package/PackageDetail.vue'),
         meta: { title: '包裹详情', requiresAuth: true }

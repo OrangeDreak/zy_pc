@@ -155,16 +155,18 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { ArrowRight, Box, DocumentCopy } from '@element-plus/icons-vue'
+import { allOrderList } from "@/api/orderList";
+
 
 const route = useRoute()
+const packageDetail = ref({});
 const packageNo = 'EP26083887545365708'
 const submitTime = '2024-12-20 18:40:34'
 const packageType = ref('paper')
 const weight = 525
-
 const fees = {
   deposit: 48.56,
   shipping: 46.31,
@@ -197,6 +199,21 @@ const productList = [
     quantity: 1
   }
 ]
+ // 在组件挂载时获取路由参数
+ onMounted(() => {
+    if(route.query.id){
+      loadOrderDetail();
+    }
+  });
+  const loadOrderDetail = async () => {
+    await allOrderList.packageOrderDetail({
+      packageOrderId: route.query.id
+    }).then((res) => {
+      if (res.code === 200) {
+        packageDetail.value = res.data;
+      }
+    });
+  };
 </script>
 
 <style lang="less" scoped>

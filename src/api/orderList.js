@@ -23,6 +23,13 @@ export const allOrderList = {
       data
     })
   },
+  packageOrderDetail(params) {
+    return request({
+      url: '/app/package-order/detail',
+      method: 'get',
+      params
+    })
+  },
   getSharingCode(params) {
     return request({
       url: '/app/tp/order/getSharingCode',
