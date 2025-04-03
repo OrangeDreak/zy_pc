@@ -56,6 +56,7 @@
 import { ref, onBeforeMount, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import CommonHeader from '@/components/layout/CommonHeader.vue'
+import { getPayPalResult } from "@/api/pay";
 
 const router = useRouter();
 const route = useRoute();
@@ -68,10 +69,35 @@ const goPage = (path) => {
 };
 
 onMounted(async () => {
-  // PayPal，Stripe确认支付，用于立刻更新订单，业务的支付状态
+  // PayPal 确认支付，用于立刻更新订单，业务的支付状态
   if (route.query.token || route.query.redirect_status === "succeeded") {
     loading.value = true;
-    loading.value = false;
+    const queryData = { ...route.query };
+    try {
+      const params = {
+        payChannel: queryData.payChannel,
+      };
+      let api;
+      if (queryData.payChannel === "2") {
+        // PayPal
+        params.paymentOrderId = queryData.token;
+        api = getPayPalResult;
+      }
+      if (!api) return;
+      await api(params);
+      loading.value = false;
+      router.replace({
+        path: "/order-success",
+        query: {
+          path: queryData.path,
+          payChannel: queryData.payChannel,
+        },
+      });
+    } catch (err) {
+      status.value = false;
+      loading.value = false;
+      console.log(err);
+    }
   } else if (route.query.path === "package-list") {
     loading.value = false;
   } else {

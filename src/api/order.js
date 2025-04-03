@@ -62,3 +62,12 @@ export const productTypeLabelListAll = (params) => {
     params,
   });
 }
+
+// PayPal支付结果
+export const getPayPalResult = (params) => {
+  return request({
+    url: "/app/pay/callback/paypal/success",
+    method: "get",
+    params,
+  });
+}
