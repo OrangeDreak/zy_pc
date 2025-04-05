@@ -59,6 +59,7 @@
               >
                 <template #suffix>
                   <el-button
+                    class="code-btn"
                     type="primary"
                     :disabled="isCaptchaDisabled"
                     @click="handleGetCaptcha"
@@ -350,5 +351,8 @@ const handleRegister = async () => {
       }
     }
   }
+}
+.code-btn{
+  margin-right: -11px;
 }
 </style> 
