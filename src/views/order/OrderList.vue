@@ -26,8 +26,14 @@
         :placeholder="$t('order.toolbar.customerSearch')"
         class="search-input"
       ></el-input>
-      <el-button @click="handleSearch">{{$t('header.searchButton')}}</el-button>
-      <el-button :type="searchForm.isMark? 'primary' : 'default'" @click="handleSearchMark">{{ $t("order.toolbar.starred") }}</el-button>
+      <el-button @click="handleSearch">{{
+        $t("header.searchButton")
+      }}</el-button>
+      <el-button
+        :type="searchForm.isMark ? 'primary' : 'default'"
+        @click="handleSearchMark"
+        >{{ $t("order.toolbar.starred") }}</el-button
+      >
     </div>
 
     <!-- 订单列表 -->
@@ -37,40 +43,78 @@
         @selection-change="handleSelectionChange"
         style="width: 100%"
         :row-class-name="tableRowClassName"
-        stripe
       >
         <!-- 选择列 -->
         <el-table-column v-if="status === 1" type="selection" width="55" />
-        <el-table-column prop="userNo" :label="$t('package.table.customerCode')" width="100" />
-        <el-table-column prop="userNo" :label="$t('package.table.addressInfo')" width="320">
+        <el-table-column
+          prop="userNo"
+          :label="$t('package.table.customerCode')"
+          width="100"
+        />
+        <el-table-column
+          prop="userNo"
+          :label="$t('package.table.addressInfo')"
+          width="320"
+        >
           <template #default="{ row }">
             <div class="user-info">
               <div v-if="row.status < 10">
-                <div>{{$t('customers.info.name')}}：{{ row.userAddressInfo.firstName }}</div>
-                <div>{{$t('customers.info.postcode')}}：{{ row.userAddressInfo.postcode }}</div>
-                <div>{{$t('customers.info.phoneNumber')}}：{{ row.userAddressInfo.mobile }}</div>
-                <div>{{$t('customers.info.email')}}：{{ row.userAddressInfo.email }}</div>
-                <div>{{$t('customers.info.address')}}：{{ row.userAddressInfo.countryName }} {{ row.userAddressInfo.provinceName }} {{ row.userAddressInfo.cityName }} {{ row.userAddressInfo.address }}</div>
+                <div>
+                  {{ $t("customers.info.name") }}：{{
+                    row.userAddressInfo.firstName
+                  }}
+                </div>
+                <div>
+                  {{ $t("customers.info.postcode") }}：{{
+                    row.userAddressInfo.postcode
+                  }}
+                </div>
+                <div>
+                  {{ $t("customers.info.phoneNumber") }}：{{
+                    row.userAddressInfo.mobile
+                  }}
+                </div>
+                <div>
+                  {{ $t("customers.info.email") }}：{{
+                    row.userAddressInfo.email
+                  }}
+                </div>
+                <div>
+                  {{ $t("customers.info.address") }}：{{
+                    row.userAddressInfo.countryName
+                  }}
+                  {{ row.userAddressInfo.provinceName }}
+                  {{ row.userAddressInfo.cityName }}
+                  {{ row.userAddressInfo.address }}
+                </div>
               </div>
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="logisticsNumber" :label="$t('package.table.expressDelivery')">
+        <el-table-column
+          prop="logisticsNumber"
+          :label="$t('package.table.expressDelivery')"
+        >
           <template #default="{ row }">
             <div v-if="row.status < 10">
-              <div>{{$t('trackingNumber')}}：{{ row.logisticsNumber }}</div>
+              <div>{{ $t("trackingNumber") }}：{{ row.logisticsNumber }}</div>
               <el-popover :width="800">
                 <template #reference>
                   <div v-if="row.trackingList && row.trackingList.length > 0">
-                    {{$t('logisticsTrack')}}：{{
+                    {{ $t("logisticsTrack") }}：{{
                       row.trackingList && row.trackingList[0]?.logisticsDesc
                     }}
                   </div>
                 </template>
-                <template #default> 
+                <template #default>
                   <div class="timeline">
                     <el-timeline>
-                      <el-timeline-item v-for="(item, index) in row.trackingList" :key="index" :timestamp="item.gmtTime" placement="top">
+                      <el-timeline-item
+                        v-for="(item, index) in row.trackingList"
+                        :key="index"
+                        :timestamp="item.gmtTime"
+                        placement="top"
+                      >
                         <p>{{ item.logisticsDesc }}</p>
                       </el-timeline-item>
                     </el-timeline>
@@ -78,7 +122,11 @@
                 </template>
               </el-popover>
               <div class="image-list">
-                <div v-for="(url, index) in row.imgUrlList" :key="url" class="block">
+                <div
+                  v-for="(url, index) in row.imgUrlList"
+                  :key="url"
+                  class="block"
+                >
                   <el-image
                     class="image-list-item"
                     style="width: 60px; height: 60px"
@@ -94,7 +142,6 @@
                     fit="cover"
                   />
                 </div>
-                
               </div>
             </div>
             <div v-else class="estimate-info">
@@ -104,15 +151,20 @@
                 <el-popover :width="800">
                   <template #reference>
                     <div v-if="row.trackingList && row.trackingList.length > 0">
-                      {{$t('logisticsTrack')}}：{{
+                      {{ $t("logisticsTrack") }}：{{
                         row.trackingList && row.trackingList[0]?.logisticsDesc
                       }}
                     </div>
                   </template>
-                  <template #default> 
+                  <template #default>
                     <div class="timeline">
                       <el-timeline>
-                        <el-timeline-item v-for="(item, index) in row.trackingList" :key="index" :timestamp="item.gmtTime" placement="top">
+                        <el-timeline-item
+                          v-for="(item, index) in row.trackingList"
+                          :key="index"
+                          :timestamp="item.gmtTime"
+                          placement="top"
+                        >
                           <p>{{ item.logisticsDesc }}</p>
                         </el-timeline-item>
                       </el-timeline>
@@ -122,22 +174,36 @@
                 <div>包裹运费：{{ row.estimateFreightPrice }}</div>
               </div>
               <div>
-                <div>长 {{row.length}}，宽{{row.width}}，高{{row.height}}</div>
-                <div>{{row.realWeight}}kg；内含8件</div>
+                <div>
+                  长 {{ row.length }}，宽{{ row.width }}，高{{ row.height }}
+                </div>
+                <div>{{ row.realWeight }}kg；内含8件</div>
                 <div>在途 7 天</div>
               </div>
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="gmtCreate" :label="$t('commont.createTime')" width="100" />
-        <el-table-column prop="statusDesc" :label="$t('package.table.latestStatus')" width="100">
+        <el-table-column
+          prop="gmtCreate"
+          :label="$t('commont.createTime')"
+          width="100"
+        />
+        <el-table-column
+          prop="statusDesc"
+          :label="$t('package.table.latestStatus')"
+          width="100"
+        >
           <template #default="{ row }">
             <el-tag>
               {{ row.statusDesc }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('commont.operation')" width="200" align="center">
+        <el-table-column
+          :label="$t('commont.operation')"
+          width="200"
+          align="center"
+        >
           <template #default="{ row }">
             <div>
               <el-button
@@ -146,7 +212,7 @@
                 class="star-btn"
                 @click="handleStarClick(row)"
               >
-                {{$t('commont.share')}}
+                {{ $t("commont.share") }}
               </el-button>
 
               <el-button
@@ -155,7 +221,11 @@
                 class="star-btn"
                 @click="handleMarkClick(row)"
               >
-                {{ row.isMark ? $t('package.cancelSpecialFocus') : $t('package.specialFocus') }}
+                {{
+                  row.isMark
+                    ? $t("package.cancelSpecialFocus")
+                    : $t("package.specialFocus")
+                }}
               </el-button>
               <!-- <el-button
                 v-if="row.status === 1"
@@ -175,11 +245,7 @@
               >
                 包裹详情
               </el-button>
-              <el-button
-                v-if="row.status == 10"
-                type="text"
-                class="star-btn"
-              >
+              <el-button v-if="row.status == 10" type="text" class="star-btn">
                 去支付
               </el-button>
             </div>
@@ -189,11 +255,15 @@
     </div>
     <div v-if="status === 1" class="btn-box">
       <!-- <el-button @click="handleEstimate">一键估算运费</el-button> -->
-      <el-button type="primary" @click="handleSendSubmit">{{$t('package.oneClickDelivery')}}</el-button>
+      <el-button type="primary" @click="handleSendSubmit">{{
+        $t("package.oneClickDelivery")
+      }}</el-button>
     </div>
     <!-- 分页 -->
     <div class="pagination">
-      <div class="total">{{$t('commont.total')}} {{ total }} {{$t('commont.page')}}</div>
+      <div class="total">
+        {{ $t("commont.total") }} {{ total }} {{ $t("commont.page") }}
+      </div>
       <el-pagination
         v-model:current-page="pagination.currentPage"
         v-model:page-size="pagination.pageSize"
@@ -208,10 +278,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref, getCurrentInstance } from "vue";
+import {
+  defineComponent,
+  onMounted,
+  reactive,
+  ref,
+  getCurrentInstance,
+} from "vue";
 import { ElMessage } from "element-plus";
 import { allOrderList } from "@/api/orderList";
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter, useRoute } from "vue-router";
 
 interface Order {
   id: number;
@@ -247,9 +323,9 @@ export default defineComponent({
     // 定义行类名函数
     const tableRowClassName = ({ row }) => {
       if (row.isMark) {
-        return 'status-mark';
-      } 
-      return '';
+        return "status-mark";
+      }
+      return "";
     };
     // 分页状态
     const pagination = reactive({
@@ -277,17 +353,52 @@ export default defineComponent({
     // 流程项数据
     // 状态：-1已取消、0已录入、1已QC、10待支付 、11待发货、12已发货、13已签收、14退货
     const flowItems = ref<FlowItem[]>([
-      { status: -1, icon: "icon-all", label: proxy.$t('package.status.all'), count: 'allOrder' },
-      { status: 0, icon: "icon-recorded", label: proxy.$t('package.status.recorded'), count: 'enterCount' },
-      { status: 1, icon: "icon-qc", label: proxy.$t('package.status.qc'), count: 'qcCount' },
-      { status: 10, icon: "icon-shipped", label: proxy.$t('package.status.waitPay'), count: 'sendCount' },
-      { status: 11, icon: "icon-processing", label: proxy.$t('package.status.processing'), count: 'signCount' },
-      { status: 12, icon: "icon-delivered", label: proxy.$t('package.status.delivered'), count: 'signCount' },
-      { status: 13, icon: "icon-finished", label: proxy.$t('package.status.finished'), count: 'signCount' },
+      {
+        status: -1,
+        icon: "icon-all",
+        label: proxy.$t("package.status.all"),
+        count: "allOrder",
+      },
+      {
+        status: 0,
+        icon: "icon-recorded",
+        label: proxy.$t("package.status.recorded"),
+        count: "enterCount",
+      },
+      {
+        status: 1,
+        icon: "icon-qc",
+        label: proxy.$t("package.status.qc"),
+        count: "qcCount",
+      },
+      {
+        status: 10,
+        icon: "icon-shipped",
+        label: proxy.$t("package.status.waitPay"),
+        count: "sendCount",
+      },
+      {
+        status: 11,
+        icon: "icon-processing",
+        label: proxy.$t("package.status.processing"),
+        count: "signCount",
+      },
+      {
+        status: 12,
+        icon: "icon-delivered",
+        label: proxy.$t("package.status.delivered"),
+        count: "signCount",
+      },
+      {
+        status: 13,
+        icon: "icon-finished",
+        label: proxy.$t("package.status.finished"),
+        count: "signCount",
+      },
     ]);
     // 在组件挂载时获取路由参数
     onMounted(() => {
-      if(route.query.userNo){
+      if (route.query.userNo) {
         searchForm.userNo = route.query.userNo as string; // 获取userNo参数
       }
       loadOrders();
@@ -296,23 +407,33 @@ export default defineComponent({
       selectedOrders.value = selected;
     };
     const handleEstimate = async () => {
-        router.push("/estimate");
+      router.push("/estimate");
     };
     const handleSendSubmit = async () => {
       if (selectedOrders.value.length === 0) {
         ElMessage.error(proxy.$t("order.orderSelectTip"));
         return;
       }
+      if (selectedOrders.value.length > 0) {
+        const firstUserNo = selectedOrders.value[0].userNo; // 获取第一个订单的 userNo
+        const isSameUser = selectedOrders.value.every(
+          (order) => order.userNo === firstUserNo
+        ); // 检查所有订单的 userNo 是否与第一个相同
+        if (!isSameUser) {
+          ElMessage.error("所选订单的用户编号不一致");
+          return;
+        }
+      }
       let userNo = selectedOrders.value[0].userNo;
       let sameUser = true;
-      selectedOrders.value.forEach(item => {
-         if (item.userNo !== userNo) {
-            sameUser = false;
-         }
+      selectedOrders.value.forEach((item) => {
+        if (item.userNo !== userNo) {
+          sameUser = false;
+        }
       });
       if (!sameUser) {
-         ElMessage.error(proxy.$t("order.orderNotSameUserTip"));
-         return;
+        ElMessage.error(proxy.$t("order.orderNotSameUserTip"));
+        return;
       }
       const ids = selectedOrders.value.map((item) => item.id);
       console.log(ids);
@@ -321,7 +442,7 @@ export default defineComponent({
       router.push("/submit-transfer");
     };
     const handlePackageClick = (row) => {
-      router.push("/package-detail?id="+row.orderNo);
+      router.push("/package-detail?id=" + row.orderNo);
     };
     // 加载订单列表
     const loadOrders = async () => {
@@ -342,7 +463,7 @@ export default defineComponent({
         if (status.value < 10) {
           params.status = status.value;
           if (status.value === -1) {
-             delete params.status;
+            delete params.status;
           }
           requestName = "getOrderList";
         } else {
@@ -366,13 +487,11 @@ export default defineComponent({
       searchForm.isMark = searchForm.isMark ? 0 : 1;
       loadOrders();
     };
-    const getCountList = async() => {
+    const getCountList = async () => {
       try {
-        const res =  await allOrderList.getOrderCount();
+        const res = await allOrderList.getOrderCount();
         countList.value = res.data;
-      } catch (error) {
-      }
-
+      } catch (error) {}
     };
     // 分页事件处理
     const handleSizeChange = (val: number) => {
@@ -390,7 +509,7 @@ export default defineComponent({
         tpSubOrderId: order.id,
         isMark: order.isMark ? 0 : 1,
       });
-      ElMessage.success(`标记订单：${order.trackingNo}`);
+      ElMessage.success(`特别关注状态更新成功`);
       loadOrders();
     };
     // 处理share点击事件
@@ -399,9 +518,9 @@ export default defineComponent({
         userNo: order.userNo,
         orderId: order.id,
       });
-      console.log(2222, data);
+      console.log("share", data);
       // 处理shareCount点击事件
-      ElMessage.success(`分享订单：${order.trackingNo}`);
+      ElMessage.success(`分享订单成功`);
     };
     // 处理流程项点击事件
     const handleFlowItemClick = (newStatus: number) => {
@@ -444,21 +563,21 @@ export default defineComponent({
 .order-list {
   padding: 20px;
 }
-.estimate-info{
+.estimate-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-:deep .el-table tr.status-mark{
+:deep .el-table tr.status-mark {
   background: #ffebfe;
 }
-.timeline{
+.timeline {
   height: 350px;
   overflow: scroll;
 }
-.image-list{
+.image-list {
   display: flex;
-  .image-list-item{
+  .image-list-item {
     width: 100px;
     margin-right: 8px;
     border-radius: 8px;
