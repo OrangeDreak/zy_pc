@@ -49,7 +49,7 @@
             </el-form-item>
 
             <div class="form-options">
-              <span class="forgot-password">忘记密码?</span>
+              <span class="forgot-password" @click="$router.push('/forget')">忘记密码?</span>
               <el-link type="primary" @click="$router.push('/register')">注册</el-link>
             </div>
 

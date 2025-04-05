@@ -44,6 +44,13 @@ export const allOrderList = {
       data
     })
   },
+  sharingListForBusiness(data) {
+    return request({
+      url: '/app/tp/order/sharingListForBusiness',
+      method: 'post',
+      data
+    })
+  },
   updateAttentionMark(data) {
     return request({
       url: '/app/tp/order/updateAttentionMark',

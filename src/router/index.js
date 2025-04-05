@@ -15,6 +15,12 @@ const routes = [
     meta: { title: '登录' }
   },
   {
+    path: '/forget',
+    name: 'Forget',
+    component: () => import('@/views/auth/Forget.vue'),
+    meta: { title: '找回密码' }
+  },
+  {
     path: '/register',
     name: 'Register',
     component: () => import('@/views/auth/Register.vue'),
@@ -25,6 +31,12 @@ const routes = [
     name: 'AddTransfer',
     component: () => import('@/views/transfer/AddTransferOrder.vue'),
     meta: { title: '添加转运订单' }
+  },
+  {
+    path: '/order-share-transfer',
+    name: 'OrderShareList',
+    component: () => import('@/views/order/OrderShareList.vue'),
+    meta: { title: '转运订单' }
   },
   {
     path: '/estimate',
