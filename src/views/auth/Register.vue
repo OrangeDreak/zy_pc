@@ -1,17 +1,10 @@
 <template>
   <div class="register-container">
-    <div class="register-header">
-      <div class="time">{{ currentTime }}</div>
-      <div class="lang-switch">
-        <span>中文/USD</span>
-        <el-icon><ArrowDown /></el-icon>
-      </div>
-    </div>
+    <common-header />
 
     <div class="register-content">
       <!-- 左侧 Logo 和标语 -->
       <div class="register-left">
-        <div class="logo"><img src="@/assets/images/common/logo.jpg" height="60px"> </img></div>
         <div class="slogan">
           <div class="slogan-text">中国购物，递送全球</div>
           <div class="features">
@@ -35,31 +28,48 @@
       <div class="register-right">
         <el-card class="register-card">
           <h2 class="register-title">注册</h2>
-          
+
           <el-form ref="formRef" :model="registerForm" :rules="rules">
             <el-form-item prop="firstName">
-              <el-input 
+              <el-input
                 v-model="registerForm.firstName"
                 placeholder="请填写姓氏"
                 prefix-icon="Message"
               />
             </el-form-item>
             <el-form-item prop="lastName">
-              <el-input 
+              <el-input
                 v-model="registerForm.lastName"
                 placeholder="请填写名字"
                 prefix-icon="Message"
               />
             </el-form-item>
             <el-form-item prop="email">
-              <el-input 
+              <el-input
                 v-model="registerForm.email"
                 placeholder="邮箱(请填写真实可用的邮箱)"
                 prefix-icon="Message"
               />
             </el-form-item>
+            <el-form-item prop="emailCaptcha">
+              <el-input
+                v-model="registerForm.emailCaptcha"
+                placeholder="请输入邮箱验证码"
+                prefix-icon="Promotion"
+              >
+                <template #suffix>
+                  <el-button
+                    type="primary"
+                    :disabled="isCaptchaDisabled"
+                    @click="handleGetCaptcha"
+                  >
+                    获取验证码
+                  </el-button>
+                </template>
+              </el-input>
+            </el-form-item>
             <el-form-item prop="password">
-              <el-input 
+              <el-input
                 v-model="registerForm.password"
                 type="password"
                 placeholder="密码"
@@ -67,25 +77,18 @@
                 show-password
               />
             </el-form-item>
-
-            <el-form-item prop="emailCaptcha">
-              <el-input 
-                v-model="registerForm.emailCaptcha"
-                placeholder="请输入邮箱验证码"
-                prefix-icon="Promotion"
-              />
-            </el-form-item>
-
             <el-form-item class="agreement">
               <el-checkbox v-model="registerForm.agreement">
                 我已阅读并同意
-                <el-link type="primary" @click="showAgreement('user')">《QC elf用户注册协议》</el-link>
+                <el-link type="primary" @click="showAgreement('user')"
+                  >《QC elf用户注册协议》</el-link
+                >
               </el-checkbox>
             </el-form-item>
 
             <el-form-item>
-              <el-button 
-                type="primary" 
+              <el-button
+                type="primary"
                 class="register-button"
                 :loading="loading"
                 @click="handleRegister"
@@ -95,7 +98,9 @@
             </el-form-item>
 
             <div class="login-link">
-              已有账号？<el-link type="primary" @click="$router.push('/login')">去登录</el-link>
+              已有账号？<el-link type="primary" @click="$router.push('/login')"
+                >去登录</el-link
+              >
             </div>
           </el-form>
         </el-card>
@@ -105,96 +110,111 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
-import { auth } from '@/api/auth'
-import { ArrowDown, Message, Lock, Promotion } from '@element-plus/icons-vue'
+import { ref, onMounted, onUnmounted } from "vue";
+import { useRouter } from "vue-router";
+import { ElMessage } from "element-plus";
+import { auth } from "@/api/auth";
+import CommonHeader from "@/components/layout/CommonHeader.vue";
+import { ArrowDown, Message, Lock, Promotion } from "@element-plus/icons-vue";
 
-const router = useRouter()
-const formRef = ref(null)
-const loading = ref(false)
-const currentTime = ref('')
+const router = useRouter();
+const formRef = ref(null);
+const loading = ref(false);
+const currentTime = ref("");
 
 const registerForm = ref({
-  username: '',
-  password: '',
-  confirmPassword: '',
-  inviteCode: '',
-  agreement: false
-})
+  username: "",
+  password: "",
+  confirmPassword: "",
+  inviteCode: "",
+  agreement: false,
+});
 
 const validatePass2 = (rule, value, callback) => {
-  if (value === '') {
-    callback(new Error('请再次输入密码'))
+  if (value === "") {
+    callback(new Error("请再次输入密码"));
   } else if (value !== registerForm.value.password) {
-    callback(new Error('两次输入密码不一致!'))
+    callback(new Error("两次输入密码不一致!"));
   } else {
-    callback()
+    callback();
   }
-}
+};
 
 const rules = {
   email: [
-    { required: true, message: '请输入邮箱', trigger: 'blur' },
-    { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
+    { required: true, message: "请输入邮箱", trigger: "blur" },
+    { type: "email", message: "请输入正确的邮箱地址", trigger: "blur" },
   ],
   password: [
-    { required: true, message: '请输入密码', trigger: 'blur' },
-    { min: 6, message: '密码长度不能小于6位', trigger: 'blur' }
+    { required: true, message: "请输入密码", trigger: "blur" },
+    { min: 6, message: "密码长度不能小于6位", trigger: "blur" },
   ],
   agreement: [
-    { 
+    {
       validator: (rule, value, callback) => {
         if (!value) {
-          callback(new Error('请阅读并同意用户协议和隐私声明'))
+          callback(new Error("请阅读并同意用户协议和隐私声明"));
         } else {
-          callback()
+          callback();
         }
-      }, 
-      trigger: 'change'
-    }
-  ]
-}
+      },
+      trigger: "change",
+    },
+  ],
+};
 
 // 更新时间
 const updateTime = () => {
-  const now = new Date()
-  currentTime.value = now.toLocaleString('zh-CN', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false
-  }).replace(/\//g, '-')
-}
+  const now = new Date();
+  currentTime.value = now
+    .toLocaleString("zh-CN", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+    })
+    .replace(/\//g, "-");
+};
 
-let timer = null
+let timer = null;
 
 onMounted(() => {
-  updateTime()
-  timer = setInterval(updateTime, 1000)
-})
+  updateTime();
+  timer = setInterval(updateTime, 1000);
+});
 
 onUnmounted(() => {
   if (timer) {
-    clearInterval(timer)
+    clearInterval(timer);
   }
-})
+});
 
 const showAgreement = (type) => {
   // TODO: 显示用户协议或隐私声明
-  ElMessage.info(`查看${type === 'user' ? '用户协议' : '隐私声明'}`)
-}
+  ElMessage.info(`查看${type === "user" ? "用户协议" : "隐私声明"}`);
+};
 
+const handleGetCaptcha = async() => {
+  // TODO: 获取验证码
+  try {
+    const response = await auth.sendEmailCode({
+      email: registerForm.value.email,
+      emailScene: 0,
+    });
+    ElMessage.info("发送验证码成功，请查看邮箱");
+  } catch (error) {
+    ElMessage.error("获取验证码失败");
+  }
+};
 const handleRegister = async () => {
-  if (!formRef.value) return
-  
+  if (!formRef.value) return;
+
   await formRef.value.validate(async (valid) => {
     if (valid) {
-      loading.value = true
+      loading.value = true;
       try {
         await auth.register({
           firstName: registerForm.value.firstName,
@@ -202,21 +222,21 @@ const handleRegister = async () => {
           email: registerForm.value.email,
           password: registerForm.value.password,
           emailCaptcha: registerForm.value.emailCaptcha,
-        })
-        ElMessage.success('注册成功')
-        router.push('/login')
+        });
+        ElMessage.success("注册成功");
+        router.push("/login");
       } catch (error) {
-        console.error('注册失败:', error)
+        console.error("注册失败:", error);
       } finally {
-        loading.value = false
+        loading.value = false;
       }
     }
-  })
-}
+  });
+};
 </script>
 
 <style lang="less" scoped>
-@import '@/styles/variables.less';
+@import "@/styles/variables.less";
 
 .register-container {
   min-height: 100vh;
@@ -224,24 +244,9 @@ const handleRegister = async () => {
   display: flex;
   flex-direction: column;
 
-  .register-header {
-    height: 40px;
-    padding: 0 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #fff;
-    font-size: 14px;
-
-    .lang-switch {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      cursor: pointer;
-    }
-  }
-
   .register-content {
+    min-width: 1280px;
+    margin: 0 auto;
     flex: 1;
     display: flex;
     align-items: center;
@@ -257,7 +262,11 @@ const handleRegister = async () => {
         font-size: 48px;
         font-weight: bold;
         margin-bottom: 40px;
-        background: linear-gradient(to right, @primary-color, darken(@primary-color, 10%));
+        background: linear-gradient(
+          to right,
+          @primary-color,
+          darken(@primary-color, 10%)
+        );
         -webkit-background-clip: text;
         color: transparent;
       }
@@ -310,7 +319,7 @@ const handleRegister = async () => {
 
         .agreement {
           margin-bottom: 20px;
-          
+
           :deep(.el-checkbox__label) {
             color: @text-regular;
           }

@@ -45,7 +45,7 @@
         <el-table-column prop="userNo" :label="$t('package.table.addressInfo')" width="320">
           <template #default="{ row }">
             <div class="user-info">
-              <div>
+              <div v-if="row.status < 10">
                 <div>{{$t('customers.info.name')}}：{{ row.userAddressInfo.firstName }}</div>
                 <div>{{$t('customers.info.postcode')}}：{{ row.userAddressInfo.postcode }}</div>
                 <div>{{$t('customers.info.phoneNumber')}}：{{ row.userAddressInfo.mobile }}</div>
@@ -337,7 +337,7 @@ export default defineComponent({
         if (!params.isMark) {
           delete params.isMark;
         }
-        
+        orders.value = [];
         let requestName = "getOrderList";
         if (status.value < 10) {
           params.status = status.value;
