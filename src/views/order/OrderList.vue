@@ -45,19 +45,19 @@
         <el-table-column prop="userNo" :label="$t('package.table.addressInfo')" width="320">
           <template #default="{ row }">
             <div class="user-info">
-              <!-- <div>
+              <div>
                 <div>{{$t('customers.info.name')}}：{{ row.userAddressInfo.firstName }}</div>
                 <div>{{$t('customers.info.postcode')}}：{{ row.userAddressInfo.postcode }}</div>
                 <div>{{$t('customers.info.phoneNumber')}}：{{ row.userAddressInfo.mobile }}</div>
                 <div>{{$t('customers.info.email')}}：{{ row.userAddressInfo.email }}</div>
                 <div>{{$t('customers.info.address')}}：{{ row.userAddressInfo.countryName }} {{ row.userAddressInfo.provinceName }} {{ row.userAddressInfo.cityName }} {{ row.userAddressInfo.address }}</div>
-              </div> -->
+              </div>
             </div>
           </template>
         </el-table-column>
         <el-table-column prop="logisticsNumber" :label="$t('package.table.expressDelivery')">
           <template #default="{ row }">
-            <div v-if="row.status > 10">
+            <div v-if="row.status < 10">
               <div>{{$t('trackingNumber')}}：{{ row.logisticsNumber }}</div>
               <el-popover :width="800">
                 <template #reference>
@@ -337,13 +337,13 @@ export default defineComponent({
         if (!params.isMark) {
           delete params.isMark;
         }
-        if (status.value > -1) {
-          params.status = status.value;
-        }
+        
         let requestName = "getOrderList";
         if (status.value < 10) {
           params.status = status.value;
-          // requestName = 'getQcOrderList';
+          if (status.value === -1) {
+             delete params.status;
+          }
           requestName = "getOrderList";
         } else {
           params.status = status.value;

@@ -3,6 +3,12 @@ import { useAuthStore } from '@/stores/auth'
 
 const routes = [
   {
+    path: '/',
+    name: 'Home',
+    component: () => import('@/views/home/index.vue'),
+    meta: { title: '首页' }
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/auth/Login.vue'),
@@ -46,8 +52,8 @@ const routes = [
   },
   {
     path: '/',
+    name: 'Layout',
     component: () => import('@/layouts/MainLayout.vue'),
-    redirect: '/orders',
     children: [
       {
         path: 'users',
