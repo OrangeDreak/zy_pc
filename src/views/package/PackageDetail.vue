@@ -128,25 +128,20 @@
     <!-- 商品清单 -->
     <div class="info-card">
       <div class="card-title">商品清单</div>
-      <el-table :data="productList" style="width: 100%">
+      <el-table :data="packageDetail.skuDetailList" style="width: 100%">
         <el-table-column label="商品详情" min-width="400">
           <template #default="{ row }">
             <div class="product-info">
-              <el-image :src="row.image" class="product-image" />
+              <el-image :src="row.headPic" class="product-image" />
               <div class="product-detail">
-                <div class="product-name">{{ row.name }}</div>
-                <div class="product-spec">
-                  颜色：{{ row.color }}
-                  <span v-if="row.size">尺码：{{ row.size }}</span>
-                </div>
-                <div class="product-id">{{ row.id }}</div>
+                <div class="product-name">{{ row.productName }}</div>
               </div>
             </div>
           </template>
         </el-table-column>
         <el-table-column label="数量" width="120" align="center">
           <template #default="{ row }">
-            ×{{ row.quantity }}
+            ×{{ row.skuNum }}
           </template>
         </el-table-column>
       </el-table>
