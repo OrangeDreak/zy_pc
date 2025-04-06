@@ -350,6 +350,42 @@ const handleImageUpload = (file, orderIndex, itemIndex) => {
 
 // 提交表单
 const handleSubmit = async () => {
+  // 数据校验
+  const validateData = () => {
+    for (let i = 0; i < orders.value.length; i++) {
+      const order = orders.value[i];
+      
+      // 校验 userNo 是否为空
+      if (!order.userNo) {
+        ElMessage.error(`第 ${i + 1} 个订单的用户编码不能为空`);
+        return false;
+      }
+
+      // 校验 trackingInfoList 是否为空
+      if (order.trackingInfoList.length === 0) {
+        ElMessage.error(`第 ${i + 1} 个订单的快递单号列表不能为空`);
+        return false;
+      }
+
+      // 校验每个快递单号的 trackingNumber 和 price 是否为空
+      for (let j = 0; j < order.trackingInfoList.length; j++) {
+        const trackingInfo = order.trackingInfoList[j];
+        if (!trackingInfo.trackingNumber) {
+          ElMessage.error(`第 ${i + 1} 个订单的第 ${j + 1} 个快递单号不能为空`);
+          return false;
+        }
+        if (!trackingInfo.price) {
+          ElMessage.error(`第 ${i + 1} 个订单的第 ${j + 1} 个快递单号的价格不能为空`);
+          return false;
+        }
+      }
+    }
+    return true;
+  };
+  // 如果校验失败，停止提交
+  if (!validateData()) {
+    return;
+  } 
   loading.value = true;
   try {
     // TODO: 调用提交API，提交整个orders数组
