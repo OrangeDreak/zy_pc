@@ -17,6 +17,7 @@ export default {
     },
     user: {
       profile: 'Profile',
+      orders: 'Orders',
       logout: 'Logout'
     }
   },

@@ -175,7 +175,9 @@
               </div>
               <div>
                 <div>
-                  {{ row.estimatePackageSizeDTO.length }}*{{ row.estimatePackageSizeDTO.width }}*{{ row.estimatePackageSizeDTO.height }}
+                  {{ row.estimatePackageSizeDTO.length }}*{{
+                    row.estimatePackageSizeDTO.width
+                  }}*{{ row.estimatePackageSizeDTO.height }}
                 </div>
                 <div>{{ row.estimatePackageSizeDTO.weight }}g</div>
                 <div>内含8件</div>
@@ -185,6 +187,7 @@
           </template>
         </el-table-column>
         <el-table-column
+          v-if="status < 10"
           prop="gmtCreate"
           :label="$t('commont.createTime')"
           width="100"
@@ -196,7 +199,7 @@
         >
           <template #default="{ row }">
             <el-tag>
-              {{ row.statusDesc }}
+              {{ $i18n.locale === "en" ? row.statusDescEn : row.statusDesc }}
             </el-tag>
           </template>
         </el-table-column>
@@ -208,8 +211,8 @@
           <template #default="{ row }">
             <div>
               <el-button
+                v-if="status != 10"
                 type="text"
-                :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
                 class="star-btn"
                 @click="handleStarClick(row)"
               >
@@ -217,8 +220,8 @@
               </el-button>
 
               <el-button
+                v-if="status != 10"
                 type="text"
-                :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
                 class="star-btn"
                 @click="handleMarkClick(row)"
               >
@@ -228,26 +231,31 @@
                     : $t("package.specialFocus")
                 }}
               </el-button>
-              <!-- <el-button
-                v-if="row.status === 1"
-                type="text"
-                :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
-                class="star-btn"
-              >
-                退货
-              </el-button> -->
             </div>
             <div v-if="row.status >= 0">
-              <el-button v-if="row.status >= 10"
+              <el-button
+                v-if="row.status >= 10"
                 type="text"
-                :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
                 class="star-btn"
                 @click="handlePackageClick(row)"
               >
-              {{ $t("package.table.detail") }}
+                {{ $t("package.table.detail") }}
               </el-button>
-              <el-button v-if="row.status == 10" type="text" class="star-btn" @click="handlePayClick(row)">
+              <el-button
+                v-if="row.status == 10"
+                type="text"
+                class="star-btn"
+                @click="handlePayClick(row)"
+              >
                 {{ $t("package.table.goPay") }}
+              </el-button>
+              <el-button
+                v-if="row.status === 10"
+                type="text"
+                class="star-btn"
+                @click="handleCancelClick(row)"
+              >
+                取消包裹
               </el-button>
             </div>
           </template>
@@ -287,7 +295,7 @@ import {
   getCurrentInstance,
   computed,
 } from "vue";
-import { ElMessage } from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
 import { allOrderList } from "@/api/orderList";
 import { useRouter, useRoute } from "vue-router";
 
@@ -449,6 +457,26 @@ export default defineComponent({
     const handlePayClick = (row) => {
       router.push(`/pay?payType=3&userPayId=${row.userPayId}`);
     };
+    const handleCancelClick = async (row) => {
+      try {
+        await ElMessageBox.confirm("确认取消包裹订单吗？", "提示", {
+          type: "warning",
+        }).then(async () => {
+          await allOrderList
+            .packageOrderCancel({
+              packageOrderId: row.id,
+              cancelReason: "cancel",
+            })
+            .then((res) => {
+              if (res.code === 200) {
+                loadOrders();
+              }
+            });
+        });
+      } catch (error) {
+        console.error("删除失败:", error);
+      }
+    };
     // 加载订单列表
     const loadOrders = async () => {
       try {
@@ -568,6 +596,7 @@ export default defineComponent({
       tableRowClassName,
       handlePackageClick,
       handlePayClick,
+      handleCancelClick,
     };
   },
 });

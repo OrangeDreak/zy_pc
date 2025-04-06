@@ -73,5 +73,11 @@ export const allOrderList = {
     })
   },
   
-  
+  packageOrderCancel(data) {
+    return request({
+      url: '/app/package-order/packageOrderCancel',
+      method: 'post',
+      data
+    })
+  },
 } 

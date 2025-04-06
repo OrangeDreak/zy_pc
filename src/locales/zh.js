@@ -17,6 +17,7 @@ export default {
     },
     user: {
       profile: '个人资料',
+      orders: '我的订单',
       logout: '退出登录'
     }
   },

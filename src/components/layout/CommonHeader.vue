@@ -20,6 +20,7 @@
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item command="profile">{{ $t('header.user.profile') }}</el-dropdown-item>
+              <el-dropdown-item command="orders">{{ $t('header.user.orders') }}</el-dropdown-item>
               <el-dropdown-item command="logout">{{ $t('header.user.logout') }}</el-dropdown-item>
             </el-dropdown-menu>
           </template>
@@ -66,6 +67,8 @@ const handleCommand = (command) => {
     router.push('/login')
   } else if (command === 'profile') {
     router.push('/profile')
+  } else if (command === 'orders') {
+    router.push('/orders')
   }
 }
 const handleEstimate = async () => {
