@@ -137,13 +137,13 @@ export default {
   package: {
     title: 'My Packages',
     status: {
-      all: 'ALL',
-      recorded: 'RECORDED',
+      all: 'All',
+      recorded: 'Recorded',
       qc: 'QC',
-      waitPay: 'WAITPAY',
-      processing: 'PROCESSING',
-      delivered: 'DELIVERED',
-      finished: 'FINISHED'
+      waitPay: 'WaitPay',
+      processing: 'Processing',
+      delivered: 'Delivered',
+      finished: 'Finished'
     },
     table: {
       customerCode: 'customer Code' ,
@@ -152,6 +152,8 @@ export default {
       latestStatus: 'Latest Status',
       trackingNumber: 'Tracking Number',
       logisticsTrack: 'Logistics Track',
+      detail: 'Detail',
+      goPay: 'Go Pay'
     },
     search: {
       placeholder: 'Order No.',

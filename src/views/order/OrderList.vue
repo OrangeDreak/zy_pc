@@ -175,9 +175,10 @@
               </div>
               <div>
                 <div>
-                  长 {{ row.length }}，宽{{ row.width }}，高{{ row.height }}
+                  {{ row.estimatePackageSizeDTO.length }}*{{ row.estimatePackageSizeDTO.width }}*{{ row.estimatePackageSizeDTO.height }}
                 </div>
-                <div>{{ row.realWeight }}kg；内含8件</div>
+                <div>{{ row.estimatePackageSizeDTO.weight }}g</div>
+                <div>内含8件</div>
                 <div>在途 7 天</div>
               </div>
             </div>
@@ -237,16 +238,16 @@
               </el-button> -->
             </div>
             <div v-if="row.status >= 0">
-              <el-button
+              <el-button v-if="row.status >= 10"
                 type="text"
                 :icon="row.isStarred ? 'el-icon-star-on' : 'el-icon-star-off'"
                 class="star-btn"
                 @click="handlePackageClick(row)"
               >
-                包裹详情
+              {{ $t("package.table.detail") }}
               </el-button>
-              <el-button v-if="row.status == 10" type="text" class="star-btn">
-                去支付
+              <el-button v-if="row.status == 10" type="text" class="star-btn" @click="handlePayClick(row)">
+                {{ $t("package.table.goPay") }}
               </el-button>
             </div>
           </template>
@@ -442,7 +443,10 @@ export default defineComponent({
       router.push("/submit-transfer");
     };
     const handlePackageClick = (row) => {
-      router.push("/package-detail?id=" + row.orderNo);
+      router.push("/package-detail?id=" + row.id);
+    };
+    const handlePayClick = (row) => {
+      router.push("/pay?id=" + row.id);
     };
     // 加载订单列表
     const loadOrders = async () => {
@@ -562,6 +566,7 @@ export default defineComponent({
       handleSearchMark,
       tableRowClassName,
       handlePackageClick,
+      handlePayClick,
     };
   },
 });
