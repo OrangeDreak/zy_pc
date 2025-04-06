@@ -149,7 +149,7 @@ router.beforeEach((to, from, next) => {
   // const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
 
   // 更新页面标题
-  document.title = to.meta.title ? `${to.meta.title} - PC Admin` : 'PC Admin'
+  document.title = to.meta.title ? `${to.meta.title} - QC elf` : 'QC elf'
 
   // if (requiresAuth && !authStore.token) {
   //   next('/login')
