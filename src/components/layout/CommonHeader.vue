@@ -112,6 +112,7 @@ const handleLangChange = (lang) => {
       font-weight: bold;
       color: @primary-color;
       overflow: hidden;
+      cursor: pointer;
       img{
         height: 56px;
       }

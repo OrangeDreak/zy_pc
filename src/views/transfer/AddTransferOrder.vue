@@ -287,6 +287,9 @@ let timer = null;
 onMounted(() => {
   updateTime();
   timer = setInterval(updateTime, 1000);
+  if (!authStore.token) {
+    router.push('/login')
+  }
 });
 
 onUnmounted(() => {
