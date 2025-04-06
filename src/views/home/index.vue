@@ -128,7 +128,7 @@ const features = ref([
 .use-rightNow{
   width: 200px;
   height: 60px;
-  background-color: #8B5CF6;
+  background-color: #c803be;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -143,9 +143,11 @@ const features = ref([
 }
 
 .gradient-bg {
-  background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%);
+  background: linear-gradient(135deg, #c803be 0%, #f95bf1 100%);
 }
-
+.text-white{
+  color: #fff;
+}
 :deep(.el-button) {
   font-weight: normal;
 }
