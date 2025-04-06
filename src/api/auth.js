@@ -25,5 +25,13 @@ export const auth = {
       method: 'post',
       data
     })
+  },
+  // 忘记密码
+  handleForget(data) {
+    return request({
+      url: '/app/user/forgetPassword',
+      method: 'post',
+      data
+    })
   }
 } 

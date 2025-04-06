@@ -139,6 +139,8 @@ export default {
       latestStatus: '最新状态',
       trackingNumber: '快递单号',
       logisticsTrack: '物流轨迹',
+      detail: '包裹详情',
+      goPay: '去支付'
     },
     specialFocus: '特别关注',
     cancelSpecialFocus: '取消特别关注',
@@ -283,7 +285,7 @@ export default {
       starred: '特别关注',
       trackingSearch: '快递单号搜索',
       customerSearch: '客户编码搜索',
-      shared: '已分享/未分享'
+      shared: '已分享/未分享',
     },
     card: {
       trackingNo: '快递单号',

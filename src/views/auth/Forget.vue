@@ -29,31 +29,31 @@
         <el-card class="register-card">
           <h2 class="register-title">找回密码</h2>
 
-          <el-form ref="formRef" :model="registerForm" :rules="rules">
-            <el-form-item prop="firstName">
+          <el-form ref="formRef" :model="forgetForm" :rules="rules">
+            <!-- <el-form-item prop="firstName">
               <el-input
-                v-model="registerForm.firstName"
+                v-model="forgetForm.firstName"
                 placeholder="请填写姓氏"
                 prefix-icon="Message"
               />
-            </el-form-item>
-            <el-form-item prop="lastName">
+            </el-form-item> -->
+            <!-- <el-form-item prop="lastName">
               <el-input
-                v-model="registerForm.lastName"
+                v-model="forgetForm.lastName"
                 placeholder="请填写名字"
                 prefix-icon="Message"
               />
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item prop="email">
               <el-input
-                v-model="registerForm.email"
+                v-model="forgetForm.email"
                 placeholder="输入您绑定的邮箱"
                 prefix-icon="Message"
               />
             </el-form-item>
             <el-form-item prop="emailCaptcha">
               <el-input
-                v-model="registerForm.emailCaptcha"
+                v-model="forgetForm.emailCaptcha"
                 placeholder="请输入邮箱验证码"
                 prefix-icon="Promotion"
               >
@@ -71,7 +71,7 @@
             </el-form-item>
             <el-form-item prop="password">
               <el-input
-                v-model="registerForm.password"
+                v-model="forgetForm.password"
                 type="password"
                 placeholder="请输入重置密码"
                 prefix-icon="Lock"
@@ -80,7 +80,7 @@
             </el-form-item>
             <el-form-item prop="password">
               <el-input
-                v-model="registerForm.confirmPassword"
+                v-model="forgetForm.confirmPassword"
                 type="password"
                 placeholder="确认密码"
                 prefix-icon="Lock"
@@ -92,7 +92,7 @@
                 type="primary"
                 class="register-button"
                 :loading="loading"
-                @click="handleRegister"
+                @click="handleForget"
               >
                 确定
               </el-button>
@@ -123,7 +123,7 @@ const formRef = ref(null);
 const loading = ref(false);
 const currentTime = ref("");
 
-const registerForm = ref({
+const forgetForm = ref({
   username: "",
   password: "",
   confirmPassword: "",
@@ -134,7 +134,7 @@ const registerForm = ref({
 const validatePass2 = (rule, value, callback) => {
   if (value === "") {
     callback(new Error("请再次输入密码"));
-  } else if (value !== registerForm.value.password) {
+  } else if (value !== forgetForm.value.password) {
     callback(new Error("两次输入密码不一致!"));
   } else {
     callback();
@@ -202,32 +202,30 @@ const handleGetCaptcha = async() => {
   // TODO: 获取验证码
   try {
     const response = await auth.sendEmailCode({
-      email: registerForm.value.email,
-      emailScene: 0,
+      email: forgetForm.value.email,
+      emailScene: 1,
     });
-    ElMessage.info("发送验证码成功，请查看邮箱");
+    ElMessage.success("发送验证码成功，请查看邮箱");
   } catch (error) {
     ElMessage.error("获取验证码失败");
   }
 };
-const handleRegister = async () => {
+const handleForget = async () => {
   if (!formRef.value) return;
 
   await formRef.value.validate(async (valid) => {
     if (valid) {
       loading.value = true;
       try {
-        await auth.register({
-          firstName: registerForm.value.firstName,
-          lastName: registerForm.value.lastName,
-          email: registerForm.value.email,
-          password: registerForm.value.password,
-          emailCaptcha: registerForm.value.emailCaptcha,
+        await auth.handleForget({
+          email: forgetForm.value.email,
+          password: forgetForm.value.password,
+          emailCaptcha: forgetForm.value.emailCaptcha,
         });
-        ElMessage.success("注册成功");
+        ElMessage.success("修改密码成功");
         router.push("/login");
       } catch (error) {
-        console.error("注册失败:", error);
+        console.error("密码修改失败:", error);
       } finally {
         loading.value = false;
       }
