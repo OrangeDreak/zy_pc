@@ -80,15 +80,15 @@
       <div class="fee-details">
         <div class="fee-row">
           <span class="label">预估押金①：</span>
-          <span class="value">${{ fees.deposit }}</span>
+          <span class="value">{{ packageDetail.freightDeposit }}</span>
         </div>
         <div class="fee-row">
           <span class="label">预估运费：</span>
-          <span class="value">${{ fees.shipping }}</span>
+          <span class="value">{{ packageDetail.estimateFreightPrice }}</span>
         </div>
         <div class="fee-row sub-item">
           <span class="label">包裹预估重量：</span>
-          <span class="value">{{ weight }}g</span>
+          <span class="value">{{ packageDetail.estimatePackWeight }}g</span>
         </div>
         <div class="fee-row sub-item">
           <span class="label">首重({{ firstWeightRate }}/500g)：</span>
