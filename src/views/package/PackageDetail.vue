@@ -10,16 +10,16 @@
     <!-- 状态栏 -->
     <div class="status-bar">
       <el-icon class="status-icon"><Box /></el-icon>
-      <span class="status-text">已取消</span>
+      <span class="status-text">{{packageDetail.orderStatusDesc}}</span>
       <div class="package-no">
-        包裹编号：{{ packageNo }}
+        包裹编号：{{ packageDetail.packageOrderNo }}
         <el-button link type="primary" class="copy-btn">
           <el-icon><DocumentCopy /></el-icon>
         </el-button>
       </div>
-      <div class="submit-time">提交时间：{{ submitTime }}</div>
-      <div class="tip">如果在运输过程中发生任何问题，您将通过Account->Message收到通知</div>
-      <div class="tag">关键词：ces</div>
+      <div class="submit-time">提交时间：{{ packageDetail.gmtCreate }}</div>
+      <!-- <div class="tip">如果在运输过程中发生任何问题，您将通过Account->Message收到通知</div> -->
+      <!-- <div class="tag">关键词：ces</div> -->
     </div>
 
     <!-- 收货信息 -->
@@ -27,11 +27,11 @@
       <div class="card-title">收货信息</div>
       <div class="info-content">
         <div class="info-item">
-          <span class="label">w mc</span>
-          <span class="value">4804170764</span>
+          <span class="label">{{packageDetail.firstName}} {{packageDetail.lastName}}</span>
+          <span class="value">{{ packageDetail.mobile }}</span>
         </div>
         <div class="info-item full-width">
-          <span class="value">Canada/Alberta/Chandler/nash smyer 85226 4804170764 225</span>
+          <span class="value">{{packageDetail.countryName}}/{{packageDetail.provinceName}}/{{packageDetail.cityName}}/{{packageDetail.address}}</span>
         </div>
       </div>
     </div>
@@ -43,11 +43,11 @@
         <div class="info-row">
           <div class="info-item">
             <span class="label">寄送国家：</span>
-            <span class="value">Canada</span>
+            <span class="value">{{packageDetail.sendCountry}}</span>
           </div>
           <div class="info-item">
             <span class="label">寄送线路：</span>
-            <span class="value">马来联邦</span>
+            <span class="value">{{packageDetail.logisticsLineName}}</span>
           </div>
           <div class="info-item">
             <span class="label">物流跟踪：</span>
@@ -220,6 +220,7 @@ const productList = [
 @import '@/styles/variables.less';
 
 .package-detail {
+  padding-top: 20px;
   .breadcrumb {
     display: flex;
     align-items: center;
