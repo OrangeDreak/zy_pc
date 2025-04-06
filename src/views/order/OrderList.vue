@@ -285,6 +285,7 @@ import {
   reactive,
   ref,
   getCurrentInstance,
+  computed,
 } from "vue";
 import { ElMessage } from "element-plus";
 import { allOrderList } from "@/api/orderList";
@@ -353,7 +354,7 @@ export default defineComponent({
 
     // 流程项数据
     // 状态：-1已取消、0已录入、1已QC、10待支付 、11待发货、12已发货、13已签收、14退货
-    const flowItems = ref<FlowItem[]>([
+    const flowItems = computed(() => [
       {
         status: -1,
         icon: "icon-all",
