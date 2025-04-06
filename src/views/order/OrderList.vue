@@ -446,7 +446,7 @@ export default defineComponent({
       router.push("/package-detail?id=" + row.id);
     };
     const handlePayClick = (row) => {
-      router.push("/pay?id=" + row.id);
+      router.push(`/pay?payType=3&userPayId=${row.userPayId}`);
     };
     // 加载订单列表
     const loadOrders = async () => {
