@@ -2,7 +2,7 @@
   <div class="package-detail">
     <!-- 面包屑导航 -->
     <div class="breadcrumb">
-      <el-link type="primary" @click="$router.push('/package')">我的包裹</el-link>
+      <el-link type="primary" @click="$router.push('/orders')">我的包裹</el-link>
       <el-icon><ArrowRight /></el-icon>
       <span>包裹详情</span>
     </div>
@@ -74,50 +74,71 @@
       </div>
     </div>
 
-    <!-- 运费明细 -->
-    <div class="info-card">
+
+<!-- 运费明细 -->
+<div class="info-card">
       <div class="card-title">运费明细</div>
       <div class="fee-details">
-        <div class="fee-row">
-          <span class="label">预估押金①：</span>
-          <span class="value">{{ packageDetail.freightDeposit }}</span>
+
+    <div class="bg-gray-50 flex justify-center">
+    <div class="w-[1440px] p-8">
+      <div class="flex space-x-4">
+        <!-- 预估信息卡片 -->
+        <div class="flex-1 bg-gray-100 rounded-lg p-6">
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <div class="flex items-center">
+                <span class="text-gray-600">预估押金</span>
+                <el-icon class="ml-1 text-gray-400">
+                  <QuestionFilled />
+                </el-icon>
+              </div>
+              <span class="text-xl font-medium">¥{{packageDetail.freightDeposit}}</span>
+            </div>
+          
+            
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600">包裹预估重量</span>
+              <span class="text-gray-900">{{packageDetail.estimatePackageWeight}}g</span>
+            </div>
+          </div>
         </div>
-        <div class="fee-row">
-          <span class="label">预估运费：</span>
-          <span class="value">{{ packageDetail.estimateFreightPrice }}</span>
+
+        <!-- 实际结算卡片 -->
+        <div class="flex-1  rounded-lg p-6">
+          <div class="space-y-4"  v-if="packageDetail.realFreightDeposit">
+            <div class="flex justify-between items-center">
+              <div class="flex items-center">
+                <span class="text-gray-600">最终支付</span>
+                <el-icon class="ml-1 text-gray-400">
+                  <QuestionFilled />
+                </el-icon>
+              </div>
+              <span class="text-xl font-medium text-red-500">¥ {{ packageDetail.realFreightDeposit }}</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600">运费补款</span>
+              <span class="text-red-500">¥ 26.17</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600">实际称重</span>
+              <span class="text-gray-900">{{packageDetail.realPackageWeight}}g</span>
+            </div>
+          </div>
         </div>
-        <div class="fee-row sub-item">
-          <span class="label">包裹预估重量：</span>
-          <span class="value">{{ packageDetail.estimatePackWeight }}g</span>
-        </div>
-        <div class="fee-row sub-item">
-          <span class="label">首重({{ firstWeightRate }}/500g)：</span>
-          <span class="value">${{ fees.firstWeight }}</span>
-        </div>
-        <div class="fee-row sub-item">
-          <span class="label">续重(${{ additionalWeightRate }}/500g)：</span>
-          <span class="value">${{ fees.additionalWeight }}</span>
-        </div>
-        <div class="fee-row">
-          <span class="label">增值服务费：</span>
-          <span class="value">${{ fees.valueAddedService }}</span>
-        </div>
-        <div class="fee-row">
-          <span class="label">物流商处理费：</span>
-          <span class="value">${{ fees.processingFee }}</span>
-        </div>
-        <div class="fee-row">
-          <span class="label">燃油费：</span>
-          <span class="value">${{ fees.fuelCharge }}</span>
-        </div>
-        <div class="fee-row">
-          <span class="label">操作费：</span>
-          <span class="value">${{ fees.operationFee }}</span>
-        </div>
-        <div class="fee-row">
-          <span class="label">服务费：</span>
-          <span class="value">${{ fees.serviceFee }}</span>
-        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+    
+      
         <div class="fee-row total">
           <span class="label">申报金额：</span>
           <span class="value">--</span>
