@@ -58,7 +58,7 @@
         >
           <template #default="{ row }">
             <div class="user-info">
-              <div v-if="row.status < 10">
+              <div>
                 <div>
                   {{ $t("customers.info.name") }}：{{
                     row.userAddressInfo.firstName
@@ -375,19 +375,19 @@ export default defineComponent({
         status: 10,
         icon: "icon-shipped",
         label: proxy.$t("package.status.waitPay"),
-        count: "sendCount",
+        count: "waitPayCount",
       },
       {
         status: 11,
         icon: "icon-processing",
         label: proxy.$t("package.status.processing"),
-        count: "signCount",
+        count: "waitSendCount",
       },
       {
         status: 12,
         icon: "icon-delivered",
         label: proxy.$t("package.status.delivered"),
-        count: "signCount",
+        count: "sendCount",
       },
       {
         status: 13,

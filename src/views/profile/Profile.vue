@@ -91,7 +91,7 @@
                 </h2>
                 <p class="text-gray-500 text-sm">ID: {{ formData.id }}</p>
               </div>
-              <el-button
+              <!-- <el-button
                 type="primary"
                 class="whitespace-nowrap !rounded-button"
               >
@@ -99,7 +99,7 @@
                   <el-icon><Edit /></el-icon>
                 </template>
                 编辑资料
-              </el-button>
+              </el-button> -->
             </div>
             <div class="space-y-4">
               <div
