@@ -12,7 +12,7 @@ export default {
     searchButton: 'Search',
     nav: {
       freightEstimate: 'Freight Estimate',
-      transfer: 'Transfer',
+      transfer: 'Add Order',
       help: 'Help Center'
     },
     user: {
@@ -38,6 +38,7 @@ export default {
   customers: {
     add: 'Add Customers',
     code: 'Customers Code',
+    codeHelp: 'Customers Code Describe',
     info: {
       title: 'Customers Info',
       name: 'name',
@@ -47,6 +48,9 @@ export default {
       address: 'address',
     },
     orderCount: 'Order Count',
+    addressHelp: 'Customers Address Describe',
+    createTime: 'Added Date',
+    operation: 'Operation',
   },
   assets: {
     balance: {
@@ -93,7 +97,7 @@ export default {
   //添加/编辑地址相关
   addressForm: {
     title: 'Add/Edit Customer Info',
-    customerCode: 'Customer Code',
+    customerCode: 'Code',
     customerCodeTip: 'please enter Customer Code',
     country: 'Country',
     countryTip: 'please selecte Country',
@@ -166,8 +170,12 @@ export default {
   },
   transfer: {
     addOrder: {
-      title: 'Add Transfer Order',
+      title: 'Add Order',
+      title2: 'Add New Order',
+      order: 'Order',
       backToList: 'Back to Orders',
+      deleteOrder: 'delete this order',
+      deleteOp: 'delete',
       warehouse: {
         title: 'QC elf Warehouse Address',
         getAddress: 'Contact customer service for warehouse address',
@@ -471,5 +479,41 @@ export default {
             "As a trusted e-wallet with over 400 million active users in more than 200 countries, PayPal is a guaranteed global service provider. Together with PayPal, Qcelf allows you to have a fast and secure payment experience.",
         notApplyPayTip:
             "This payment method doesn't support CNY, please switch currency/Choose another payment method",
+    },
+    profile: {
+      email: 'Email',
+      nickname: 'Nickname',
+      phone: 'Phone Number'
+    },
+    login: {
+      tip1: "From China's Best To Your Doorstep",
+      tip2: 'Free Insurance',
+      tip3: 'Keep Your Funds Safe',
+      tip4: '7*12 Customer Service',
+      tip5: 'Worldwide Coverage',
+      tip6: '100+ Shipping Lines',
+      tip7: 'Reliable After sales',
+      login: 'Sign in',
+      email: 'email',
+      password: 'password',
+      forgotPassword: 'Forgot Password?',
+      register: 'Register',
+      success: 'Sign in success',
+      fail: 'Sign in fail',
+      accountSecurity: 'Account Security',
+      emailTip1: 'Please enter your bound email',
+      emailCodeTip: 'Please enter the email verification code',
+      getEmailCode: 'Get verification code',
+      passwordTip1: 'Please enter reset password',
+      passwordConfirm: 'Confirm password',
+      confirm: 'Confirm',
+      haveAccount: 'Already have an account?',
+      login2: 'Sign in',
+      emailTip2: 'Email(please fill in a valid emaill address)',
+      name1: 'First Name',
+      name2: 'Last Name',
+      agree: 'I have read and agree',
+      agreement: 'User Registration Agreement'
+
     }
   }

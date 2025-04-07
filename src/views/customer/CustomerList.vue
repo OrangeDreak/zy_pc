@@ -16,7 +16,7 @@
           @click="handleAddAddress"
         >
           {{$t('customers.add')}}
-          <el-tooltip content="地址信息说明" placement="top">
+          <el-tooltip :content="$t('customers.addressHelp')" placement="top">
             <el-icon class="address-help"><QuestionFilled /></el-icon>
           </el-tooltip>
         </el-button>

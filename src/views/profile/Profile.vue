@@ -111,7 +111,7 @@
                   <component is="Message" />
                 </el-icon>
                 <div>
-                  <p class="text-sm text-gray-500">邮箱地址</p>
+                  <p class="text-sm text-gray-500">{{ $t('profile.email') }}</p>
                   <p class="text-[#c803be]">{{ formData.email || "--" }}</p>
                 </div>
               </div>
@@ -125,7 +125,7 @@
                   <component is="ChatLineSquare" />
                 </el-icon>
                 <div>
-                  <p class="text-sm text-gray-500">昵称</p>
+                  <p class="text-sm text-gray-500">{{ $t('profile.nickname') }}</p>
                   <p class="text-[#c803be]"> {{ formData.nickname }} </p>
                 </div>
               </div>
@@ -139,7 +139,7 @@
                   <component is="Phone" />
                 </el-icon>
                 <div>
-                  <p class="text-sm text-gray-500">手机号码</p>
+                  <p class="text-sm text-gray-500">{{ $t('profile.phone') }}</p>
                   <p class="text-[#c803be]">--</p>
                 </div>
               </div>

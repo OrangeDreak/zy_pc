@@ -12,7 +12,7 @@ export default {
     searchButton: '搜索',
     nav: {
       freightEstimate: '运费预估',
-      transfer: '转运',
+      transfer: '添加订单',
       help: '帮助中心'
     },
     user: {
@@ -38,6 +38,7 @@ export default {
   customers: {
     add: '添加客户信息',
     code: '客户编码',
+    codeHelp: '客户编码说明',
     info: {
       title: '客户信息',
       name: '姓名',
@@ -47,6 +48,7 @@ export default {
       address: '地址',
     },
     orderCount: '订单数',
+    addressHelp: '客户地址说明',
     createTime: '添加日期',
     operation: '操作',
   },
@@ -173,8 +175,12 @@ export default {
   // 转运相关
   transfer: {
     addOrder: {
-      title: '添加转运订单',
+      title: '添加订单',
+      title2: '添加新订单',
+      order: '订单',
       backToList: '返回我的订单',
+      deleteOrder: '删除此订单',
+      deleteOp: '删除',
       warehouse: {
         title: 'QC elf仓库地址',
         getAddress: '请联系客服获取仓库地址',
@@ -488,5 +494,44 @@ export default {
     paypalTip:
         "PayPal 作为备受信赖的电子钱包，在200 多个国家拥有超4 亿活跃用户，是名副其实的全球服务供应商。携手PayPal，Qcelf让您拥有快速安全的付款体验。",
     notApplyPayTip: "该支付方式不支持人民币，请切换币种或选择另一支付方式",
+  },
+  profile: {
+    email: '邮箱地址',
+    nickname: '昵称',
+    phone: '手机号码'
+  },
+  login: {
+    tip1: '中国购物，递送全球',
+    tip2: '免费保险',
+    tip3: '保证您的资金安全',
+    tip4: '7*12客服',
+    tip5: '全球覆盖',
+    tip6: '100+航运公司',
+    tip7: '可靠的售后服务',
+    login: '登录',
+    email: '电子邮箱',
+    password: '密码',
+    forgotPassword: '忘记密码?',
+    register: '注册',
+    success: '登陆成功',
+    fail: '登陆失败',
+    accountSecurity: '找回密码',
+    emailTip1: '请输入您绑定的邮箱',
+    emailCodeTip: '请输入邮箱验证吗',
+    getEmailCode: '获取验证码',
+    passwordTip1: '请输入重置密码',
+    passwordConfirm: '确认密码',
+    confirm: '确定',
+    haveAccount: '已有账号？',
+    login2: '去登录',
+    emailTip2: '邮箱(请填写真实可用的邮箱)',
+    name1: '请填写姓氏',
+    name2: '请填写名字',
+    agree: '我已阅读并同意',
+    agreement: '用户注册协议'
+
+
+
   }
+
 } 

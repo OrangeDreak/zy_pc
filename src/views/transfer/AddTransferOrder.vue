@@ -30,14 +30,14 @@
       <!-- 转运订单列表 -->
       <div v-for="(order, orderIndex) in orders" :key="orderIndex" class="order-group">
         <div class="order-header">
-          <div class="order-title">转运订单 #{{orderIndex + 1}}</div>
+          <div class="order-title">{{ $t('transfer.addOrder.order') }} #{{orderIndex + 1}}</div>
           <el-button 
             type="danger" 
             link 
             @click="removeOrder(orderIndex)"
             v-if="orders.length > 1"
           >
-            删除此订单
+            {{ $t('transfer.addOrder.deleteOrder') }}
           </el-button>
         </div>
 
@@ -72,7 +72,7 @@
                   <el-button type="primary" plain @click="showCustomCodeHelp">
                     {{ $t('transfer.addOrder.form.customCodeHelp') }}
                   </el-button>
-                  <el-tooltip content="编码说明" placement="top" class="custom-code-help">
+                  <el-tooltip :content="$t('customers.codeHelp')" placement="top" class="custom-code-help">
                     <el-icon><QuestionFilled /></el-icon>
                   </el-tooltip>
                 </el-form-item>
@@ -90,7 +90,7 @@
                       @click="showAddressForm(orderIndex)"
                     >
                       {{order.userAddressId ?  $t('transfer.addOrder.form.editAddress') : $t('transfer.addOrder.form.addAddress') }}
-                      <el-tooltip content="地址说明" placement="top">
+                      <el-tooltip :content="$t('customers.addressHelp')" placement="top">
                         <el-icon class="address-help"><QuestionFilled /></el-icon>
                       </el-tooltip>
                     </el-button>
@@ -135,7 +135,7 @@
                   @click="removeExpressItem(orderIndex, index)"
                   v-if="order.trackingInfoList.length > 1"
                 >
-                  删除
+                  {{ $t('transfer.addOrder.deleteOp') }}
                 </el-button>
               </div>
 
@@ -164,7 +164,7 @@
           @click="addNewOrder"
         >
           <el-icon><Plus /></el-icon>
-          添加新的转运订单
+          {{ $t('transfer.addOrder.title2') }}
         </el-button>
       </div>
 

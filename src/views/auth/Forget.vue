@@ -6,19 +6,19 @@
       <!-- 左侧 Logo 和标语 -->
       <div class="register-left">
         <div class="slogan">
-          <div class="slogan-text">中国购物，递送全球</div>
+          <div class="slogan-text">{{ $t('login.tip1') }}</div>
           <div class="features">
             <div class="feature-item">
-              <div class="feature-title">免费保险</div>
-              <div class="feature-desc">保证您的资金安全</div>
+              <div class="feature-title">{{ $t('login.tip2') }}</div>
+              <div class="feature-desc">{{ $t('login.tip3') }}</div>
             </div>
             <div class="feature-item">
-              <div class="feature-title">7*12客服</div>
-              <div class="feature-desc">全球覆盖</div>
+              <div class="feature-title">{{ $t('login.tip4') }}</div>
+              <div class="feature-desc">{{ $t('login.tip5') }}</div>
             </div>
             <div class="feature-item">
-              <div class="feature-title">100+航运公司</div>
-              <div class="feature-desc">可靠的售后服务</div>
+              <div class="feature-title">{{ $t('login.tip6') }}</div>
+              <div class="feature-desc">{{ $t('login.tip7') }}</div>
             </div>
           </div>
         </div>
@@ -27,7 +27,7 @@
       <!-- 右侧注册表单 -->
       <div class="register-right">
         <el-card class="register-card">
-          <h2 class="register-title">找回密码</h2>
+          <h2 class="register-title">{{ $t('login.accountSecurity') }}</h2>
 
           <el-form ref="formRef" :model="forgetForm" :rules="rules">
             <!-- <el-form-item prop="firstName">
@@ -47,14 +47,14 @@
             <el-form-item prop="email">
               <el-input
                 v-model="forgetForm.email"
-                placeholder="输入您绑定的邮箱"
+                :placeholder="$t('login.emailTip1')"
                 prefix-icon="Message"
               />
             </el-form-item>
             <el-form-item prop="emailCaptcha">
               <el-input
                 v-model="forgetForm.emailCaptcha"
-                placeholder="请输入邮箱验证码"
+                :placeholder="$t('login.emailCodeTip')"
                 prefix-icon="Promotion"
               >
                 <template #suffix>
@@ -64,7 +64,7 @@
                     :disabled="isCaptchaDisabled"
                     @click="handleGetCaptcha"
                   >
-                    获取验证码
+                     {{ $t('login.getEmailCode') }}
                   </el-button>
                 </template>
               </el-input>
@@ -73,7 +73,7 @@
               <el-input
                 v-model="forgetForm.password"
                 type="password"
-                placeholder="请输入重置密码"
+                :placeholder="$t('login.passwordTip1')"
                 prefix-icon="Lock"
                 show-password
               />
@@ -82,7 +82,7 @@
               <el-input
                 v-model="forgetForm.confirmPassword"
                 type="password"
-                placeholder="确认密码"
+                :placeholder="$t('login.passwordConfirm')"
                 prefix-icon="Lock"
                 show-password
               />
@@ -94,13 +94,13 @@
                 :loading="loading"
                 @click="handleForget"
               >
-                确定
+                {{ $t('login.confirm') }}
               </el-button>
             </el-form-item>
 
             <div class="login-link">
-              已有账号？<el-link type="primary" @click="$router.push('/login')"
-                >去登录</el-link
+              {{ $t('login.haveAccount') }}<el-link type="primary" @click="$router.push('/login')"
+                >{{ $t('login.login2') }}</el-link
               >
             </div>
           </el-form>
@@ -301,7 +301,7 @@ const handleForget = async () => {
     }
 
     .register-right {
-      width: 400px;
+      width: 500px;
       margin-right: 10%;
 
       .register-card {

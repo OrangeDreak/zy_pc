@@ -6,19 +6,19 @@
       <!-- 左侧 Logo 和标语 -->
       <div class="login-left">
         <div class="slogan">
-          <div class="slogan-text">中国购物，递送全球</div>
+          <div class="slogan-text">{{ $t('login.tip1') }}</div>
           <div class="features">
             <div class="feature-item">
-              <div class="feature-title">免费保险</div>
-              <div class="feature-desc">保证您的资金安全</div>
+              <div class="feature-title">{{ $t('login.tip2') }}</div>
+              <div class="feature-desc">{{ $t('login.tip3') }}</div>
             </div>
             <div class="feature-item">
-              <div class="feature-title">7*12客服</div>
-              <div class="feature-desc">全球覆盖</div>
+              <div class="feature-title">{{ $t('login.tip4') }}</div>
+              <div class="feature-desc">{{ $t('login.tip5') }}</div>
             </div>
             <div class="feature-item">
-              <div class="feature-title">100+航运公司</div>
-              <div class="feature-desc">可靠的售后服务</div>
+              <div class="feature-title">{{ $t('login.tip6') }}</div>
+              <div class="feature-desc">{{ $t('login.tip7') }}</div>
             </div>
           </div>
         </div>
@@ -27,13 +27,13 @@
       <!-- 右侧登录表单 -->
       <div class="login-right">
         <el-card class="login-card">
-          <h2 class="login-title">登录</h2>
+          <h2 class="login-title">{{ $t('login.login') }}</h2>
           
           <el-form ref="formRef" :model="loginForm" :rules="rules">
             <el-form-item prop="loginName">
               <el-input 
                 v-model="loginForm.loginName"
-                placeholder="电子邮箱"
+                :placeholder="$t('login.email')"
                 prefix-icon="Message"
               />
             </el-form-item>
@@ -42,15 +42,15 @@
               <el-input 
                 v-model="loginForm.password"
                 type="password"
-                placeholder="密码"
+                :placeholder="$t('login.password')"
                 prefix-icon="Lock"
                 show-password
               />
             </el-form-item>
 
             <div class="form-options">
-              <span class="forgot-password" @click="$router.push('/forget')">忘记密码?</span>
-              <el-link type="primary" @click="$router.push('/register')">注册</el-link>
+              <span class="forgot-password" @click="$router.push('/forget')">{{ $t('login.forgotPassword') }}</span>
+              <el-link type="primary" @click="$router.push('/register')">{{ $t('login.register') }}</el-link>
             </div>
 
             <el-form-item>
@@ -60,7 +60,7 @@
                 :loading="loading"
                 @click="handleLogin"
               >
-                登录
+                {{ $t('login.login') }}
               </el-button>
             </el-form-item>
           </el-form>
@@ -138,10 +138,10 @@ const handleLogin = async () => {
         console.log('登录成功:', res)
         authStore.setToken(res.data.token)
         // authStore.setUserInfo(res.userInfo)
-        ElMessage.success('登录成功')
+        ElMessage.success('登陆成功')
         router.push('/')
       } catch (error) {
-        console.error('登录失败:', error)
+        console.error('登陆失败:', error)
       } finally {
         loading.value = false
       }
@@ -213,7 +213,7 @@ const handleLogin = async () => {
     }
 
     .login-right {
-      width: 400px;
+      width: 500px;
       margin-right: 10%;
 
       .login-card {
