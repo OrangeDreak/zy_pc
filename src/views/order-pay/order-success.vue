@@ -83,11 +83,12 @@ onMounted(async () => {
         params.paymentOrderId = queryData.token;
         api = getPayPalResult;
       }
+      status.value = true;
       if (!api) return;
       await api(params);
       loading.value = false;
       router.replace({
-        path: "/order-success",
+        path: "/pay-success",
         query: {
           path: queryData.path,
           payChannel: queryData.payChannel,

@@ -2,8 +2,9 @@ import Config from "@/config/settings";
 import he from "he";
 import { storeToRefs } from 'pinia'
 import { useI18n } from 'vue-i18n'
-
-
+import { useCurrencyStore } from '@/stores/currency'
+const currencyStore = useCurrencyStore()
+const { currentCurrency } = storeToRefs(currencyStore)
 
 // 标题
 export const formatTitle = (record, key, enKey) => {
@@ -44,16 +45,12 @@ export const formatPrice = (record, zhKey, sign = true, enKey) => {
 
 // 货币符合
 export function currencySymbol() {
-  const defaultCurrencyList = Config.currencyList;
-  let sign = "";
-  const currency = Config.defaultCurrency;
-  defaultCurrencyList.some((item) => {
-    if (item.value === currency) {
-      sign = item.label;
-      return true;
-    }
-  });
-  return sign;
+  const currency = getCurrencyStr();
+  if (currency === "CNY") {
+     return "¥";
+  } else {
+     return "$";
+  }
 }
 
 /**
@@ -74,7 +71,7 @@ export function langResponseKey(zhKey, enKey) {
 
 // 货币名
 export function getCurrencyStr() {
-  return Config.defaultCurrency;
+  return currentCurrency;
 }
 
 // 格式化金额，不会带有逗号间隔数字，也不会带有货币单位，可用于计算

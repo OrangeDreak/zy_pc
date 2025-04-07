@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import { useAuthStore } from '@/stores/auth'
+import { useLangStore } from '@/stores/lang'
+import { useCurrencyStore } from '@/stores/currency'
 import router from '@/router'
 //import { useI18n } from 'vue-i18n'
 
@@ -13,11 +15,13 @@ const request = axios.create({
 request.interceptors.request.use(
   config => {
     const authStore = useAuthStore()
+    const langStore = useLangStore()
+    const currencyStore = useCurrencyStore()
     if (authStore.token) {
       config.headers['Authorization'] = `${authStore.token}`
     }
- //   const i18n = useI18n();
- //   config.headers['Language'] = i18n.locale.value;
+    config.headers['Language'] = `${langStore.currentLang}`
+    config.headers['Currency'] = `${currencyStore.currentCurrency}`
     return config
   },
   error => {

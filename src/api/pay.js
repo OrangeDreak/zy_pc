@@ -45,7 +45,7 @@ export const dictListConfigByCode = (params) => {
 
 export const getPayPalResult = (params) => {
   return request({
-    url: "/app/dictConfig/dictListConfigByCode",
+    url: "/app/pay/callback/paypal/success",
     method: "get",
     params,
   });

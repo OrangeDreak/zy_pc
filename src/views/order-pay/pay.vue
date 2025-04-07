@@ -173,7 +173,8 @@ const getPayParams = () => {
   params.userPayId = +route.query?.userPayId || undefined;
   params.payChannel = payMode.value;
   params.payScene = 0;
-  params.callbackAddress = encodeURIComponent('https://qcelf.com/pay-success?path=${route.query.source || ""}');
+  const successUrl = getSuccessUrl("https://qcelf.com/pay-success");
+  params.callbackAddress = encodeURIComponent(successUrl);
   if (params.payChannel === 2) {
     params.cancelCallbackAddress = encodeURIComponent(failUrl);
   }
@@ -204,7 +205,7 @@ const handlePay = async () => {
       data = res.data;
       success = res.success;
       subLoading.value = false;
-      if (payMode.value === 1 && data.outPayUrl) {
+      if (payMode.value === 2 && data.outPayUrl) {
          window.open(data.outPayUrl, "_blank");
          confirm();
       } else {

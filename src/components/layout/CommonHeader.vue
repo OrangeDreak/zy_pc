@@ -37,6 +37,18 @@
             </el-dropdown-menu>
           </template>
         </el-dropdown>
+        <el-dropdown @command="handleCurrencyChange">
+                  <span class="lang-switch">
+                    {{ currentCurrency === 'CNY' ? 'CNY' : 'USD' }}
+                    <el-icon><ArrowDown /></el-icon>
+                  </span>
+                  <template #dropdown>
+                    <el-dropdown-menu>
+                      <el-dropdown-item command="CNY">CNY</el-dropdown-item>
+                      <el-dropdown-item command="USD">USD</el-dropdown-item>
+                    </el-dropdown-menu>
+                  </template>
+        </el-dropdown>
       </div>
     </div>
   </div>
@@ -47,6 +59,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useLangStore } from '@/stores/lang'
+import { useCurrencyStore } from '@/stores/currency'
 import { useI18n } from 'vue-i18n'
 import { storeToRefs } from 'pinia'
 import { Search, ArrowDown } from '@element-plus/icons-vue'
@@ -54,7 +67,9 @@ import { Search, ArrowDown } from '@element-plus/icons-vue'
 const router = useRouter()
 const authStore = useAuthStore()
 const langStore = useLangStore()
+const currencyStore = useCurrencyStore()
 const { currentLang } = storeToRefs(langStore)
+const { currentCurrency } = storeToRefs(currencyStore)
 const { locale } = useI18n()
 
 const searchKeyword = ref('')
@@ -81,6 +96,10 @@ const handleTransfer = async () => {
 const handleLangChange = (lang) => {
   langStore.setLang(lang)
   locale.value = lang // 直接设置i18n的locale
+}
+// 处理币种切换
+const handleCurrencyChange = (currency) => {
+  currencyStore.setCurrency(currency)
 }
 </script>
 
