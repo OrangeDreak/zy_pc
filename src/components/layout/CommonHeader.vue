@@ -96,10 +96,12 @@ const handleTransfer = async () => {
 const handleLangChange = (lang) => {
   langStore.setLang(lang)
   locale.value = lang // 直接设置i18n的locale
+  location.reload();
 }
 // 处理币种切换
 const handleCurrencyChange = (currency) => {
   currencyStore.setCurrency(currency)
+  location.reload();
 }
 </script>
 

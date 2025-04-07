@@ -3,8 +3,7 @@ import he from "he";
 import { storeToRefs } from 'pinia'
 import { useI18n } from 'vue-i18n'
 import { useCurrencyStore } from '@/stores/currency'
-const currencyStore = useCurrencyStore()
-const { currentCurrency } = storeToRefs(currencyStore)
+
 
 // 标题
 export const formatTitle = (record, key, enKey) => {
@@ -71,7 +70,9 @@ export function langResponseKey(zhKey, enKey) {
 
 // 货币名
 export function getCurrencyStr() {
-  return currentCurrency;
+  const currencyStore = useCurrencyStore()
+  const { currentCurrency } = storeToRefs(currencyStore)
+  return currentCurrency.value;
 }
 
 // 格式化金额，不会带有逗号间隔数字，也不会带有货币单位，可用于计算
