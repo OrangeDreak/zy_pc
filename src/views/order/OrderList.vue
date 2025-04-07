@@ -455,7 +455,14 @@ export default defineComponent({
       router.push("/package-detail?id=" + row.id);
     };
     const handlePayClick = (row) => {
-      router.push(`/pay?payType=3&userPayId=${row.userPayId}`);
+      router.push({
+          path: "/pay",
+          query: {
+            payType: 3,
+            userPayId: row.userPayId || undefined,
+            source: "package-list",
+          },
+        });
     };
     const handleCancelClick = async (row) => {
       try {
