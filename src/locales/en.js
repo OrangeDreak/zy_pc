@@ -42,7 +42,7 @@ export default {
       title: 'Customers Info',
       name: 'name',
       postcode: 'postcode',
-      phoneNumber: 'phone number',
+      phoneNumber: 'tel',
       email: 'emial',
       address: 'address',
     },
@@ -105,7 +105,7 @@ export default {
     postCodeTip: 'please enter PostCode',
     email: 'Email',
     emailTip: 'please enter Email',
-    phoneNumber: 'Phone Number',
+    phoneNumber: 'tel',
     phoneNumberTip: 'please enter phoneNumber',
     name: 'name',
     nameTip: 'please enter Name',
@@ -142,9 +142,9 @@ export default {
       recorded: 'Recorded',
       qc: 'QC',
       waitPay: 'WaitPay',
-      processing: 'Processing',
+      processing: 'WaitDeliver',
       delivered: 'Delivered',
-      finished: 'Finished'
+      finished: 'Received'
     },
     table: {
       customerCode: 'customer Code' ,
