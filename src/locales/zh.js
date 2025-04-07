@@ -17,6 +17,7 @@ export default {
     },
     user: {
       profile: '个人资料',
+      orders: '我的订单',
       logout: '退出登录'
     }
   },
@@ -139,6 +140,8 @@ export default {
       latestStatus: '最新状态',
       trackingNumber: '快递单号',
       logisticsTrack: '物流轨迹',
+      detail: '包裹详情',
+      goPay: '去支付'
     },
     specialFocus: '特别关注',
     cancelSpecialFocus: '取消特别关注',
@@ -283,7 +286,7 @@ export default {
       starred: '特别关注',
       trackingSearch: '快递单号搜索',
       customerSearch: '客户编码搜索',
-      shared: '已分享/未分享'
+      shared: '已分享/未分享',
     },
     card: {
       trackingNo: '快递单号',
@@ -482,5 +485,8 @@ export default {
     viewOrder: "查看订单",
     payFail: "支付失败",
     payResult: "支付结果",
+    paypalTip:
+        "PayPal 作为备受信赖的电子钱包，在200 多个国家拥有超4 亿活跃用户，是名副其实的全球服务供应商。携手PayPal，Qcelf让您拥有快速安全的付款体验。",
+    notApplyPayTip: "该支付方式不支持人民币，请切换币种或选择另一支付方式",
   }
 } 

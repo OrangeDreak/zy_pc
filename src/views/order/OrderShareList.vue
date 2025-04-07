@@ -1,41 +1,5 @@
 <template>
   <div class="order-list">
-    <!-- 订单状态流程 -->
-    <div class="order-flow">
-      <div
-        v-for="item in flowItems"
-        :key="item.status"
-        class="flow-item"
-        :class="{ active: item.status === status }"
-        @click="handleFlowItemClick(item.status)"
-      >
-        <i :class="item.icon"></i>
-        <span>{{ item.label }}({{ countList[item.count] }})</span>
-      </div>
-    </div>
-
-    <!-- 搜索工具栏 -->
-    <div class="search-toolbar">
-      <el-input
-        v-model="searchForm.trackingNo"
-        :placeholder="$t('order.toolbar.trackingSearch')"
-        class="search-input"
-      ></el-input>
-      <el-input
-        v-model="searchForm.userNo"
-        :placeholder="$t('order.toolbar.customerSearch')"
-        class="search-input"
-      ></el-input>
-      <el-button @click="handleSearch">{{
-        $t("header.searchButton")
-      }}</el-button>
-      <el-button
-        :type="searchForm.isMark ? 'primary' : 'default'"
-        @click="handleSearchMark"
-        >{{ $t("order.toolbar.starred") }}</el-button
-      >
-    </div>
-
     <!-- 订单列表 -->
     <div class="order-list-content">
       <el-table
@@ -45,7 +9,6 @@
         :row-class-name="tableRowClassName"
       >
         <!-- 选择列 -->
-        <el-table-column v-if="status === 1" type="selection" width="55" />
         <el-table-column
           prop="userNo"
           :label="$t('package.table.customerCode')"
@@ -58,7 +21,7 @@
         >
           <template #default="{ row }">
             <div class="user-info">
-              <div>
+              <div v-if="row.status < 10">
                 <div>
                   {{ $t("customers.info.name") }}：{{
                     row.userAddressInfo.firstName
@@ -175,19 +138,15 @@
               </div>
               <div>
                 <div>
-                  {{ row.estimatePackageSizeDTO.length }}*{{
-                    row.estimatePackageSizeDTO.width
-                  }}*{{ row.estimatePackageSizeDTO.height }}
+                  长 {{ row.length }}，宽{{ row.width }}，高{{ row.height }}
                 </div>
-                <div>{{ row.estimatePackageSizeDTO.weight }}g</div>
-                <div>内含8件</div>
+                <div>{{ row.realWeight }}kg；内含8件</div>
                 <div>在途 7 天</div>
               </div>
             </div>
           </template>
         </el-table-column>
         <el-table-column
-          v-if="status < 10"
           prop="gmtCreate"
           :label="$t('commont.createTime')"
           width="100"
@@ -199,74 +158,11 @@
         >
           <template #default="{ row }">
             <el-tag>
-              {{ $i18n.locale === "en" ? row.statusDescEn : row.statusDesc }}
+              {{ row.statusDesc }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column
-          :label="$t('commont.operation')"
-          width="200"
-          align="center"
-        >
-          <template #default="{ row }">
-            <div>
-              <el-button
-                v-if="status != 10"
-                type="text"
-                class="star-btn"
-                @click="handleStarClick(row)"
-              >
-                {{ $t("commont.share") }}
-              </el-button>
-
-              <el-button
-                v-if="status != 10"
-                type="text"
-                class="star-btn"
-                @click="handleMarkClick(row)"
-              >
-                {{
-                  row.isMark
-                    ? $t("package.cancelSpecialFocus")
-                    : $t("package.specialFocus")
-                }}
-              </el-button>
-            </div>
-            <div v-if="row.status >= 0">
-              <el-button
-                v-if="row.status >= 10"
-                type="text"
-                class="star-btn"
-                @click="handlePackageClick(row)"
-              >
-                {{ $t("package.table.detail") }}
-              </el-button>
-              <el-button
-                v-if="row.status == 10"
-                type="text"
-                class="star-btn"
-                @click="handlePayClick(row)"
-              >
-                {{ $t("package.table.goPay") }}
-              </el-button>
-              <el-button
-                v-if="row.status === 10"
-                type="text"
-                class="star-btn"
-                @click="handleCancelClick(row)"
-              >
-                取消包裹
-              </el-button>
-            </div>
-          </template>
-        </el-table-column>
       </el-table>
-    </div>
-    <div v-if="status === 1 && orders.length" class="btn-box">
-      <!-- <el-button @click="handleEstimate">一键估算运费</el-button> -->
-      <el-button type="primary" @click="handleSendSubmit">{{
-        $t("package.oneClickDelivery")
-      }}</el-button>
     </div>
     <!-- 分页 -->
     <div class="pagination">
@@ -293,9 +189,8 @@ import {
   reactive,
   ref,
   getCurrentInstance,
-  computed,
 } from "vue";
-import { ElMessage, ElMessageBox } from "element-plus";
+import { ElMessage } from "element-plus";
 import { allOrderList } from "@/api/orderList";
 import { useRouter, useRoute } from "vue-router";
 
@@ -362,7 +257,7 @@ export default defineComponent({
 
     // 流程项数据
     // 状态：-1已取消、0已录入、1已QC、10待支付 、11待发货、12已发货、13已签收、14退货
-    const flowItems = computed(() => [
+    const flowItems = ref<FlowItem[]>([
       {
         status: -1,
         icon: "icon-all",
@@ -385,19 +280,19 @@ export default defineComponent({
         status: 10,
         icon: "icon-shipped",
         label: proxy.$t("package.status.waitPay"),
-        count: "waitPayCount",
+        count: "sendCount",
       },
       {
         status: 11,
         icon: "icon-processing",
         label: proxy.$t("package.status.processing"),
-        count: "waitSendCount",
+        count: "signCount",
       },
       {
         status: 12,
         icon: "icon-delivered",
         label: proxy.$t("package.status.delivered"),
-        count: "sendCount",
+        count: "signCount",
       },
       {
         status: 13,
@@ -407,76 +302,23 @@ export default defineComponent({
       },
     ]);
     // 在组件挂载时获取路由参数
-    onMounted(() => {
+    onMounted(async () => {
       if (route.query.userNo) {
         searchForm.userNo = route.query.userNo as string; // 获取userNo参数
       }
+      if (route.query.code) {
+        try {
+          const res = await allOrderList.decodeSharingCode({
+            code: route.query.code as string,
+          });
+          searchForm.userNo = res.data.userNo as string; // 获取userNo参数
+        } catch (error) {
+          console.log(error);
+        }
+      }
       loadOrders();
     });
-    const handleSelectionChange = async (selected) => {
-      selectedOrders.value = selected;
-    };
-    const handleEstimate = async () => {
-      router.push("/estimate");
-    };
-    const handleSendSubmit = async () => {
-      if (selectedOrders.value.length === 0) {
-        ElMessage.error(proxy.$t("order.orderSelectTip"));
-        return;
-      }
-      if (selectedOrders.value.length > 0) {
-        const firstUserNo = selectedOrders.value[0].userNo; // 获取第一个订单的 userNo
-        const isSameUser = selectedOrders.value.every(
-          (order) => order.userNo === firstUserNo
-        ); // 检查所有订单的 userNo 是否与第一个相同
-        if (!isSameUser) {
-          ElMessage.error("所选订单的用户编号不一致");
-          return;
-        }
-      }
-      let userNo = selectedOrders.value[0].userNo;
-      let sameUser = true;
-      selectedOrders.value.forEach((item) => {
-        if (item.userNo !== userNo) {
-          sameUser = false;
-        }
-      });
-      if (!sameUser) {
-        ElMessage.error(proxy.$t("order.orderNotSameUserTip"));
-        return;
-      }
-      const ids = selectedOrders.value.map((item) => item.id);
-      console.log(ids);
 
-      sessionStorage.setItem("SubOrderIds", ids);
-      router.push("/submit-transfer");
-    };
-    const handlePackageClick = (row) => {
-      router.push("/package-detail?id=" + row.id);
-    };
-    const handlePayClick = (row) => {
-      router.push(`/pay?payType=3&userPayId=${row.userPayId}`);
-    };
-    const handleCancelClick = async (row) => {
-      try {
-        await ElMessageBox.confirm("确认取消包裹订单吗？", "提示", {
-          type: "warning",
-        }).then(async () => {
-          await allOrderList
-            .packageOrderCancel({
-              packageOrderId: row.id,
-              cancelReason: "cancel",
-            })
-            .then((res) => {
-              if (res.code === 200) {
-                loadOrders();
-              }
-            });
-        });
-      } catch (error) {
-        console.error("删除失败:", error);
-      }
-    };
     // 加载订单列表
     const loadOrders = async () => {
       try {
@@ -492,18 +334,15 @@ export default defineComponent({
           delete params.isMark;
         }
         orders.value = [];
-        let requestName = "getOrderList";
         if (status.value < 10) {
           params.status = status.value;
           if (status.value === -1) {
             delete params.status;
           }
-          requestName = "getOrderList";
         } else {
           params.status = status.value;
-          requestName = "myPackageOrderList";
         }
-        const result = await allOrderList[requestName](params);
+        const result = await allOrderList.sharingListForBusiness(params);
         orders.value = result.data;
         total.value = result.total;
       } catch (err) {
@@ -512,19 +351,6 @@ export default defineComponent({
       } finally {
         loading.value = false;
       }
-    };
-    const handleSearch = () => {
-      loadOrders();
-    };
-    const handleSearchMark = () => {
-      searchForm.isMark = searchForm.isMark ? 0 : 1;
-      loadOrders();
-    };
-    const getCountList = async () => {
-      try {
-        const res = await allOrderList.getOrderCount();
-        countList.value = res.data;
-      } catch (error) {}
     };
     // 分页事件处理
     const handleSizeChange = (val: number) => {
@@ -536,42 +362,6 @@ export default defineComponent({
       pagination.currentPage = val;
       loadOrders();
     };
-    // 处理mark点击事件
-    const handleMarkClick = async (order: any) => {
-      const { data } = await allOrderList.updateAttentionMark({
-        tpSubOrderId: order.id,
-        isMark: order.isMark ? 0 : 1,
-      });
-      ElMessage.success(`特别关注状态更新成功`);
-      loadOrders();
-    };
-    // 处理share点击事件
-    const handleStarClick = async (order: Order) => {
-      const { data } = await allOrderList.getSharingCode({
-        userNo: order.userNo,
-        orderId: order.id,
-      });
-      const shareUrl = `${window.location.origin}/order-share-transfer?code=${data}`;
-      navigator.clipboard
-        .writeText(shareUrl)
-        .then(() => {
-          console.log("内容已成功复制到剪切板");
-        })
-        .catch((err) => {
-          console.error("无法复制内容到剪切板:", err);
-        });
-      // 处理shareCount点击事件
-      ElMessage.success(`分享订单成功`);
-    };
-    // 处理流程项点击事件
-    const handleFlowItemClick = (newStatus: number) => {
-      status.value = newStatus;
-      // 根据状态加载对应订单数据
-      loadOrders();
-    };
-
-    // 组件挂载时加载数据
-    getCountList();
 
     return {
       searchForm,
@@ -584,19 +374,7 @@ export default defineComponent({
       countList,
       handleSizeChange,
       handleCurrentChange,
-      handleFlowItemClick,
-      handleStarClick,
-      handleMarkClick,
-      handleSelectionChange,
-      handleSendSubmit,
-      handleEstimate,
-      getCountList,
-      handleSearch,
-      handleSearchMark,
       tableRowClassName,
-      handlePackageClick,
-      handlePayClick,
-      handleCancelClick,
     };
   },
 });

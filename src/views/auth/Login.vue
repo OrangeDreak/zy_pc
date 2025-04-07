@@ -1,17 +1,10 @@
 <template>
   <div class="login-container">
-    <div class="login-header">
-      <div class="time">{{ currentTime }}</div>
-      <div class="lang-switch">
-        <span>中文/USD</span>
-        <el-icon><ArrowDown /></el-icon>
-      </div>
-    </div>
+    <common-header />
 
     <div class="login-content">
       <!-- 左侧 Logo 和标语 -->
       <div class="login-left">
-        <div class="logo"><img src="@/assets/images/common/logo.jpg" height="60px"> </img></div>
         <div class="slogan">
           <div class="slogan-text">中国购物，递送全球</div>
           <div class="features">
@@ -56,7 +49,7 @@
             </el-form-item>
 
             <div class="form-options">
-              <span class="forgot-password">忘记密码?</span>
+              <span class="forgot-password" @click="$router.push('/forget')">忘记密码?</span>
               <el-link type="primary" @click="$router.push('/register')">注册</el-link>
             </div>
 
@@ -84,6 +77,7 @@ import { ElMessage } from 'element-plus'
 import { auth } from '@/api/auth'
 import { useAuthStore } from '@/stores/auth'
 import { ArrowDown, Message, Lock } from '@element-plus/icons-vue'
+import CommonHeader from "@/components/layout/CommonHeader.vue";
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -165,24 +159,9 @@ const handleLogin = async () => {
   display: flex;
   flex-direction: column;
 
-  .login-header {
-    height: 40px;
-    padding: 0 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #fff;
-    font-size: 14px;
-
-    .lang-switch {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      cursor: pointer;
-    }
-  }
-
   .login-content {
+    min-width: 1280px;
+    margin: 0 auto;
     flex: 1;
     display: flex;
     align-items: center;

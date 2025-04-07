@@ -3,10 +3,22 @@ import { useAuthStore } from '@/stores/auth'
 
 const routes = [
   {
+    path: '/',
+    name: 'Home',
+    component: () => import('@/views/home/index.vue'),
+    meta: { title: '首页' }
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/auth/Login.vue'),
     meta: { title: '登录' }
+  },
+  {
+    path: '/forget',
+    name: 'Forget',
+    component: () => import('@/views/auth/Forget.vue'),
+    meta: { title: '找回密码' }
   },
   {
     path: '/register',
@@ -19,6 +31,12 @@ const routes = [
     name: 'AddTransfer',
     component: () => import('@/views/transfer/AddTransferOrder.vue'),
     meta: { title: '添加转运订单' }
+  },
+  {
+    path: '/order-share-transfer',
+    name: 'OrderShareList',
+    component: () => import('@/views/order/OrderShareList.vue'),
+    meta: { title: '转运订单' }
   },
   {
     path: '/estimate',
@@ -46,8 +64,8 @@ const routes = [
   },
   {
     path: '/',
+    name: 'Layout',
     component: () => import('@/layouts/MainLayout.vue'),
-    redirect: '/orders',
     children: [
       {
         path: 'users',
@@ -80,7 +98,7 @@ const routes = [
         meta: { title: '我的包裹', requiresAuth: true }
       },
       {
-        path: 'package/:id',
+        path: 'package-detail',
         name: 'PackageDetail',
         component: () => import('@/views/package/PackageDetail.vue'),
         meta: { title: '包裹详情', requiresAuth: true }
@@ -131,7 +149,7 @@ router.beforeEach((to, from, next) => {
   // const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
 
   // 更新页面标题
-  document.title = to.meta.title ? `${to.meta.title} - PC Admin` : 'PC Admin'
+  document.title = to.meta.title ? `${to.meta.title} - QC elf` : 'QC elf'
 
   // if (requiresAuth && !authStore.token) {
   //   next('/login')

@@ -41,3 +41,12 @@ export const dictListConfigByCode = (params) => {
     params,
   });
 }
+
+
+export const getPayPalResult = (params) => {
+  return request({
+    url: "/app/dictConfig/dictListConfigByCode",
+    method: "get",
+    params,
+  });
+}

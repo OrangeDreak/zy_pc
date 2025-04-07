@@ -2,7 +2,7 @@
   <div class="border-bottom">
     <div class="common-header">
       <div class="header-left">
-        <div class="logo"><img src="@/assets/images/common/logo.jpg" height="60px"> </img></div>
+        <div class="logo" @click="$router.push('/')"><img src="@/assets/images/common/logo.jpg" height="60px"> </img></div>
       </div>
 
       <div class="header-right">
@@ -13,13 +13,14 @@
         </div>
         <el-dropdown @command="handleCommand">
           <span class="user-info">
-            <el-avatar :size="32" :src="userAvatar" />
+            <img class="user-img" height="32px" width="32px" src="@/assets/images/common/user-default.png" />
             <span class="username">{{ authStore.userInfo.username }}</span>
             <el-icon><ArrowDown /></el-icon>
           </span>
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item command="profile">{{ $t('header.user.profile') }}</el-dropdown-item>
+              <el-dropdown-item command="orders">{{ $t('header.user.orders') }}</el-dropdown-item>
               <el-dropdown-item command="logout">{{ $t('header.user.logout') }}</el-dropdown-item>
             </el-dropdown-menu>
           </template>
@@ -57,7 +58,7 @@ const { currentLang } = storeToRefs(langStore)
 const { locale } = useI18n()
 
 const searchKeyword = ref('')
-const userAvatar = ref('https://placeholder.com/32')
+const userAvatar = ref('./assets/images/common/user-default.png');
 
 // 处理用户下拉菜单
 const handleCommand = (command) => {
@@ -66,6 +67,8 @@ const handleCommand = (command) => {
     router.push('/login')
   } else if (command === 'profile') {
     router.push('/profile')
+  } else if (command === 'orders') {
+    router.push('/orders')
   }
 }
 const handleEstimate = async () => {
@@ -112,6 +115,7 @@ const handleLangChange = (lang) => {
       font-weight: bold;
       color: @primary-color;
       overflow: hidden;
+      cursor: pointer;
       img{
         height: 56px;
       }
@@ -173,7 +177,9 @@ const handleLangChange = (lang) => {
       align-items: center;
       gap: 8px;
       cursor: pointer;
-
+      .user-img{
+        border-radius: 32px;
+      }
       .username {
         font-size: 14px;
         color: @text-regular;

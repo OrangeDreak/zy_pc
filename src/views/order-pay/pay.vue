@@ -38,6 +38,22 @@
                 </div>
               </div>
             </div>
+            <div v-if="payMethodList.includes(2)" class="typeRow">
+              <div class="typeRowTop">
+                <a-radio :value="2">
+                  <img src="@/assets/images/order/paypal.png" class="typeImg" />
+                  <span class="moneyText">PayPal</span>
+                </a-radio>
+                <div class="typeRowRight">
+                  <div class="rightText">
+                    {{ $t("pay.paypalTip") }}
+                  </div>
+                </div>
+              </div>
+<!--              <div class="typeRowBottom">-->
+<!--                <div class="warning">{{ $t("paypalTip2") }}</div>-->
+<!--              </div>-->
+            </div>
           </div>
         </a-radio-group>
       </div>
@@ -85,7 +101,7 @@
 import { Modal } from 'ant-design-vue';
 import { computed, getCurrentInstance, ref, onBeforeMount, reactive, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { formatTitle, formatNum2, formatPrice, currencySymbol, formatAmount } from "@/utils/tools";
+import { formatTitle, formatNum2, formatPrice, currencySymbol, formatAmount, getCurrencyStr } from "@/utils/tools";
 import {
   getBalance,
   getPoundage,
@@ -144,6 +160,8 @@ const payModeChange = async () => {
     });
 };
 
+let failUrl = location.href;
+
 // 确认支付
 // 支付参数
 const getPayParams = () => {
@@ -156,6 +174,9 @@ const getPayParams = () => {
   params.payChannel = payMode.value;
   params.payScene = 0;
   params.callbackAddress = encodeURIComponent('https://qcelf.com/pay-success?path=${route.query.source || ""}');
+  if (params.payChannel === 2) {
+    params.cancelCallbackAddress = encodeURIComponent(failUrl);
+  }
   return params;
 };
 
@@ -169,9 +190,12 @@ const handlePay = async () => {
 
       return;
     }
-    if (payMode.value === 0 || payMode.value === 1) {
-     console.log(22);
-      // 余额,支付宝
+    if (payMode.value === 0 || payMode.value === 1 || payMode.value === 2) {
+      if (payMode.value === 2 && getCurrencyStr() === "CNY") {
+        proxy.$message.warning(proxy.$t("pay.notApplyPayTip"));
+        return;
+      }
+      // 余额,支付宝,paypal
       const params = getPayParams();
       let data;
       let success;

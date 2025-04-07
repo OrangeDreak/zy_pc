@@ -23,6 +23,13 @@ export const allOrderList = {
       data
     })
   },
+  packageOrderDetail(params) {
+    return request({
+      url: '/app/package-order/detail',
+      method: 'get',
+      params
+    })
+  },
   getSharingCode(params) {
     return request({
       url: '/app/tp/order/getSharingCode',
@@ -33,6 +40,13 @@ export const allOrderList = {
   decodeSharingCode(data) {
     return request({
       url: '/app/tp/order/decodeSharingCode',
+      method: 'post',
+      data
+    })
+  },
+  sharingListForBusiness(data) {
+    return request({
+      url: '/app/tp/order/sharingListForBusiness',
       method: 'post',
       data
     })
@@ -59,5 +73,11 @@ export const allOrderList = {
     })
   },
   
-  
+  packageOrderCancel(data) {
+    return request({
+      url: '/app/package-order/packageOrderCancel',
+      method: 'post',
+      data
+    })
+  },
 } 

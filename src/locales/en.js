@@ -17,6 +17,7 @@ export default {
     },
     user: {
       profile: 'Profile',
+      orders: 'Orders',
       logout: 'Logout'
     }
   },
@@ -137,13 +138,13 @@ export default {
   package: {
     title: 'My Packages',
     status: {
-      all: 'ALL',
-      recorded: 'RECORDED',
+      all: 'All',
+      recorded: 'Recorded',
       qc: 'QC',
-      waitPay: 'WAITPAY',
-      processing: 'PROCESSING',
-      delivered: 'DELIVERED',
-      finished: 'FINISHED'
+      waitPay: 'WaitPay',
+      processing: 'Processing',
+      delivered: 'Delivered',
+      finished: 'Finished'
     },
     table: {
       customerCode: 'customer Code' ,
@@ -152,6 +153,8 @@ export default {
       latestStatus: 'Latest Status',
       trackingNumber: 'Tracking Number',
       logisticsTrack: 'Logistics Track',
+      detail: 'Detail',
+      goPay: 'Go Pay'
     },
     search: {
       placeholder: 'Order No.',
@@ -464,5 +467,9 @@ export default {
         viewOrder: "View Order",
         payFail: "Payment Failure",
         payResult: "Payment Result",
+        paypalTip:
+            "As a trusted e-wallet with over 400 million active users in more than 200 countries, PayPal is a guaranteed global service provider. Together with PayPal, Qcelf allows you to have a fast and secure payment experience.",
+        notApplyPayTip:
+            "This payment method doesn't support CNY, please switch currency/Choose another payment method",
     }
   }

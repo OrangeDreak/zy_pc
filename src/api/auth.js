@@ -10,10 +10,26 @@ export const auth = {
     })
   },
 
+  // 发送邮箱验证码
+  sendEmailCode(data) {
+    return request({
+      url: '/app/user/sendEmailCode',
+      method: 'post',
+      data
+    })
+  },
   // 用户注册
   register(data) {
     return request({
       url: '/app/user/register',
+      method: 'post',
+      data
+    })
+  },
+  // 忘记密码
+  handleForget(data) {
+    return request({
+      url: '/app/user/forgetPassword',
       method: 'post',
       data
     })

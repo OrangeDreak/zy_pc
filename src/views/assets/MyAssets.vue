@@ -305,13 +305,15 @@ const finish = (data) => {
 
     .search-area {
       display: flex;
+      width: 460px;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
       margin-top: 32px;
       padding: 0 24px;
       .FormMingXi {
-        margin-right: 12px;
+        margin-right: 42px;
+        flex-shrink: 0;
       }
     }
 

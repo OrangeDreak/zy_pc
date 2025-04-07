@@ -45,6 +45,7 @@ export const createPackageOrder = (data) => {
   });
 };
 
+
 // 运费估算
 export const estimateCalculate = (data) => {
   return request({
@@ -58,6 +59,15 @@ export const estimateCalculate = (data) => {
 export const productTypeLabelListAll = (params) => {
   return request({
     url: "/app/productTypeLabel/listAll",
+    method: "get",
+    params,
+  });
+}
+
+// PayPal支付结果
+export const getPayPalResult = (params) => {
+  return request({
+    url: "/app/pay/callback/paypal/success",
     method: "get",
     params,
   });
