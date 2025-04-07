@@ -142,9 +142,9 @@ export default {
       recorded: 'Recorded',
       qc: 'QC',
       waitPay: 'WaitPay',
-      processing: 'Processing',
+      processing: 'WaitDeliver',
       delivered: 'Delivered',
-      finished: 'Finished'
+      finished: 'Received'
     },
     table: {
       customerCode: 'customer Code' ,
