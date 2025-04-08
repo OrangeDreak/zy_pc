@@ -255,7 +255,7 @@
                 class="star-btn"
                 @click="handleCancelClick(row)"
               >
-                取消包裹
+              {{ $t("package.table.cancelPackage") }}
               </el-button>
             </div>
           </template>
