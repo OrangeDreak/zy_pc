@@ -118,6 +118,9 @@ import {
   charge,
 } from "@/api/balance";
 
+import { payExchange } from "@/api/pay";
+
+
 const router = useRouter()
 const rechargeFormRef = ref(null);
 const loading = ref(false)
@@ -159,8 +162,10 @@ const handleRecharge = () => {
   // 实现充值逻辑
   const currency = getCurrencyStr();
   if (currency !== "CNY") {
-    //todo 查询汇率
-    exchange.value = 1;
+    //查询汇率
+    payExchange().then((res) => {
+       exchange.value = res.data;
+    });
   } else {
     exchange.value = 1;
   }

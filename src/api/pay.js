@@ -50,3 +50,12 @@ export const getPayPalResult = (params) => {
     params,
   });
 }
+
+// 获取实时汇率
+export const payExchange = (params) => {
+  return request({
+    url: "/app/pay/exchange",
+    method: "get",
+    params,
+  });
+}

@@ -226,7 +226,8 @@
       </section>
       <section class="line">
         <div class="item-title">
-          {{ $t("submit.sendLine") }}<span class="sub-title">（{{ $t("submit.noInsuranceTip") }}）</span>
+          {{ $t("submit.sendLine") }}
+<!--          <span class="sub-title">（{{ $t("submit.noInsuranceTip") }}）</span>-->
         </div>
         <div v-if="lineData.length" class="line-data">
           <template v-for="item in lineData" :key="item.logisticsLineCostId" :>
