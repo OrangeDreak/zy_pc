@@ -108,7 +108,7 @@ const handleOk = async () => {
 const handleCancel = async () => {
   formState.money = null;
   val.value = false;
-  rechargeFormRef.value.resetFields();
+  rechargeFormRef.value.resetFields?.();
 };
 
 const rules = {
