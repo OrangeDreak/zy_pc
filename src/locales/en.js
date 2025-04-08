@@ -159,7 +159,7 @@ export default {
       logisticsTrack: 'Logistics Track',
       detail: 'Detail',
       goPay: 'Go Pay',
-      cancelPackage: "Cancel"
+      cancelPackage: "Cancel Package Order"
     },
     search: {
       placeholder: 'Order No.',
