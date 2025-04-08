@@ -346,9 +346,10 @@
               <div class="title">{{ $t("submit.declarationMethod") }}</div>
               <a-radio-group v-model:value="otherInfo.payType" @change="payTypeChange">
                 <a-radio class="radio" value="1">
+                <div style="display: flex;align-items: center;">
                   {{ $t("submit.declarationMethod1") }}&nbsp;<a-tooltip
                         v-if="otherInfo.payTaxesType === 0"
-                        placement="top"
+
                 >
                   <template #title>
                       <span>{{
@@ -356,7 +357,7 @@
                       }}</span>
                   </template>
                   <img src="@/assets/images/icon/qa.png" alt=""
-                  /></a-tooltip>
+                  /></a-tooltip></div>
                 </a-radio>
                 <a-radio value="2">{{ $t("submit.declarationMethod2") }}</a-radio>
               </a-radio-group>
