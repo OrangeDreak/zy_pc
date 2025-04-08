@@ -143,7 +143,8 @@ export default {
       trackingNumber: '快递单号',
       logisticsTrack: '物流轨迹',
       detail: '包裹详情',
-      goPay: '去支付'
+      goPay: '去支付',
+      cancelPackage: "取消包裹"
     },
     specialFocus: '特别关注',
     cancelSpecialFocus: '取消特别关注',
