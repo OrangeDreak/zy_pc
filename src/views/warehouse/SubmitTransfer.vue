@@ -247,12 +247,12 @@
                       <template #content>
                         <pre class="ff-p4 qa-text insurance-desc">{{ item.insuranceDesc }}</pre>
                       </template>
-<!--                      <img-->
-<!--                              v-if="item.configureInsurance && userInfo.userIdentity !== 1"-->
-<!--                              class="insurance"-->
-<!--                              src="@/assets/images/icon/insurance.png"-->
-<!--                              alt=""-->
-<!--                      />-->
+                      <img
+                              v-if="item.configureInsurance"
+                              class="insurance"
+                              src="@/assets/images/icon/insurance.png"
+                              alt=""
+                      />
                     </a-popover>
                   </div>
                   <div class="name">
@@ -347,17 +347,16 @@
               <a-radio-group v-model:value="otherInfo.payType" @change="payTypeChange">
                 <a-radio class="radio" value="1">
                 <div style="display: flex;align-items: center;">
-                  {{ $t("submit.declarationMethod1") }}&nbsp;<a-tooltip
-                        v-if="otherInfo.payTaxesType === 0"
-
-                >
-                  <template #title>
+                  {{ $t("submit.declarationMethod1") }}&nbsp;
+                  <a-tooltip v-if="otherInfo.payTaxesType === 0">
+                    <template #title>
                       <span>{{
                         i18ntReplaceVal("submit.declarationMethod1Tip", selectedLineItem.cargoValueRatio + "%")
                       }}</span>
-                  </template>
-                  <img src="@/assets/images/icon/qa.png" alt=""
-                  /></a-tooltip></div>
+                    </template>
+                    <img src="@/assets/images/icon/qa.png" alt=""/>
+                  </a-tooltip>
+                </div>
                 </a-radio>
                 <a-radio value="2">{{ $t("submit.declarationMethod2") }}</a-radio>
               </a-radio-group>
@@ -387,20 +386,28 @@
                 >
               </div>
             </div>
-<!--            <div-->
-<!--                    v-if="selectedLineItem.configureInsurance && userInfo.userIdentity !== 1"-->
-<!--                    class="item"-->
-<!--            >-->
-<!--              <div class="title">{{ $t("submit.insurancePaymentMethod") }}</div>-->
-<!--              <a-radio-group v-model:value="otherInfo.insurance">-->
-<!--                <a-radio v-if="otherInfo.insurance === 0" class="radio" :value="0">{{-->
-<!--                  $t("submit.insurancePaymentMethod1")-->
-<!--                  }}</a-radio>-->
-<!--              </a-radio-group>-->
-<!--              <div class="desc">-->
-<!--                {{ $t("submit.insurancePaymentMethodTip1") }}-->
-<!--              </div>-->
-<!--            </div>-->
+            <div
+                    v-if="selectedLineItem.configureInsurance"
+                    class="item"
+            >
+              <div class="title">{{ $t("submit.insurancePaymentMethod") }}</div>
+              <a-radio-group v-model:value="otherInfo.insurance" @change="insuranceChange">
+                <a-radio class="radio" :value="1">
+                  <div style="display: flex;align-items: center;">
+                    {{ $t("submit.insurancePaymentMethod1") }}
+                    <el-tooltip :content="selectedLineItem.insuranceDesc" placement="top">
+                      <el-icon class="help-icon"><QuestionFilled /></el-icon>
+                    </el-tooltip>
+                  </div>
+                </a-radio>
+                <a-radio class="radio" :value="0">
+                  {{ $t("submit.insurancePaymentMethod2") }}
+                </a-radio>
+              </a-radio-group>
+              <div class="desc">
+                {{ $t("submit.insurancePaymentMethodTip2") }}
+              </div>
+            </div>
             <div class="tips">
               <div class="title">{{ $t("submit.disclaimerReminder") }}</div>
               <div class="text">
@@ -510,6 +517,7 @@
                     ><img src="@/assets/images/icon/qa.png" alt="" /></a-tooltip
                   >：{{ formatPrice(amountInfo, "taxReportingFee") }}
                   </p>
+                  <p>{{ $t("submit.insuranceFee") }}：{{ formatPrice(amountInfo, "insuranceFee") }}</p>
                 </template>
                 <img src="@/assets/images/icon/qa.png" alt="" />
               </a-popover>
@@ -902,6 +910,11 @@ const payTypeChange = (e) => {
     amountInfo.taxReportingFeeUsd = 0;
   }
 };
+
+const insuranceChange = (e) => {
+  renderOrder();
+};
+
 const declarationValueplaceholder = computed(() => {
   if (otherInfo.payType === "2" && otherInfo.declarationValueMin && otherInfo.declarationValueMax) {
     return `${otherInfo.declarationValueMin}-${otherInfo.declarationValueMax}`;
@@ -1005,6 +1018,8 @@ const amountInfo = reactive({
   taxReportingFee: 0,
   taxReportingFeeTrans: 0,
   taxReportingFeeUsd: 0,
+  insuranceFee: 0,
+  insuranceFeeTrans: 0,
 });
 
 const itemActive = ref();
@@ -1064,17 +1079,11 @@ const renderOrder = (showTip = false) => {
     packingMethod: packageInfo.type,
     valueAddedServicesIdList: packageInfo.service,
     logisticsLineCostId: selectedLine.value,
+    insurance: otherInfo.insurance,
   })
     .then((res) => {
       const { data } = res;
       Object.keys(amountInfo).forEach((key) => {
-        // if (key === "estimatedCostPrice") {
-        //   amountInfo[key] = (data[key] || 0) - (data.servicePrice || 0);
-        // } else if (key === "estimatedCostPriceTrans") {
-        //   amountInfo[key] = (data[key] || 0) - (data.servicePriceTrans || 0);
-        // } else {
-        //   amountInfo[key] = data[key] || 0;
-        // }
         amountInfo[key] = data[key] || 0;
       });
       Object.keys(weightInfo).forEach((key) => {
@@ -1122,12 +1131,13 @@ const onSubmit = () => {
     logisticsLineCostId: selectedLine.value,
     packageDeclaredPrice: otherInfo.declarationValue,
     outUserAddressId: undefined,
+    insurance: otherInfo.insurance,
   })
     .then(() => {
       localStorage.setItem("lastSubmitAddressId", addressInfo.id);
       proxy.$message.success(proxy.$t("submit.sumbitSuccess"));
       router.replace({
-        path: "/mine/package-list",
+        path: "/orders",
       });
     })
     .finally(() => {

@@ -399,6 +399,7 @@ export default {
       carrierProcessingFee: "Carrier Processing Fee",
       fuelCharge: "Fuel Surcharge",
       operationFee: "Handling Fee",
+      insuranceFee: "Insurance Fee",
       servicePrice: "Service Fee",
       submitOrderTip1: "Please select a delivery address",
       packagingMethodTip: "Please select a packaging method!",
@@ -407,7 +408,14 @@ export default {
       sumbitSuccess: "Order submitted successfully",
       langProp: "Trans",
       warehouse_submit_tip: "If you have any other requirements for the package, please note here",
-      service_charge: "Service Fee"
+      service_charge: "Service Fee",
+      insurancePaymentMethod: "Insurance",
+      insurancePaymentMethod1: "Add Coverage",
+      insurancePaymentMethod2: "No, Thanks",
+      insurancePaymentMethodTip1:
+          "This line offers free insurance for your parcel, for more details, please consult customer service, or click the insurance button on the line's icon. ",
+      insurancePaymentMethodTip2:
+          "If your insured parcel meets the following conditions, we will issue compensation according to the actual situation. The maximum compensation amount will be the sum of the insured amount of the left-side commodity and the insured amount for freight (not exceeding 5000 CNY). The logistics provider confirms that your parcel has been seized by the customs.\nCompensation for customs seizure can be applied after 45-60 days from the dispatch of the parcel. For the compensation standards, please consult our online customer service.",
     },
     estimate: {
       PackageRestrictions: "Package Restrictions",
