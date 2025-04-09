@@ -218,7 +218,8 @@
               >
                 {{ $t("commont.share") }}
               </el-button>
-
+            </div>
+            <div>
               <el-button
                 v-if="status != 10"
                 type="text"
@@ -232,15 +233,7 @@
                 }}
               </el-button>
             </div>
-            <div v-if="row.status >= 0">
-              <el-button
-                v-if="row.status >= 10"
-                type="text"
-                class="star-btn"
-                @click="handlePackageClick(row)"
-              >
-                {{ $t("package.table.detail") }}
-              </el-button>
+            <div>
               <el-button
                 v-if="row.status == 10"
                 type="text"
@@ -249,6 +242,8 @@
               >
                 {{ $t("package.table.goPay") }}
               </el-button>
+            </div>
+            <div>
               <el-button
                 v-if="row.status === 10"
                 type="text"
@@ -258,6 +253,17 @@
               {{ $t("package.table.cancelPackage") }}
               </el-button>
             </div>
+            <div>
+              <el-button
+                v-if="row.status >= 10"
+                type="text"
+                class="star-btn"
+                @click="handlePackageClick(row)"
+              >
+                {{ $t("package.table.detail") }}
+              </el-button>
+            </div>
+            
           </template>
         </el-table-column>
       </el-table>

@@ -356,7 +356,7 @@ const init = (countryId) => {
   }
 };
 onBeforeMount(() => {
-  // getAreaCode();
+   getAreaCode();
 });
 
 defineExpose({

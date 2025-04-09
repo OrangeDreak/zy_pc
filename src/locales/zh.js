@@ -416,6 +416,7 @@ export default {
    carrierProcessingFee: "物流商处理费",
    fuelCharge: "燃油费",
    operationFee: "操作费",
+   insuranceFee: "保险费",
    servicePrice: "服务费",
    submitOrderTip1: "请选择收货地址",
    packagingMethodTip: "请选择包装方式！",
@@ -425,6 +426,13 @@ export default {
    langProp: "",
    warehouse_submit_tip: "如果您对包裹还有其他要求，请在这里备注",
    service_charge: "服务费",
+   insurancePaymentMethod: "保险",
+   insurancePaymentMethod1: "购买",
+   insurancePaymentMethod2: "不需要",
+   insurancePaymentMethodTip1:
+       "这条线路为您的包裹提供免费保险，如需了解详情，请咨询客服，或点击线路图标上的保险按钮。",
+   insurancePaymentMethodTip2:
+       "如果您投保的包裹符合以下条件，我们将根据实际情况进行赔偿。最高赔偿金额为左侧商品保险金额加运费保险金额之和(不超过5000元)。物流公司确认你的包裹被海关扣押了。\n海关扣押赔偿可在包裹发出后45-60天内申请。有关赔偿标准，请咨询我们的在线客服。",
   },
   estimate: {
    PackageRestrictions: "包裹限制",
@@ -441,6 +449,7 @@ export default {
    carrierProcessingFee: "物流商处理费",
    fuelCharge: "燃油费",
    operationFee: "操作费",
+   insuranceFee: "保险费",
    servicePrice: "服务费",
    ShippingCostEstimate: "运费估算",
    estTip1: "输入包裹尺寸（长、宽、高）后计算更精准",

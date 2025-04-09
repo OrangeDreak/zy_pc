@@ -4,7 +4,6 @@
     <div class="order-list-content">
       <el-table
         :data="orders"
-        @selection-change="handleSelectionChange"
         style="width: 100%"
         :row-class-name="tableRowClassName"
       >
@@ -182,203 +181,94 @@
   </div>
 </template>
 
-<script lang="ts">
-import {
-  defineComponent,
-  onMounted,
-  reactive,
-  ref,
-  getCurrentInstance,
-} from "vue";
+<script setup>
+import { onMounted, computed, reactive, ref } from "vue";
 import { ElMessage } from "element-plus";
+import { useRoute } from "vue-router";
 import { allOrderList } from "@/api/orderList";
-import { useRouter, useRoute } from "vue-router";
 
-interface Order {
-  id: number;
-  trackingNo: string;
-  userNo: string;
-  customerCode: string;
-  createdAt: string;
-  latestTracking: string;
-  isStarred: boolean;
-  shareCount: number;
-}
-
-interface SearchForm {
-  userNo: string;
-  customerCode: string;
-  trackingNumber: string;
-  isMark: 0;
-}
-
-interface FlowItem {
-  status: number;
-  icon: string;
-  label: string;
-  count: string;
-}
-
-export default defineComponent({
-  name: "OrderList",
-  setup() {
-    const router = useRouter();
-    const route = useRoute();
-    const { proxy } = getCurrentInstance();
-    // 定义行类名函数
-    const tableRowClassName = ({ row }) => {
-      if (row.isMark) {
-        return "status-mark";
-      }
-      return "";
-    };
-    // 分页状态
-    const pagination = reactive({
-      currentPage: 1,
-      pageSize: 10,
-    });
-
-    // 搜索表单
-    const searchForm = reactive({
-      userNo: "",
-      trackingNo: "",
-      isMark: 0,
-    });
-
-    // 订单列表
-    const orders = ref<Order[]>([]);
-    const total = ref(0);
-    const loading = ref(false);
-    const error = ref<string | null>(null);
-    const countList = ref({});
-    // 当前状态
-    const status = ref(-1);
-    const selectedOrders = ref([]);
-
-    // 流程项数据
-    // 状态：-1已取消、0已录入、1已QC、10待支付 、11待发货、12已发货、13已签收、14退货
-    const flowItems = ref<FlowItem[]>([
-      {
-        status: -1,
-        icon: "icon-all",
-        label: proxy.$t("package.status.all"),
-        count: "allOrder",
-      },
-      {
-        status: 0,
-        icon: "icon-recorded",
-        label: proxy.$t("package.status.recorded"),
-        count: "enterCount",
-      },
-      {
-        status: 1,
-        icon: "icon-qc",
-        label: proxy.$t("package.status.qc"),
-        count: "qcCount",
-      },
-      {
-        status: 10,
-        icon: "icon-shipped",
-        label: proxy.$t("package.status.waitPay"),
-        count: "sendCount",
-      },
-      {
-        status: 11,
-        icon: "icon-processing",
-        label: proxy.$t("package.status.processing"),
-        count: "signCount",
-      },
-      {
-        status: 12,
-        icon: "icon-delivered",
-        label: proxy.$t("package.status.delivered"),
-        count: "signCount",
-      },
-      {
-        status: 13,
-        icon: "icon-finished",
-        label: proxy.$t("package.status.finished"),
-        count: "signCount",
-      },
-    ]);
-    // 在组件挂载时获取路由参数
-    onMounted(async () => {
-      if (route.query.userNo) {
-        searchForm.userNo = route.query.userNo as string; // 获取userNo参数
-      }
-      if (route.query.code) {
-        try {
-          const res = await allOrderList.decodeSharingCode({
-            code: route.query.code as string,
-          });
-          searchForm.userNo = res.data.userNo as string; // 获取userNo参数
-        } catch (error) {
-          console.log(error);
-        }
-      }
-      loadOrders();
-    });
-
-    // 加载订单列表
-    const loadOrders = async () => {
-      try {
-        loading.value = true;
-        error.value = null;
-
-        let params: any = {
-          pageNo: pagination.currentPage,
-          pageSize: pagination.pageSize,
-          ...searchForm,
-        };
-        if (!params.isMark) {
-          delete params.isMark;
-        }
-        orders.value = [];
-        if (status.value < 10) {
-          params.status = status.value;
-          if (status.value === -1) {
-            delete params.status;
-          }
-        } else {
-          params.status = status.value;
-        }
-        const result = await allOrderList.sharingListForBusiness(params);
-        orders.value = result.data;
-        total.value = result.total;
-      } catch (err) {
-        error.value = err.message || "获取订单失败";
-        ElMessage.error("获取订单列表失败");
-      } finally {
-        loading.value = false;
-      }
-    };
-    // 分页事件处理
-    const handleSizeChange = (val: number) => {
-      pagination.pageSize = val;
-      loadOrders();
-    };
-
-    const handleCurrentChange = (val: number) => {
-      pagination.currentPage = val;
-      loadOrders();
-    };
-
-    return {
-      searchForm,
-      orders,
-      total,
-      pagination,
-      status,
-      flowItems,
-      selectedOrders,
-      countList,
-      handleSizeChange,
-      handleCurrentChange,
-      tableRowClassName,
-    };
-  },
+// 在 setup 函数的顶部调用 useI18n
+const route = useRoute();
+// 分页状态
+const pagination = reactive({
+  currentPage: 1,
+  pageSize: 10,
 });
+
+// 搜索表单
+const searchForm = reactive({
+  userNo: "",
+  trackingNo: "",
+  isMark: 0,
+});
+
+// 订单列表
+const orders = ref([]);
+const total = ref(0);
+const loading = ref(false);
+const error = ref(null);
+// 当前状态
+const status = ref(-1);
+// 在组件挂载时获取路由参数
+onMounted(() => {
+  loadOrders();
+});
+
+// 加载订单列表
+const loadOrders = async () => {
+  try {
+    let params = {
+      pageNo: pagination.currentPage,
+      pageSize: pagination.pageSize,
+    };
+    if (route.query.code) {
+      const code = route.query.code;
+      const res = await allOrderList.decodeSharingCode({
+        code,
+      });
+      params.userNo =  res.data.userNo;
+    }
+    if (!params.isMark) {
+      delete params.isMark;
+    }
+    orders.value = [];
+    if (status.value < 10) {
+      params.status = status.value;
+      if (status.value === -1) {
+        delete params.status;
+      }
+    } else {
+      params.status = status.value;
+    }
+    const result = await allOrderList.sharingListForBusiness(params);
+    orders.value = result.data;
+    total.value = result.total;
+  } catch (err) {
+    error.value = err.message || "获取订单失败";
+    ElMessage.error("获取订单列表失败");
+  } finally {
+    loading.value = false;
+  }
+};
+// 定义行类名函数
+const tableRowClassName = ({ row }) => {
+  if (row.isMark) {
+    return "status-mark";
+  }
+  return "";
+};
+// 分页事件处理
+// const handleSizeChange = (val) => {
+//   pagination.pageSize = val;
+//   loadOrders();
+// };
+
+// const handleCurrentChange = (val) => {
+//   pagination.currentPage = val;
+//   loadOrders();
+// };
 </script>
+
 
 <style lang="less" scoped>
 .order-list {

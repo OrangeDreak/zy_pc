@@ -333,7 +333,7 @@ export default {
       addService6: "Moisture-proof Bag",
       addServiceTip6: "Value-added service, CN￥6\nService description: Add a moisture-proof bag to the outer surface of the carton package and seal it properly.\nService features: Thick PE material, effectively prevents the outer box from getting damp or the contents from molding due to weather factors during transit. Suitable for all product categories.",
       addService7: "Product Reinforcement - Bubble Column Packaging",
-      addServiceTip: "Value-added service, CN￥15\n(1) Function: Uses bubble column material to wrap and protect products, significantly improving shock resistance and preventing damage from squeezing, collision, or dropping.\n(2) Suitable for: Cosmetics, electronics, figurines, glass jars, ceramic products.",
+      addServiceTip7: "Value-added service, CN￥15\n(1) Function: Uses bubble column material to wrap and protect products, significantly improving shock resistance and preventing damage from squeezing, collision, or dropping.\n(2) Suitable for: Cosmetics, electronics, figurines, glass jars, ceramic products.",
       addService8: "Product Reinforcement - Kraft Bubble Mailer Packaging",
       addServiceTip8: "Value-added service, CN￥10\n(1) Function: Uses kraft bubble mailers to package products, providing cushioning and shock absorption to prevent damage from squeezing, collision, or dropping.\n(2) Suitable for: Small jewelry, small jade items, small documents like driver's licenses/IDs, small electronics.",
       addService9: "Product Reinforcement - Pearl Cotton Packaging",
@@ -368,6 +368,7 @@ export default {
       noLineData: "No matching logistics routes available",
       pre_package_weight: "Estimated Package Weight",
       package_weight: "Estimated Package Weight",
+      package_weight3: "Estimated Volume Weight of Parcel ",
       package_weight3Tip: "This route will use the greater of the actual weight or volumetric weight as the package weight for shipping cost calculation.",
       estimateFreight: "Estimated Shipping Cost",
       addedServiceCharge: "Value-added Service Fee",
@@ -399,6 +400,7 @@ export default {
       carrierProcessingFee: "Carrier Processing Fee",
       fuelCharge: "Fuel Surcharge",
       operationFee: "Handling Fee",
+      insuranceFee: "Insurance Fee",
       servicePrice: "Service Fee",
       submitOrderTip1: "Please select a delivery address",
       packagingMethodTip: "Please select a packaging method!",
@@ -407,7 +409,14 @@ export default {
       sumbitSuccess: "Order submitted successfully",
       langProp: "Trans",
       warehouse_submit_tip: "If you have any other requirements for the package, please note here",
-      service_charge: "Service Fee"
+      service_charge: "Service Fee",
+      insurancePaymentMethod: "Insurance",
+      insurancePaymentMethod1: "Add Coverage",
+      insurancePaymentMethod2: "No, Thanks",
+      insurancePaymentMethodTip1:
+          "This line offers free insurance for your parcel, for more details, please consult customer service, or click the insurance button on the line's icon. ",
+      insurancePaymentMethodTip2:
+          "If your insured parcel meets the following conditions, we will issue compensation according to the actual situation. The maximum compensation amount will be the sum of the insured amount of the left-side commodity and the insured amount for freight (not exceeding 5000 CNY). The logistics provider confirms that your parcel has been seized by the customs.\nCompensation for customs seizure can be applied after 45-60 days from the dispatch of the parcel. For the compensation standards, please consult our online customer service.",
     },
     estimate: {
       PackageRestrictions: "Package Restrictions",
