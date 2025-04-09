@@ -416,6 +416,7 @@ export default {
    carrierProcessingFee: "物流商处理费",
    fuelCharge: "燃油费",
    operationFee: "操作费",
+   insuranceFee: "保险费",
    servicePrice: "服务费",
    submitOrderTip1: "请选择收货地址",
    packagingMethodTip: "请选择包装方式！",

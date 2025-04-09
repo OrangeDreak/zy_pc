@@ -200,13 +200,10 @@
                           alt=""
                   />&nbsp;
                 </div>
-                {{ item.label }}&nbsp;<a-tooltip placement="top">
-                <template #title>
-                  <pre class="ff-p4 add-service-desc">{{ item.tip }}</pre>
-                </template>
-                <div class="tag-box">
-                  <img src="@/assets/images/icon/qa.png" alt="" /></div
-                ></a-tooltip>
+                {{ item.label }}&nbsp;
+                <el-tooltip :content="item.tip" placement="top" >
+                     <el-icon class="help-icon" ><QuestionFilled style="color:#d9d9d9"/></el-icon>
+                </el-tooltip>
               </div></a-checkbox
               >
             </a-checkbox-group>
@@ -396,7 +393,7 @@
                   <div style="display: flex;align-items: center;">
                     {{ $t("submit.insurancePaymentMethod1") }}
                     <el-tooltip :content="selectedLineItem.insuranceDesc" placement="top">
-                      <el-icon class="help-icon"><QuestionFilled /></el-icon>
+                      <el-icon class="help-icon"><QuestionFilled style="color:#d9d9d9"/></el-icon>
                     </el-tooltip>
                   </div>
                 </a-radio>
@@ -510,14 +507,14 @@
                     ><img src="@/assets/images/icon/qa.png" alt="" /></a-tooltip
                   >：-{{ formatPrice(amountInfo, "transportReducePrice") }}
                   </p>
-                  <p v-if="amountInfo.taxReportingFee">
+                  <p v-if="amountInfo.taxReportingFeeUsd" style="display: flex;align-items: center;">
                     {{ $t("submit.estimatTaxesFee")
                     }}<a-tooltip>
                     <template #title>{{ $t("submit.estimatTaxesFeeAmountTip") }}</template
                     ><img src="@/assets/images/icon/qa.png" alt="" /></a-tooltip
-                  >：{{ formatPrice(amountInfo, "taxReportingFee") }}
+                  >：${{ formatNum2(amountInfo.taxReportingFeeUsd, false) }}
                   </p>
-                  <p>{{ $t("submit.insuranceFee") }}：{{ formatPrice(amountInfo, "insuranceFee") }}</p>
+                  <p v-if="amountInfo.insuranceFee">{{ $t("submit.insuranceFee") }}：{{ formatPrice(amountInfo, "insuranceFee") }}</p>
                 </template>
                 <img src="@/assets/images/icon/qa.png" alt="" />
               </a-popover>
@@ -1882,7 +1879,7 @@ onMounted(async () => {
         }
       }
       .edit-btn {
-        width: 80px;
+        width: 150px;
         height: 32px;
         padding: 0;
         display: flex;
