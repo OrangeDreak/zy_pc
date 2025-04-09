@@ -153,6 +153,7 @@ import { QuestionFilled } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { transfer } from '@/api/transfer'
 import SelectCountry from "@/components/SelectCountry/index.vue";
+import { CloseOutlined } from '@ant-design/icons-vue';
 
 const props = defineProps({
   modelValue: {
@@ -190,6 +191,7 @@ const dialogVisible = ref(false)
 watch(() => props.modelValue, val => {
   dialogVisible.value = val;
   addressForm.value = {};
+  countryName.value = "";
   if (props.subCode) {
     addressForm.value.subCode = props.subCode;
   }
@@ -197,6 +199,7 @@ watch(() => props.modelValue, val => {
     addressForm.value = {...props.formData.userAddressInfo};
     addressForm.value.name = props.formData.userAddressInfo.firstName;
     addressForm.value.subCode = props.subCode;
+    countryName.value = props.formData.userAddressInfo.countryName;
   }
 })
 watch(() => dialogVisible.value, val => {
@@ -306,6 +309,7 @@ watch(() => addressForm.value.countryId, async (val) => {
   }
 })
 
+
 const refSelectCountry = ref();
 const openCountryPopver = () => {
   refSelectCountry.value.openPopver();
@@ -318,8 +322,12 @@ const countryInput = () => {
 };
 
 const countryChange = (item) => {
+  if (addressForm.value.countryId === item.id) {
+     return;
+  }
   addressForm.value.countryId = item.id;
   countryName.value = `${item.areaEnName} ${item.areaName}`;
+  addressForm.value.provinceId = null;
 };
 
 const handleClear = () => {
@@ -363,8 +371,9 @@ const handleSubmit = async () => {
 
 // 初始化获取国家列表
 onMounted(() => {
-  fetchCountries();
+  //fetchCountries();
 })
+
 </script>
 
 <style lang="less" scoped>

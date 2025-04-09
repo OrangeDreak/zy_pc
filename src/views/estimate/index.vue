@@ -496,7 +496,7 @@ onBeforeMount(() => {
   }
 });
 onMounted(() => {
-  refSelectCountry.value.getAreaCode(route.query.country ? Number(route.query.country) : "");
+  //refSelectCountry.value.getAreaCode(route.query.country ? Number(route.query.country) : "");
 });
 </script>
 
