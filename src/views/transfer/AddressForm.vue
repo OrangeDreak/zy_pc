@@ -73,18 +73,37 @@
         <!-- 右列 -->
         <el-col :span="12">
           <el-form-item :label="$t('addressForm.country')" prop="countryId">
-            <el-select 
-              v-model="addressForm.countryId"
-              :placeholder="$t('addressForm.countryTip')"
-              filterable
-            >
-              <el-option
-                v-for="item in countries"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
+<!--            <el-select -->
+<!--              v-model="addressForm.countryId"-->
+<!--              :placeholder="$t('addressForm.countryTip')"-->
+<!--              filterable-->
+<!--            >-->
+<!--              <el-option-->
+<!--                v-for="item in countries"-->
+<!--                :key="item.value"-->
+<!--                :label="item.label"-->
+<!--                :value="item.value"-->
+<!--              />-->
+<!--            </el-select>-->
+            <SelectCountry ref="refSelectCountry" @countryChange="countryChange">
+              <div class="value-con country-con">
+                <a-input
+                        v-model:value="countryName"
+                        :bordered="false"
+                        :placeholder="$t('estimate.selectCountry')"
+                        style="width: 100%; padding: 0 11px"
+                        @click.stop="openCountryPopver"
+                        @change="countryInput"
+                >
+                  <template #suffix>
+                      <span v-if="countryName" class="close-icon">
+                        <CloseOutlined @click.stop="handleClear" />
+                      </span>
+                  </template>
+                </a-input>
+                <svg-icon class="arrow-icon" name="arrow-down" @click.stop></svg-icon>
+              </div>
+            </SelectCountry>
           </el-form-item>
           <el-form-item :label="$t('addressForm.province')" prop="provinceId">
             <el-select 
@@ -133,6 +152,7 @@ import { ref, watch, onMounted } from 'vue'
 import { QuestionFilled } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { transfer } from '@/api/transfer'
+import SelectCountry from "@/components/SelectCountry/index.vue";
 
 const props = defineProps({
   modelValue: {
@@ -152,6 +172,7 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'submit'])
 // 表单数据
 const formRef = ref(null)
+const countryName = ref(null);
 const loading = ref(false)
 const fullAddress = ref('')
 const addressForm = ref({
@@ -284,6 +305,29 @@ watch(() => addressForm.value.countryId, async (val) => {
     await fetchProvinces(val)
   }
 })
+
+const refSelectCountry = ref();
+const openCountryPopver = () => {
+  refSelectCountry.value.openPopver();
+};
+const countryInput = () => {
+  if (countryName.value === "") {
+    addressForm.value.countryId = null;
+  }
+  refSelectCountry.value.countrySearch(countryName.value);
+};
+
+const countryChange = (item) => {
+  addressForm.value.countryId = item.id;
+  countryName.value = `${item.areaEnName} ${item.areaName}`;
+};
+
+const handleClear = () => {
+  countryName.value = "";
+  addressForm.value.countryId = null;
+  refSelectCountry.value.countrySearch(countryName.value);
+};
+
 // 提交表单
 const handleSubmit = async () => {
   if (!formRef.value) return
