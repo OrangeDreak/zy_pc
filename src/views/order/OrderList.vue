@@ -93,16 +93,17 @@
         </el-table-column>
         <el-table-column
           prop="logisticsNumber"
+          width="350"
           :label="$t('package.table.expressDelivery')"
         >
           <template #default="{ row }">
             <div v-if="row.status < 10">
-              <div>{{ $t("order.card.trackingNumber") }}：{{ row.logisticsNumber }}</div>
+              <div>{{ $t("order.card.trackingNo") }}：{{ row.logisticsNumber }}</div>
               <el-popover :width="800">
                 <template #reference>
                   <div v-if="row.trackingList && row.trackingList.length > 0">
                     {{ $t("order.card.latestTracking") }}：{{
-                      formatTitle(row.trackingList[0], "logisticsDesc", "en")
+                      formatTitleC(row.trackingList[0], "logisticsDesc", "en")
                     }}
                   </div>
                 </template>
@@ -115,7 +116,7 @@
                         :timestamp="item.gmtTime"
                         placement="top"
                       >
-                        <p>{{ formatTitle(item, "logisticsDesc", "en") }}</p>
+                        <p>{{ formatTitleC(item, "logisticsDesc", "en") }}</p>
                       </el-timeline-item>
                     </el-timeline>
                   </div>
@@ -138,7 +139,7 @@
                     :min-scale="0.2"
                     :preview-src-list="row.imgUrlList"
                     :initial-index="index"
-                    z-index="8"
+                    :z-index="8"
                     fit="cover"
                   />
                 </div>
@@ -147,13 +148,13 @@
             <div v-else class="estimate-info">
               <div>
                 <div>{{ $t("package.table.sending_country") }}：{{ row.receiverCountry }}</div>
-                <div>{{ $t("order.card.trackingNo2") }}：{{ row.transhipmentTrackingNo }}</div>
-                <div>{{ $t("order.card.sendLine") }}：{{ formatTitle(item, "logisticsLine", "en") }}</div>
+                <div v-if="row.transhipmentTrackingNo">{{ $t("order.card.trackingNo2") }}：{{ row.transhipmentTrackingNo }}</div>
+                <div>{{ $t("order.card.sendLine") }}：{{ formatTitleC(row, "logisticsLine", "en") }}</div>
                 <el-popover :width="800">
                   <template #reference>
                     <div v-if="row.trackingList && row.trackingList.length > 0">
-                      {{ $t("logisticsTrack") }}：{{
-                        row.trackingList && row.trackingList[0]?.logisticsDesc
+                      {{ $t("order.card.latestTracking") }}：{{
+                        formatTitleC(row.trackingList[0], "trackDesc", "trans")
                       }}
                     </div>
                   </template>
@@ -166,7 +167,7 @@
                           :timestamp="item.pathTime"
                           placement="top"
                         >
-                          <p>{{ formatTitle(item, "trackDesc", "en") }}</p>
+                          <p>{{ formatTitleC(item, "trackDesc", "trans") }}</p>
                         </el-timeline-item>
                       </el-timeline>
                     </div>
@@ -198,20 +199,21 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column v-if="row.status > 9"
+        <el-table-column v-if="status > 9"
                 prop="packageInfo"
+                width="250"
                 :label="$t('package.table.packageInfo')"
         >
-          <div>
-            <div><span :class="['tip', item.realPackageSizeDTO ? 'overline' : '']">$t('package.table.estimateSize'): {{ row.estimatePackageSizeDTO.length }}cm*{{row.estimatePackageSizeDTO.width}}*cm{{ row.estimatePackageSizeDTO.height }}cm</span></div>
-            <div v-if="row.realPackageSizeDTO"><span class="tip">$t('package.table.realSize'): {{ row.realPackageSizeDTO.length }}cm*{{row.realPackageSizeDTO.width}}*cm{{ row.realPackageSizeDTO.height }}cm</span></div>
-            <div><span :class="['tip', item.realPackageSizeDTO ? 'overline' : '']">$t('package.table.estimateWeight'): {{ row.estimatePackageSizeDTO.weight }}g</span></div>
-            <div v-if="row.realPackageSizeDTO"><span class="tip">$t('package.table.realWeight'): {{ row.realPackageSizeDTO.weight }}g</span></div>
-            <div><span :class="['tip', item.realFreightDeposit ? 'overline' : '']">$t('package.table.estimateFreight'): {{ formatPrice(row, "freightDeposit") }}</span></div>
-            <div v-if="row.realFreightDeposit"><span class="tip">$t('package.table.realFreight'): {{ formatPrice(row, "realFreightDeposit") }}</span></div>
-            <div v-if="row.insuranceFee"><span class="tip">$t('package.table.insuranceFee'): {{ formatPrice(row, "insuranceFee") }}</span></div>
-            <div v-if="row.packageDeclaredPrice"><span class="tip">$t('package.table.declarationPrice'): ${{ row.packageDeclaredPrice / 100 }}</span></div>
-          </div>
+          <template #default="{ row }">
+            <div><span :class="['tip', status > 11 ? 'overline' : '']">{{$t('package.table.estimateSize')}}: {{ row.estimatePackageSizeDTO.length }}*{{row.estimatePackageSizeDTO.width}}*{{ row.estimatePackageSizeDTO.height }}cm</span></div>
+            <div v-if="status > 11"><span class="tip">{{$t('package.table.realSize')}}: {{ row.realPackageSizeDTO.length }}*{{row.realPackageSizeDTO.width}}*{{ row.realPackageSizeDTO.height }}cm</span></div>
+            <div><span :class="['tip', status > 11 ? 'overline' : '']">{{$t('package.table.estimateWeight')}}: {{ row.estimatePackageSizeDTO.weight }}g</span></div>
+            <div v-if="status > 11"><span class="tip">{{$t('package.table.realWeight')}}: {{ row.realPackageSizeDTO.weight }}g</span></div>
+            <div><span :class="['tip', row.realFreightDeposit ? 'overline' : '']">{{$t('package.table.estimateFreight')}}: {{ formatPriceC(row, "freightDeposit") }}</span></div>
+            <div v-if="row.realFreightDeposit"><span class="tip">{{$t('package.table.realFreight')}}: {{ formatPriceC(row, "realFreightDeposit") }}</span></div>
+            <div v-if="row.insuranceFee"><span class="tip">{{$t('package.table.insuranceFee')}}: {{ formatPriceC(row, "insuranceFee") }}</span></div>
+            <div v-if="row.packageDeclaredPrice"><span class="tip">{{$t('package.table.declarationPrice')}}: ${{ row.packageDeclaredPrice / 100 }}</span></div>
+          </template>
         </el-table-column>
         <el-table-column
           v-if="status < 10"
@@ -226,7 +228,7 @@
         >
           <template #default="{ row }">
             <el-tag>
-              {{ formatTitle(row, "statusDesc", "en") }}
+              {{ formatTitleC(row, "statusDesc", "en") }}
               <el-tooltip v-if= "row.debtUserPayId"  :content="$t('package.table.package_bk_order_status_tip')" placement="top">
                 <el-icon class="help-icon"><QuestionFilled style="color:#d9d9d9"/></el-icon>
               </el-tooltip>
@@ -242,7 +244,8 @@
             <div>
               <el-button
                 v-if="status != 10"
-                type="text"
+                type="primary"
+                :link="true"
                 class="star-btn"
                 @click="handleStarClick(row)"
               >
@@ -252,7 +255,8 @@
             <div>
               <el-button
                 v-if="status != 10"
-                type="text"
+                type="primary"
+                :link="true"
                 class="star-btn"
                 @click="handleMarkClick(row)"
               >
@@ -266,7 +270,8 @@
             <div>
               <el-button
                 v-if="row.userPayId"
-                type="text"
+                type="primary"
+                :link="true"
                 class="star-btn"
                 @click="handlePayClick(row)"
               >
@@ -276,7 +281,8 @@
             <div>
               <el-button
                       v-if="row.debtUserPayId"
-                      type="text"
+                      type="primary"
+                      :link="true"
                       class="star-btn"
                       @click="handleDebtPayClick(row)"
               >
@@ -286,7 +292,8 @@
             <div>
               <el-button
                 v-if="row.status === 10"
-                type="text"
+                type="primary"
+                :link="true"
                 class="star-btn"
                 @click="handleCancelClick(row)"
               >
@@ -296,7 +303,8 @@
             <div>
               <el-button
                 v-if="row.status >= 10"
-                type="text"
+                type="primary"
+                :link="true"
                 class="star-btn"
                 @click="handlePackageClick(row)"
               >
@@ -376,6 +384,12 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const route = useRoute();
+    const formatTitleC = (record, key, enKey) => {
+      return formatTitle(record, key, enKey);
+    };
+    const formatPriceC = (record, zhKey) => {
+      return formatPrice(record, zhKey);
+    };
     const { proxy } = getCurrentInstance();
     // 定义行类名函数
     const tableRowClassName = ({ row }) => {
@@ -660,7 +674,10 @@ export default defineComponent({
       tableRowClassName,
       handlePackageClick,
       handlePayClick,
+      handleDebtPayClick,
       handleCancelClick,
+      formatTitleC,
+      formatPriceC,
     };
   },
 });
@@ -788,10 +805,11 @@ export default defineComponent({
 }
 .tip {
     font-size: 14px;
-    color: #666;
+    color: #037ef2;
     margin-top: 6px;
 }
 .overline {
+    color: #666;
     font-weight: normal;
     text-decoration: line-through;
 }
