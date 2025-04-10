@@ -183,11 +183,13 @@
 <script>
 import { ElMessage } from "element-plus";
 import { allOrderList } from "@/api/orderList";
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
   name: "OrderShareList",
   data() {
     return {
+      isMounted: false,
       orders: [],
       total: 0,
       loading: false,
@@ -200,14 +202,15 @@ export default {
     };
   },
   mounted() {
-    this.loadOrders();
+    this.isMounted = true;
+    // 等待路由和所有依赖项就绪
+    this.$nextTick(()=>this.loadOrders());
   },
   methods: {
     async loadOrders() {
-      // 添加路由对象验证
-      await this.$nextTick()
-      console.log(1122, this.$route.query?.code);
+      if (!this.isMounted) return;
       try {
+        this.loading = true;
         const params = {
           pageNo: this.pagination.currentPage,
           pageSize: this.pagination.pageSize,
@@ -216,10 +219,16 @@ export default {
           const res = await allOrderList.decodeSharingCode({
             code: this.$route.query?.code,
           });
-
-          params.userNo = res.data.userNo;
-        const val = await allOrderList.sharingListForBusiness(params);
-
+          if (res.data?.userNo) {
+            params.userNo = res.data.userNo;
+            const val = await allOrderList.sharingListForBusiness(params);
+            this.orders = val.data;
+            this.total = val.total;
+          } else {
+            throw new Error("UserNo is missing in the response");
+          }
+        } else {
+          const val = await allOrderList.sharingListForBusiness(params);
           this.orders = val.data;
           this.total = val.total;
         }
@@ -230,22 +239,19 @@ export default {
         this.loading = false;
       }
     },
-
     tableRowClassName({ row }) {
       return row.isMark ? "status-mark" : "";
     },
-
     handleSizeChange(val) {
       this.pagination.pageSize = val;
       this.loadOrders();
     },
-
     handleCurrentChange(val) {
       this.pagination.currentPage = val;
       this.loadOrders();
     },
   },
-};
+});
 </script>
 <style lang="less" scoped>
 .order-list {
