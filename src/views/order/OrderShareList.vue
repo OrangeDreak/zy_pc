@@ -180,96 +180,73 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { onMounted, computed, reactive, ref } from "vue";
+<script>
 import { ElMessage } from "element-plus";
-import { useRoute } from "vue-router";
 import { allOrderList } from "@/api/orderList";
 
-// 在 setup 函数的顶部调用 useI18n
-const route = useRoute();
-// 分页状态
-const pagination = reactive({
-  currentPage: 1,
-  pageSize: 10,
-});
-
-// 搜索表单
-const searchForm = reactive({
-  userNo: "",
-  trackingNo: "",
-  isMark: 0,
-});
-
-// 订单列表
-const orders = ref([]);
-const total = ref(0);
-const loading = ref(false);
-const error = ref(null);
-// 当前状态
-const status = ref(-1);
-// 在组件挂载时获取路由参数
-onMounted(() => {
-  loadOrders();
-});
-
-// 加载订单列表
-const loadOrders = async () => {
-  try {
-    let params = {
-      pageNo: pagination.currentPage,
-      pageSize: pagination.pageSize,
+export default {
+  name: "OrderShareList",
+  data() {
+    return {
+      orders: [],
+      total: 0,
+      loading: false,
+      error: null,
+      status: -1,
+      pagination: {
+        currentPage: 1,
+        pageSize: 10,
+      },
     };
-    if (route.query.code) {
-      const code = route.query.code;
-      const res = await allOrderList.decodeSharingCode({
-        code,
-      });
-      params.userNo =  res.data.userNo;
-    }
-    if (!params.isMark) {
-      delete params.isMark;
-    }
-    orders.value = [];
-    if (status.value < 10) {
-      params.status = status.value;
-      if (status.value === -1) {
-        delete params.status;
+  },
+  mounted() {
+    this.loadOrders();
+  },
+  methods: {
+    async loadOrders() {
+      // 添加路由对象验证
+      await this.$nextTick()
+      console.log(1122, this.$route.query?.code);
+      try {
+        const params = {
+          pageNo: this.pagination.currentPage,
+          pageSize: this.pagination.pageSize,
+        };
+        if (this.$route.query?.code) {
+          const res = await allOrderList.decodeSharingCode({
+            code: this.$route.query?.code,
+          });
+
+          params.userNo = res.data.userNo;
+        const val = await allOrderList.sharingListForBusiness(params);
+
+          this.orders = val.data;
+          this.total = val.total;
+        }
+      } catch (err) {
+        this.error = err.message || "获取订单失败";
+        ElMessage.error("获取订单列表失败");
+      } finally {
+        this.loading = false;
       }
-    } else {
-      params.status = status.value;
-    }
-    const result = await allOrderList.sharingListForBusiness(params);
-    orders.value = result.data;
-    total.value = result.total;
-  } catch (err) {
-    error.value = err.message || "获取订单失败";
-    ElMessage.error("获取订单列表失败");
-  } finally {
-    loading.value = false;
-  }
-};
-// 定义行类名函数
-const tableRowClassName = ({ row }) => {
-  if (row.isMark) {
-    return "status-mark";
-  }
-  return "";
-};
-// 分页事件处理
-// const handleSizeChange = (val) => {
-//   pagination.pageSize = val;
-//   loadOrders();
-// };
+    },
 
-// const handleCurrentChange = (val) => {
-//   pagination.currentPage = val;
-//   loadOrders();
-// };
+    tableRowClassName({ row }) {
+      return row.isMark ? "status-mark" : "";
+    },
+
+    handleSizeChange(val) {
+      this.pagination.pageSize = val;
+      this.loadOrders();
+    },
+
+    handleCurrentChange(val) {
+      this.pagination.currentPage = val;
+      this.loadOrders();
+    },
+  },
+};
 </script>
-
-
 <style lang="less" scoped>
 .order-list {
   padding: 20px;
@@ -279,9 +256,9 @@ const tableRowClassName = ({ row }) => {
   justify-content: space-between;
   align-items: center;
 }
-:deep .el-table tr.status-mark {
-  background: #ffebfe;
-}
+// :deep .el-table tr.status-mark {
+//   background: #ffebfe;
+// }
 .timeline {
   height: 350px;
   overflow: scroll;

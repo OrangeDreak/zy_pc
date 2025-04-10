@@ -4,7 +4,6 @@ import { useAuthStore } from '@/stores/auth'
 import { useLangStore } from '@/stores/lang'
 import { useCurrencyStore } from '@/stores/currency'
 import router from '@/router'
-//import { useI18n } from 'vue-i18n'
 
 const request = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
