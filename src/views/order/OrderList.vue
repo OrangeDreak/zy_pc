@@ -48,7 +48,7 @@
         <el-table-column v-if="status === 1" type="selection" width="55" />
         <el-table-column
           prop="userNo"
-          :label="$t('package.table.customerCode')"
+          :label="$t('order.card.customerCode')"
           width="100"
         />
         <el-table-column
@@ -97,12 +97,12 @@
         >
           <template #default="{ row }">
             <div v-if="row.status < 10">
-              <div>{{ $t("trackingNumber") }}：{{ row.logisticsNumber }}</div>
+              <div>{{ $t("order.card.trackingNumber") }}：{{ row.logisticsNumber }}</div>
               <el-popover :width="800">
                 <template #reference>
                   <div v-if="row.trackingList && row.trackingList.length > 0">
-                    {{ $t("logisticsTrack") }}：{{
-                      row.trackingList && row.trackingList[0]?.logisticsDesc
+                    {{ $t("order.card.latestTracking") }}：{{
+                      formatTitle(row.trackingList[0], "logisticsDesc", "en")
                     }}
                   </div>
                 </template>
@@ -115,7 +115,7 @@
                         :timestamp="item.gmtTime"
                         placement="top"
                       >
-                        <p>{{ item.logisticsDesc }}</p>
+                        <p>{{ formatTitle(item, "logisticsDesc", "en") }}</p>
                       </el-timeline-item>
                     </el-timeline>
                   </div>
@@ -146,8 +146,9 @@
             </div>
             <div v-else class="estimate-info">
               <div>
-                <div>国际单号：{{ row.orderNo }}</div>
-                <div>物流线路：{{ row.logisticsLine }}</div>
+                <div>{{ $t("package.table.sending_country") }}：{{ row.receiverCountry }}</div>
+                <div>{{ $t("order.card.trackingNo2") }}：{{ row.transhipmentTrackingNo }}</div>
+                <div>{{ $t("order.card.sendLine") }}：{{ formatTitle(item, "logisticsLine", "en") }}</div>
                 <el-popover :width="800">
                   <template #reference>
                     <div v-if="row.trackingList && row.trackingList.length > 0">
@@ -162,29 +163,55 @@
                         <el-timeline-item
                           v-for="(item, index) in row.trackingList"
                           :key="index"
-                          :timestamp="item.gmtTime"
+                          :timestamp="item.pathTime"
                           placement="top"
                         >
-                          <p>{{ item.logisticsDesc }}</p>
+                          <p>{{ formatTitle(item, "trackDesc", "en") }}</p>
                         </el-timeline-item>
                       </el-timeline>
                     </div>
                   </template>
                 </el-popover>
-                <div>包裹运费：{{ row.estimateFreightPrice }}</div>
-              </div>
-              <div>
-                <div>
-                  {{ row.estimatePackageSizeDTO.length }}*{{
-                    row.estimatePackageSizeDTO.width
-                  }}*{{ row.estimatePackageSizeDTO.height }}
+                <div class="image-list">
+                  <div
+                          v-for="(url, index) in row.imgUrlList"
+                          :key="url"
+                          class="block"
+                  >
+                    <el-image
+                            class="image-list-item"
+                            style="width: 60px; height: 60px"
+                            close-on-press-escape
+                            preview-teleported
+                            :src="url"
+                            :zoom-rate="1.2"
+                            :max-scale="7"
+                            :min-scale="0.2"
+                            :preview-src-list="row.imgUrlList"
+                            :initial-index="index"
+                            z-index="8"
+                            fit="cover"
+                    />
+                  </div>
                 </div>
-                <div>{{ row.estimatePackageSizeDTO.weight }}g</div>
-                <div>内含8件</div>
-                <div>在途 7 天</div>
               </div>
             </div>
           </template>
+        </el-table-column>
+        <el-table-column v-if="row.status > 9"
+                prop="packageInfo"
+                :label="$t('package.table.packageInfo')"
+        >
+          <div>
+            <div><span :class="['tip', item.realPackageSizeDTO ? 'overline' : '']">$t('package.table.estimateSize'): {{ row.estimatePackageSizeDTO.length }}cm*{{row.estimatePackageSizeDTO.width}}*cm{{ row.estimatePackageSizeDTO.height }}cm</span></div>
+            <div v-if="row.realPackageSizeDTO"><span class="tip">$t('package.table.realSize'): {{ row.realPackageSizeDTO.length }}cm*{{row.realPackageSizeDTO.width}}*cm{{ row.realPackageSizeDTO.height }}cm</span></div>
+            <div><span :class="['tip', item.realPackageSizeDTO ? 'overline' : '']">$t('package.table.estimateWeight'): {{ row.estimatePackageSizeDTO.weight }}g</span></div>
+            <div v-if="row.realPackageSizeDTO"><span class="tip">$t('package.table.realWeight'): {{ row.realPackageSizeDTO.weight }}g</span></div>
+            <div><span :class="['tip', item.realFreightDeposit ? 'overline' : '']">$t('package.table.estimateFreight'): {{ formatPrice(row, "freightDeposit") }}</span></div>
+            <div v-if="row.realFreightDeposit"><span class="tip">$t('package.table.realFreight'): {{ formatPrice(row, "realFreightDeposit") }}</span></div>
+            <div v-if="row.insuranceFee"><span class="tip">$t('package.table.insuranceFee'): {{ formatPrice(row, "insuranceFee") }}</span></div>
+            <div v-if="row.packageDeclaredPrice"><span class="tip">$t('package.table.declarationPrice'): ${{ row.packageDeclaredPrice / 100 }}</span></div>
+          </div>
         </el-table-column>
         <el-table-column
           v-if="status < 10"
@@ -199,7 +226,10 @@
         >
           <template #default="{ row }">
             <el-tag>
-              {{ $i18n.locale === "en" ? row.statusDescEn : row.statusDesc }}
+              {{ formatTitle(row, "statusDesc", "en") }}
+              <el-tooltip v-if= "row.debtUserPayId"  :content="$t('package.table.package_bk_order_status_tip')" placement="top">
+                <el-icon class="help-icon"><QuestionFilled style="color:#d9d9d9"/></el-icon>
+              </el-tooltip>
             </el-tag>
           </template>
         </el-table-column>
@@ -235,10 +265,20 @@
             </div>
             <div>
               <el-button
-                v-if="row.status == 10"
+                v-if="row.userPayId"
                 type="text"
                 class="star-btn"
                 @click="handlePayClick(row)"
+              >
+                {{ $t("package.table.goPay") }}
+              </el-button>
+            </div>
+            <div>
+              <el-button
+                      v-if="row.debtUserPayId"
+                      type="text"
+                      class="star-btn"
+                      @click="handleDebtPayClick(row)"
               >
                 {{ $t("package.table.goPay") }}
               </el-button>
@@ -304,6 +344,7 @@ import {
 import { ElMessage, ElMessageBox } from "element-plus";
 import { allOrderList } from "@/api/orderList";
 import { useRouter, useRoute } from "vue-router";
+import { formatTitle, formatNum2, formatPrice, currencySymbol, getCurrencyStr, formatAmount } from "@/utils/tools";
 
 interface Order {
   id: number;
@@ -468,6 +509,16 @@ export default defineComponent({
             userPayId: row.userPayId || undefined,
             source: "package-list",
           },
+        });
+    };
+    const handleDebtPayClick = (row) => {
+      router.push({
+          path: "/pay",
+            query: {
+               payType: 7,
+               userPayId: row.debtUserPayId || undefined,
+                source: "repayment",
+            },
         });
     };
     const handleCancelClick = async (row) => {
@@ -734,5 +785,14 @@ export default defineComponent({
   align-items: center;
   background: #fff;
   padding: 10px 20px;
+}
+.tip {
+    font-size: 14px;
+    color: #666;
+    margin-top: 6px;
+}
+.overline {
+    font-weight: normal;
+    text-decoration: line-through;
 }
 </style>
