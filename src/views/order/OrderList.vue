@@ -619,6 +619,7 @@ export default defineComponent({
       const { data } = await allOrderList.updateAttentionMark({
         tpSubOrderId: order.id,
         isMark: order.isMark ? 0 : 1,
+        orderType: status.value < 10 ? 0 : 1
       });
       ElMessage.success(`特别关注状态更新成功`);
       loadOrders();
