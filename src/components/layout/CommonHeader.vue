@@ -51,62 +51,77 @@
         </el-dropdown>
       </div>
     </div>
+    <div class="intercom-kf">
+      <!-- <img class="intercom-kf" src="@/assets/images/icon/kf.png" alt="" /> -->
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 圆形背景 -->
+  <circle cx="32" cy="32" r="30" fill="#c803be"/>
+  
+  <!-- 白色微信风格气泡 -->
+  <path d="M24 22H40C42 22 44 24 44 26V34C44 36 42 38 40 38H32L28 42V38H24C22 38 20 36 20 34V26C20 24 22 22 24 22Z" fill="white" fill-opacity="0.9"/>
+  
+  <!-- 气泡内的小圆点1 -->
+  <circle cx="30" cy="30" r="2" fill="#c803be"/>
+  <!-- 气泡内的小圆点2 -->
+  <circle cx="38" cy="30" r="2" fill="#c803be"/>
+</svg>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
-import { useLangStore } from '@/stores/lang'
-import { useCurrencyStore } from '@/stores/currency'
-import { useI18n } from 'vue-i18n'
-import { storeToRefs } from 'pinia'
-import { Search, ArrowDown } from '@element-plus/icons-vue'
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
+import { useLangStore } from "@/stores/lang";
+import { useCurrencyStore } from "@/stores/currency";
+import { useI18n } from "vue-i18n";
+import { storeToRefs } from "pinia";
+import { Search, ArrowDown } from "@element-plus/icons-vue";
 
-const router = useRouter()
-const authStore = useAuthStore()
-const langStore = useLangStore()
-const currencyStore = useCurrencyStore()
-const { currentLang } = storeToRefs(langStore)
-const { currentCurrency } = storeToRefs(currencyStore)
-const { locale } = useI18n()
+const router = useRouter();
+const authStore = useAuthStore();
+const langStore = useLangStore();
+const currencyStore = useCurrencyStore();
+const { currentLang } = storeToRefs(langStore);
+const { currentCurrency } = storeToRefs(currencyStore);
+const { locale } = useI18n();
 
-const searchKeyword = ref('')
-const userAvatar = ref('./assets/images/common/user-default.png');
+const searchKeyword = ref("");
+const userAvatar = ref("./assets/images/common/user-default.png");
 
 // 处理用户下拉菜单
 const handleCommand = (command) => {
-  if (command === 'logout') {
-    authStore.logout()
-    router.push('/login')
-  } else if (command === 'profile') {
-    router.push('/profile')
-  } else if (command === 'orders') {
-    router.push('/orders')
+  if (command === "logout") {
+    authStore.logout();
+    router.push("/login");
+  } else if (command === "profile") {
+    router.push("/profile");
+  } else if (command === "orders") {
+    router.push("/orders");
   }
-}
+};
 const handleEstimate = async () => {
-    router.push("/estimate");
+  router.push("/estimate");
 };
 const handleTransfer = async () => {
-    router.push("/add-transfer");
+  router.push("/add-transfer");
 };
 // 处理语言切换
 const handleLangChange = (lang) => {
-  langStore.setLang(lang)
-  locale.value = lang // 直接设置i18n的locale
+  langStore.setLang(lang);
+  locale.value = lang; // 直接设置i18n的locale
   location.reload();
-}
+};
 // 处理币种切换
 const handleCurrencyChange = (currency) => {
-  currencyStore.setCurrency(currency)
+  currencyStore.setCurrency(currency);
   location.reload();
-}
+};
 </script>
 
 <style lang="less" scoped>
-@import '@/styles/variables.less';
+@import "@/styles/variables.less";
 .border-bottom {
   height: 60px;
   border-bottom: 1px solid @border-color;
@@ -137,7 +152,7 @@ const handleCurrencyChange = (currency) => {
       color: @primary-color;
       overflow: hidden;
       cursor: pointer;
-      img{
+      img {
         height: 56px;
       }
     }
@@ -198,7 +213,7 @@ const handleCurrencyChange = (currency) => {
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      .user-img{
+      .user-img {
         border-radius: 32px;
       }
       .username {
@@ -219,6 +234,19 @@ const handleCurrencyChange = (currency) => {
         color: @primary-color;
       }
     }
+  }
+}
+.intercom-kf {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  position: fixed;
+  right: 60px;
+  bottom: 200px;
+  z-index: 2147483006;
+  transition: 0.2s all;
+  &:hover {
+    transform: scale(1.2);
   }
 }
 </style> 
