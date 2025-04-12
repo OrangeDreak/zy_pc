@@ -104,7 +104,7 @@ const routes = [
         meta: { title: '包裹详情', requiresAuth: true }
       },
       {
-        path: 'assets',
+        path: 'my-assets',
         name: 'MyAssets',
         component: () => import('@/views/assets/MyAssets.vue'),
         meta: { title: '我的资产', requiresAuth: true }

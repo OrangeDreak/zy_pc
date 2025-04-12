@@ -54,7 +54,7 @@
                     remote
                     reserve-keyword
                     placeholder="请输入关键词搜索"
-                    :remote-method="remoteSearchCustomCode"
+                    :remote-method="(query) => remoteSearchCustomCode(orderIndex, query)"
                     :loading="customCodeLoading"
                     @change="handleUserNoChange(orderIndex)"
                     class="custom-code-select"
@@ -69,7 +69,7 @@
                       <el-icon><Search /></el-icon>
                     </template>
                   </el-select>
-                  <el-button type="primary" plain @click="showCustomCodeHelp">
+                  <el-button type="primary" plain @click="showCustomCodeHelp(orderIndex)">
                     {{ $t('transfer.addOrder.form.customCodeHelp') }}
                   </el-button>
                   <el-tooltip :content="$t('customers.codeHelp')" placement="top" class="custom-code-help">
@@ -210,7 +210,8 @@ const customCodeLoading = ref(false);
 const customCodeOptions = ref([]);
 
 // 模拟远程搜索方法
-const remoteSearchCustomCode = async (query) => {
+const remoteSearchCustomCode = async (orderIndex,query) => {
+  orders.value[orderIndex].userNo = query;
   if (query) {
     customCodeLoading.value = true;
     try {
@@ -239,7 +240,7 @@ const remoteSearchCustomCode = async (query) => {
   }
 };
 const handleUserNoChange= (orderIndex)=>{
-  console.log(orders.value[orderIndex].userNo)
+  console.log(111222, orders.value[orderIndex].userNo)
   // this.handleAddressSubmit();
   customCodeOptions.value.map((item)=>{
     if(item.value === orders.value[orderIndex].userNo){
@@ -302,13 +303,13 @@ onUnmounted(() => {
 const getWarehouseAddress = () => {
   ElMessage.info('请联系在线客服获取仓库地址');
 };
-const showCustomCodeHelp = async() =>{
+const showCustomCodeHelp = async(orderIndex) =>{
   try {
     const response = await transfer.getCustomCode();
-    orders.value[currentOrderIndex.value].userNo = response.data;
-    orders.value[currentOrderIndex.value].recentAddress = '';
-    orders.value[currentOrderIndex.value].userAddressInfo = {};
-    orders.value[currentOrderIndex.value].userAddressId = '';
+    orders.value[orderIndex].userNo = response.data;
+    orders.value[orderIndex].recentAddress = '';
+    orders.value[orderIndex].userAddressInfo = {};
+    orders.value[orderIndex].userAddressId = '';
   } catch (error) {
     ElMessage.error('获取自定义编码失败');
   }

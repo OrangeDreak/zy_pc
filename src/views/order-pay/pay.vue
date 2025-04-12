@@ -21,7 +21,7 @@
                 <!-- v-if="amountInfo.balance < realAmount.totalAmount" -->
                 <div v-if="amountInfo.balance < amountInfo.actualAmount" class="typeRowRight">
                   <div class="rightTip">{{ $t("pay.balanceOverTip") }}</div>
-                  <a-button @click="$router.push('/assets')">{{ $t("pay.globalRecharge") }}</a-button>
+                  <a-button @click="$router.push('/my-assets')">{{ $t("pay.globalRecharge") }}</a-button>
                 </div>
               </div>
             </div>
