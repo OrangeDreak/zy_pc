@@ -25,11 +25,11 @@ export default {
     profile: 'Profile',
     myAccount: 'My Account',
     customers: 'My Customers',
-    transferOrder: 'Transfer Orders',
+    transferOrder: 'My Orders',
     warehouse: 'My Warehouse',
     package: 'My Packages',
     assets: 'My Assets',
-    addTransfer: 'Add Transfer',
+    addTransfer: 'Add Order',
     dashboard: 'Dashboard',
     settings: 'Settings',
     help: 'Help Center',
@@ -64,7 +64,7 @@ export default {
       rechargeIptTip: "Please enter the top-up amount",
       arrears: "Underpaid",
       arrearsTip:
-          "'Underpaid' refers to the package fees, order return and exchange freight, or cash on delivery fees that you have not paid/replenished but we will give priority to helping you deal with them to avoid delaying timeliness. Please repay the balance in time, otherwise you will not be able to order on Sifubuy next time.",
+          "'Underpaid' refers to the package fees, order return and exchange freight, or cash on delivery fees that you have not paid/replenished but we will give priority to helping you deal with them to avoid delaying timeliness. Please repay the balance in time, otherwise you will not be able to order on Qcelf next time.",
       paymentOfArrears: "Repayment",
       arrears_records: "Debt Records"
     },
@@ -136,7 +136,7 @@ export default {
       selectAll: 'Select All',
       selected: 'Selected',
       items: 'items',
-      submit: 'Submit Transfer'
+      submit: 'Submit Order'
     }
   },
   package: {
@@ -208,7 +208,7 @@ export default {
         value: 'Item Value(CNY)',
         photo: 'Item Photo',
         addExpress: 'Add Express No.',
-        submit: 'Submit Transfer Order'
+        submit: 'Submit Order'
       }
     },
     submitTransfer: {

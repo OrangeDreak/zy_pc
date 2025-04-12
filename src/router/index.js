@@ -30,13 +30,13 @@ const routes = [
     path: '/add-transfer',
     name: 'AddTransfer',
     component: () => import('@/views/transfer/AddTransferOrder.vue'),
-    meta: { title: '添加转运订单' }
+    meta: { title: '添加订单' }
   },
   {
     path: '/order-share-transfer',
     name: 'OrderShareList',
     component: () => import('@/views/order/OrderShareList.vue'),
-    meta: { title: '转运订单' }
+    meta: { title: '我的订单' }
   },
   {
     path: '/estimate',
