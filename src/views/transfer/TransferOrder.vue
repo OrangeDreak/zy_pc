@@ -1,6 +1,6 @@
 <template>
   <div class="transfer-order">
-    <div class="page-title">添加转运订单</div>
+    <div class="page-title">添加订单</div>
     
     <!-- 仓库地址信息 -->
     <div class="section">
@@ -91,8 +91,8 @@
         @click="addOrder"
       >
         <el-icon><Plus /></el-icon>
-        新增转运订单
-        <el-tooltip content="转运订单说明" placement="top">
+        新增订单
+        <el-tooltip content="订单说明" placement="top">
           <el-icon class="order-help"><QuestionFilled /></el-icon>
         </el-tooltip>
       </el-button>
