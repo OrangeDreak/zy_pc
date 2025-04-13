@@ -1,10 +1,8 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import { useAuthStore } from '@/stores/auth'
-import { useLangStore } from '@/stores/lang'
 import { useCurrencyStore } from '@/stores/currency'
 import router from '@/router'
-//import { useI18n } from 'vue-i18n'
 
 const request = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -15,12 +13,13 @@ const request = axios.create({
 request.interceptors.request.use(
   config => {
     const authStore = useAuthStore()
-    const langStore = useLangStore()
     const currencyStore = useCurrencyStore()
+    // 从 localStorage 中读取语言信息
+    const currentLang = localStorage.getItem('lang') || 'zh';
     if (authStore.token) {
       config.headers['Authorization'] = `${authStore.token}`
     }
-    config.headers['Language'] = `${langStore.currentLang}`
+    config.headers['Language'] = currentLang
     config.headers['Currency'] = `${currencyStore.currentCurrency}`
     return config
   },

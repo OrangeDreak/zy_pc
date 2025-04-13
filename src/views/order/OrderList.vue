@@ -48,7 +48,7 @@
         <el-table-column v-if="status === 1" type="selection" width="55" />
         <el-table-column
           prop="userNo"
-          :label="$t('package.table.customerCode')"
+          :label="$t('order.card.customerCode')"
           width="100"
         />
         <el-table-column
@@ -93,16 +93,17 @@
         </el-table-column>
         <el-table-column
           prop="logisticsNumber"
+          width="350"
           :label="$t('package.table.expressDelivery')"
         >
           <template #default="{ row }">
             <div v-if="row.status < 10">
-              <div>{{ $t("trackingNumber") }}：{{ row.logisticsNumber }}</div>
+              <div>{{ $t("order.card.trackingNo") }}：{{ row.logisticsNumber }}</div>
               <el-popover :width="800">
                 <template #reference>
                   <div v-if="row.trackingList && row.trackingList.length > 0">
-                    {{ $t("logisticsTrack") }}：{{
-                      row.trackingList && row.trackingList[0]?.logisticsDesc
+                    {{ $t("order.card.latestTracking") }}：{{
+                      formatTitleC(row.trackingList[0], "logisticsDesc", "en")
                     }}
                   </div>
                 </template>
@@ -115,7 +116,7 @@
                         :timestamp="item.gmtTime"
                         placement="top"
                       >
-                        <p>{{ item.logisticsDesc }}</p>
+                        <p>{{ formatTitleC(item, "logisticsDesc", "en") }}</p>
                       </el-timeline-item>
                     </el-timeline>
                   </div>
@@ -138,7 +139,7 @@
                     :min-scale="0.2"
                     :preview-src-list="row.imgUrlList"
                     :initial-index="index"
-                    z-index="8"
+                    :z-index="8"
                     fit="cover"
                   />
                 </div>
@@ -146,13 +147,14 @@
             </div>
             <div v-else class="estimate-info">
               <div>
-                <div>国际单号：{{ row.orderNo }}</div>
-                <div>物流线路：{{ row.logisticsLine }}</div>
+                <div>{{ $t("package.table.sending_country") }}：{{ row.receiverCountry }}</div>
+                <div v-if="row.transhipmentTrackingNo">{{ $t("order.card.trackingNo2") }}：{{ row.transhipmentTrackingNo }}</div>
+                <div>{{ $t("order.card.sendLine") }}：{{ formatTitleC(row, "logisticsLine", "en") }}</div>
                 <el-popover :width="800">
                   <template #reference>
                     <div v-if="row.trackingList && row.trackingList.length > 0">
-                      {{ $t("logisticsTrack") }}：{{
-                        row.trackingList && row.trackingList[0]?.logisticsDesc
+                      {{ $t("order.card.latestTracking") }}：{{
+                        formatTitleC(row.trackingList[0], "trackDesc", "trans")
                       }}
                     </div>
                   </template>
@@ -162,28 +164,55 @@
                         <el-timeline-item
                           v-for="(item, index) in row.trackingList"
                           :key="index"
-                          :timestamp="item.gmtTime"
+                          :timestamp="item.pathTime"
                           placement="top"
                         >
-                          <p>{{ item.logisticsDesc }}</p>
+                          <p>{{ formatTitleC(item, "trackDesc", "trans") }}</p>
                         </el-timeline-item>
                       </el-timeline>
                     </div>
                   </template>
                 </el-popover>
-                <div>包裹运费：{{ row.estimateFreightPrice }}</div>
-              </div>
-              <div>
-                <div>
-                  {{ row.estimatePackageSizeDTO.length }}*{{
-                    row.estimatePackageSizeDTO.width
-                  }}*{{ row.estimatePackageSizeDTO.height }}
+                <div class="image-list">
+                  <div
+                          v-for="(url, index) in row.imgUrlList"
+                          :key="url"
+                          class="block"
+                  >
+                    <el-image
+                            class="image-list-item"
+                            style="width: 60px; height: 60px"
+                            close-on-press-escape
+                            preview-teleported
+                            :src="url"
+                            :zoom-rate="1.2"
+                            :max-scale="7"
+                            :min-scale="0.2"
+                            :preview-src-list="row.imgUrlList"
+                            :initial-index="index"
+                            z-index="8"
+                            fit="cover"
+                    />
+                  </div>
                 </div>
-                <div>{{ row.estimatePackageSizeDTO.weight }}g</div>
-                <div>内含8件</div>
-                <div>在途 7 天</div>
               </div>
             </div>
+          </template>
+        </el-table-column>
+        <el-table-column v-if="status > 9"
+                prop="packageInfo"
+                width="250"
+                :label="$t('package.table.packageInfo')"
+        >
+          <template #default="{ row }">
+            <div><span :class="['tip', status > 11 ? 'overline' : '']">{{$t('package.table.estimateSize')}}: {{ row.estimatePackageSizeDTO.length }}*{{row.estimatePackageSizeDTO.width}}*{{ row.estimatePackageSizeDTO.height }}cm</span></div>
+            <div v-if="status > 11"><span class="tip">{{$t('package.table.realSize')}}: {{ row.realPackageSizeDTO.length }}*{{row.realPackageSizeDTO.width}}*{{ row.realPackageSizeDTO.height }}cm</span></div>
+            <div><span :class="['tip', status > 11 ? 'overline' : '']">{{$t('package.table.estimateWeight')}}: {{ row.estimatePackageSizeDTO.weight }}g</span></div>
+            <div v-if="status > 11"><span class="tip">{{$t('package.table.realWeight')}}: {{ row.realPackageSizeDTO.weight }}g</span></div>
+            <div><span :class="['tip', row.realFreightDeposit ? 'overline' : '']">{{$t('package.table.estimateFreight')}}: {{ formatPriceC(row, "freightDeposit") }}</span></div>
+            <div v-if="row.realFreightDeposit"><span class="tip">{{$t('package.table.realFreight')}}: {{ formatPriceC(row, "realFreightDeposit") }}</span></div>
+            <div v-if="row.insuranceFee"><span class="tip">{{$t('package.table.insuranceFee')}}: {{ formatPriceC(row, "insuranceFee") }}</span></div>
+            <div v-if="row.packageDeclaredPrice"><span class="tip">{{$t('package.table.declarationPrice')}}: ${{ row.packageDeclaredPrice / 100 }}</span></div>
           </template>
         </el-table-column>
         <el-table-column
@@ -199,7 +228,10 @@
         >
           <template #default="{ row }">
             <el-tag>
-              {{ $i18n.locale === "en" ? row.statusDescEn : row.statusDesc }}
+              {{ formatTitleC(row, "statusDesc", "en") }}
+              <el-tooltip v-if= "row.debtUserPayId"  :content="$t('package.table.package_bk_order_status_tip')" placement="top">
+                <el-icon class="help-icon"><QuestionFilled style="color:#d9d9d9"/></el-icon>
+              </el-tooltip>
             </el-tag>
           </template>
         </el-table-column>
@@ -212,7 +244,8 @@
             <div>
               <el-button
                 v-if="status != 10"
-                type="text"
+                type="primary"
+                :link="true"
                 class="star-btn"
                 @click="handleStarClick(row)"
               >
@@ -222,7 +255,8 @@
             <div>
               <el-button
                 v-if="status != 10"
-                type="text"
+                type="primary"
+                :link="true"
                 class="star-btn"
                 @click="handleMarkClick(row)"
               >
@@ -235,8 +269,9 @@
             </div>
             <div>
               <el-button
-                v-if="row.status == 10"
-                type="text"
+                v-if="row.userPayId"
+                type="primary"
+                :link="true"
                 class="star-btn"
                 @click="handlePayClick(row)"
               >
@@ -245,8 +280,20 @@
             </div>
             <div>
               <el-button
+                      v-if="row.debtUserPayId"
+                      type="primary"
+                      :link="true"
+                      class="star-btn"
+                      @click="handleDebtPayClick(row)"
+              >
+                {{ $t("package.table.goPay") }}
+              </el-button>
+            </div>
+            <div>
+              <el-button
                 v-if="row.status === 10"
-                type="text"
+                type="primary"
+                :link="true"
                 class="star-btn"
                 @click="handleCancelClick(row)"
               >
@@ -256,7 +303,8 @@
             <div>
               <el-button
                 v-if="row.status >= 10"
-                type="text"
+                type="primary"
+                :link="true"
                 class="star-btn"
                 @click="handlePackageClick(row)"
               >
@@ -304,6 +352,7 @@ import {
 import { ElMessage, ElMessageBox } from "element-plus";
 import { allOrderList } from "@/api/orderList";
 import { useRouter, useRoute } from "vue-router";
+import { formatTitle, formatNum2, formatPrice, currencySymbol, getCurrencyStr, formatAmount } from "@/utils/tools";
 
 interface Order {
   id: number;
@@ -335,6 +384,12 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const route = useRoute();
+    const formatTitleC = (record, key, enKey) => {
+      return formatTitle(record, key, enKey);
+    };
+    const formatPriceC = (record, zhKey) => {
+      return formatPrice(record, zhKey);
+    };
     const { proxy } = getCurrentInstance();
     // 定义行类名函数
     const tableRowClassName = ({ row }) => {
@@ -470,6 +525,16 @@ export default defineComponent({
           },
         });
     };
+    const handleDebtPayClick = (row) => {
+      router.push({
+          path: "/pay",
+            query: {
+               payType: 7,
+               userPayId: row.debtUserPayId || undefined,
+                source: "repayment",
+            },
+        });
+    };
     const handleCancelClick = async (row) => {
       try {
         await ElMessageBox.confirm("确认取消包裹订单吗？", "提示", {
@@ -554,6 +619,7 @@ export default defineComponent({
       const { data } = await allOrderList.updateAttentionMark({
         tpSubOrderId: order.id,
         isMark: order.isMark ? 0 : 1,
+        orderType: status.value < 10 ? 0 : 1
       });
       ElMessage.success(`特别关注状态更新成功`);
       loadOrders();
@@ -609,7 +675,10 @@ export default defineComponent({
       tableRowClassName,
       handlePackageClick,
       handlePayClick,
+      handleDebtPayClick,
       handleCancelClick,
+      formatTitleC,
+      formatPriceC,
     };
   },
 });
@@ -734,5 +803,15 @@ export default defineComponent({
   align-items: center;
   background: #fff;
   padding: 10px 20px;
+}
+.tip {
+    font-size: 14px;
+    color: #037ef2;
+    margin-top: 6px;
+}
+.overline {
+    color: #666;
+    font-weight: normal;
+    text-decoration: line-through;
 }
 </style>

@@ -41,11 +41,11 @@ export default {
     codeHelp: 'Customers Code Describe',
     info: {
       title: 'Customers Info',
-      name: 'name',
-      postcode: 'postcode',
-      phoneNumber: 'tel',
-      email: 'emial',
-      address: 'address',
+      name: 'Name',
+      postcode: 'Postcode',
+      phoneNumber: 'Tel',
+      email: 'Emial',
+      address: 'Address',
     },
     orderCount: 'Order Count',
     addressHelp: 'Customers Address Describe',
@@ -151,15 +151,27 @@ export default {
       finished: 'Received'
     },
     table: {
-      customerCode: 'customer Code' ,
+      customerCode: 'Customer Code' ,
       addressInfo: 'Address info' ,
       expressDelivery: 'Express Delivery',
       latestStatus: 'Latest Status',
       trackingNumber: 'Tracking Number',
       logisticsTrack: 'Logistics Track',
       detail: 'Detail',
-      goPay: 'Go Pay',
-      cancelPackage: "Cancel Package Order"
+      goPay: 'Proceed to Payment',
+      cancelPackage: "Cancel",
+      packageInfo: 'Package Info',
+      estimateSize: 'Estimated Size',
+      realSize: 'Real Size',
+      estimateWeight: 'Estimated Weight',
+      realWeight: 'Real Weight',
+      estimateFreight: 'Estimated Shipping Cost',
+      realFreight: 'Real Shipping Cost',
+      insuranceFee: 'Insurance Fee',
+      declarationPrice: 'Declared Value',
+      package_bk_order_status_tip:
+          "The actual weight of your package is heavier than the estimated weight, please pay the difference.",
+      sending_country: "Destination Country",
     },
     search: {
       placeholder: 'Order No.',
@@ -290,13 +302,15 @@ export default {
       shared: 'Shared/Unshared'
     },
     card: {
-      trackingNo: 'Tracking No.',
+      trackingNo: 'Tracking No',
+      trackingNo2: 'Tracking No',
       customerCode: 'Customer Code',
       recordDate: 'Record Date',
       latestTracking: 'Latest Tracking',
       star: 'Star',
       share: 'Share',
-      sharedTimes: 'Shared {count} times'
+      sharedTimes: 'Shared {count} times',
+      sendLine: "Logistics route",
     },
     orderSelectTip: 'Please select at least one order',
     orderNotSameUserTip: 'Only orders from the same customer can be shipped together. Please filter by userNO before one click shipping'

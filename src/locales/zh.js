@@ -144,7 +144,19 @@ export default {
       logisticsTrack: '物流轨迹',
       detail: '包裹详情',
       goPay: '去支付',
-      cancelPackage: "取消包裹"
+      cancelPackage: "取消包裹",
+      packageInfo: '包裹信息',
+      estimateSize: '预估尺寸',
+      realSize: '实际尺寸',
+      estimateWeight: '预估重量',
+      realWeight: '实际重量',
+      estimateFreight: '预估费用',
+      realFreight: '实际费用',
+      insuranceFee: '保险费',
+      declarationPrice: '申报货值',
+      package_bk_order_status_tip: "您包裹的实际重量比预计重量重，请支付差额",
+      sending_country: "寄送国家",
+
     },
     specialFocus: '特别关注',
     cancelSpecialFocus: '取消特别关注',
@@ -297,12 +309,14 @@ export default {
     },
     card: {
       trackingNo: '快递单号',
+      trackingNo2: '国际单号',
       customerCode: '客户编码',
       recordDate: '录入日期',
       latestTracking: '最新轨迹',
       star: '特别关注',
       share: '分享',
-      sharedTimes: '已分享{count}次'
+      sharedTimes: '已分享{count}次',
+      sendLine: "物流线路",
     },
     orderSelectTip: '请选择订单',
     orderNotSameUserTip: '同一客户订单才能一起发货，请按用户编号筛选后再一键发货'
