@@ -29,7 +29,7 @@ export default {
     warehouse: '我的仓库',
     package: '我的包裹',
     assets: '我的资产',
-    addTransfer: '添加转运',
+    addTransfer: '添加订单',
     dashboard: '控制台',
     settings: '系统设置',
     help: '帮助中心',
@@ -213,7 +213,7 @@ export default {
         value: '物品价值(CNY)',
         photo: '商品照片',
         addExpress: '添加快递单号',
-        submit: '提交转运订单'
+        submit: '提交订单'
       }
     },
     submitTransfer: {

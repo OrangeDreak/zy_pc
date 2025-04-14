@@ -30,13 +30,13 @@ const routes = [
     path: '/add-transfer',
     name: 'AddTransfer',
     component: () => import('@/views/transfer/AddTransferOrder.vue'),
-    meta: { title: '添加转运订单' }
+    meta: { title: '添加订单' }
   },
   {
     path: '/order-share-transfer',
     name: 'OrderShareList',
     component: () => import('@/views/order/OrderShareList.vue'),
-    meta: { title: '转运订单' }
+    meta: { title: '我的订单' }
   },
   {
     path: '/estimate',
@@ -104,7 +104,7 @@ const routes = [
         meta: { title: '包裹详情', requiresAuth: true }
       },
       {
-        path: 'assets',
+        path: 'my-assets',
         name: 'MyAssets',
         component: () => import('@/views/assets/MyAssets.vue'),
         meta: { title: '我的资产', requiresAuth: true }

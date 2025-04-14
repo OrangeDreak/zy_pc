@@ -90,7 +90,6 @@ const rechargeTrans = computed(() => {
 const handleOk = async () => {
   try {
     const values = await rechargeFormRef.value.validateFields();
-
     const res = await charge({ amount: Math.ceil(formState.money * 100) });
     if (res?.success) {
       val.value = false;

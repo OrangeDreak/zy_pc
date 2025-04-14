@@ -39,7 +39,7 @@
             <span>{{ $t('menu.package') }}</span>
           </el-menu-item> -->
 
-          <el-menu-item index="/assets">
+          <el-menu-item index="/my-assets">
             <el-icon><Wallet /></el-icon>
             <span>{{ $t('menu.assets') }}</span>
           </el-menu-item>

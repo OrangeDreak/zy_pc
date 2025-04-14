@@ -172,9 +172,17 @@
         userNo: row.userNo,
         orderId: row.id,
       });
-
+      const shareUrl = `${window.location.origin}/order-share-transfer?code=${data}`;
+      navigator.clipboard
+        .writeText(shareUrl)
+        .then(() => {
+          console.log("内容已成功复制到剪切板");
+        })
+        .catch((err) => {
+          console.error("无法复制内容到剪切板:", err);
+        });
       // 处理shareCount点击事件
-      ElMessage.success(`分享订单：${data.trackingNo}`);
+      ElMessage.success(`分享订单成功`);
     };
       // 添加地址
       const handleAddAddress = () => {
