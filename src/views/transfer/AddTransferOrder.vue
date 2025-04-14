@@ -15,14 +15,16 @@
       <!-- 仓库地址信息 -->
       <div class="section warehouse-section">
         <div class="section-title">{{ $t('transfer.addOrder.warehouse.title') }}</div>
-        <div class="section-content">
+        <!-- <div class="section-content">
           <el-link type="primary" @click="getWarehouseAddress">
             {{ $t('transfer.addOrder.warehouse.getAddress') }}
           </el-link>
-        </div>
+        </div> -->
         <div class="section-tip">
           <el-alert type="warning" :closable="false" show-icon>
-            {{ $t('transfer.addOrder.warehouse.tip') }}
+            <p>联系人：QCelf</p>
+          <p>电话：17840804025</p>
+          <p>地址：广东省东莞市塘厦镇向阳路331号(佳邮国际进门左手边1楼)</p>
           </el-alert>
         </div>
       </div>
