@@ -133,6 +133,12 @@ const routes = [
         component: () => import('@/views/profile/Profile.vue'),
         meta: { title: '个人中心', requiresAuth: true }
       },
+      {
+         path: 'ticket',
+         name: 'Ticket',
+         component: () => import('@/views/ticket/TicketList.vue'),
+         meta: { title: '我的工单', requiresAuth: true }
+      },
     ]
   }
 ]

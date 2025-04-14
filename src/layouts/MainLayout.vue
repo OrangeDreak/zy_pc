@@ -43,6 +43,10 @@
             <el-icon><Wallet /></el-icon>
             <span>{{ $t('menu.assets') }}</span>
           </el-menu-item>
+          <el-menu-item index="/ticket">
+             <el-icon><Tickets /></el-icon>
+             <span>{{ $t('menu.ticket') }}</span>
+          </el-menu-item>
 
           <el-menu-item index="/add-transfer">
             <el-icon><Plus /></el-icon>

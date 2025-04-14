@@ -33,7 +33,8 @@ export default {
     dashboard: 'Dashboard',
     settings: 'Settings',
     help: 'Help Center',
-    notification: 'Notifications'
+    notification: 'Notifications',
+    ticket: 'My Tickets'
   },
   customers: {
     add: 'Add Customers',
@@ -538,6 +539,34 @@ export default {
       name2: 'Last Name',
       agree: 'I have read and agree',
       agreement: 'User Registration Agreement'
+
+    },
+    ticket: {
+      keywordPlaceholder: 'Please enter title keywords',
+      statusPlaceholder: 'Please select the ticket status',
+      add: 'Add Ticket',
+      statusItem: {
+           submitted: 'Submitted',
+           processing: 'Processing',
+           completed: 'Completed'
+      },
+      title: 'Ticket Title',
+      status: 'Ticket Status',
+      view: 'View',
+      msgTip: 'New message received',
+      ticketForm: {
+         title: 'Add Ticket',
+         titleLabel: 'Ticket Title',
+         contentLabel: 'Issue Description',
+         titlePlaceholder: 'Please enter ticket title',
+         contentPlaceholder: 'Please enter issue description'
+      },
+      ticketDetailForm: {
+         title: 'Ticket Detail',
+         contentLabel: '',
+         contentPlaceholder: 'Please enter reply content',
+
+      }
 
     }
   }

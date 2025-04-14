@@ -33,7 +33,8 @@ export default {
     dashboard: '控制台',
     settings: '系统设置',
     help: '帮助中心',
-    notification: '消息通知'
+    notification: '消息通知',
+    ticket: '我的工单'
   },
   customers: {
     add: '添加客户信息',
@@ -553,8 +554,33 @@ export default {
     name2: '请填写名字',
     agree: '我已阅读并同意',
     agreement: '用户注册协议'
+  },
+  ticket: {
+    keywordPlaceholder: '请输入标题关键词',
+    statusPlaceholder: '请选择工单状态',
+    add: '新增工单',
+    statusItem: {
+         submitted: '已提交',
+         processing: '处理中',
+         completed: '已完结'
+    },
+    title: '工单标题',
+    status: '工单状态',
+    view: '查看',
+    msgTip: '您有新的消息',
+    ticketForm: {
+       title: '新增工单',
+       titleLabel: '工单标题',
+       contentLabel: '问题描述',
+       titlePlaceholder: '请输入工单标题',
+       contentPlaceholder: '请输入反馈问题描述'
+    },
+    ticketDetailForm: {
+       title: '工单详情',
+       contentLabel: '',
+       contentPlaceholder: '请输入回复内容',
 
-
+    }
 
   }
 
