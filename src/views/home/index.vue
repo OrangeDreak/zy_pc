@@ -2,65 +2,67 @@
   <div class="estima">
     <!-- 使用公共头部 -->
     <common-header />
-    <div class="content">
 
-      <div class="relative h-[600px] overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-transparent">
-        <img src="https://ai-public.mastergo.com/ai/img_res/119612b2d8b89d3f2915c01200e9ba61.jpg" class="w-full h-full object-cover object-center" alt="Warehouse">
+    <div class="min-h-screen bg-gray-50">
+      <!-- 顶部公告栏 -->
+      <div class="w-full bg-purple-600 text-white px-6 py-3 flex justify-between items-center rounded-lg mb-8">
+        <span class="text-sm">最新公告：新增增值服务 2 项、跨境物流线路 3 条</span>
+        <button class="text-sm !rounded-button whitespace-nowrap">查看详情</button>
       </div>
-      <div class="relative z-10 flex items-center h-full max-w-7xl mx-auto px-8">
-        <div class="max-w-2xl text-white">
-          <h1 class="text-5xl font-bold mb-6">智能仓储管理系统</h1>
-          <p class="text-xl mb-8">打造数字化智能仓储解决方案，提升仓储效率，降低运营成本</p>
-          <div class="flex space-x-4">
-            <button class="px-8 py-3 bg-white/20 text-white hover:bg-white/30 transition-colors !rounded-button whitespace-nowrap use-rightNow" @click="$router.push('/add-transfer')">立即体验 <el-icon><ArrowRightBold /></el-icon></button>
+      <!-- 主要内容区域 -->
+      <div class="container mx-auto px-4 flex gap-8 h-[600px]">
+        <!-- 左侧仓库导览 -->
+        <div class="w-1/3 rounded-2xl overflow-hidden relative group cursor-pointer">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+          <img :src="warehouseImage" alt="warehouse tour" class="w-full h-full object-cover" />
+          <div class="absolute bottom-8 left-8 z-20 text-white">
+            <h2 class="text-3xl font-bold mb-2">仓库导览</h2>
+            <p class="text-sm opacity-80">探索我们的智能仓储设施</p>
+          </div>
+          <div class="absolute top-4 right-4 z-20">
+            <el-icon class="text-white text-2xl">
+              <Plus />
+            </el-icon>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div class="py-20 px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl font-bold mb-4">服务介绍</h2>
-        <p class="text-gray-600">全方位的仓储管理解决方案，助力企业数字化转型</p>
-      </div>
-
-      <div class="grid grid-cols-4 gap-8 max-w-6xl mx-auto">
-        <el-card v-for="(service, index) in services" :key="index" class="service-card" :body-style="{ padding: '2rem' }">
-          <div class="text-center">
-            <div class="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6">
-              <el-icon :size="24" class="text-white">
+        <!-- 中间服务介绍 -->
+        <div class="w-1/3 bg-white rounded-2xl p-8 relative background-color" >
+          <h2 class="text-2xl font-bold mb-8">服务介绍</h2>
+          <div class="grid grid-cols-2 gap-6">
+            <div v-for="(service, index) in services" :key="index"
+              class="flex flex-col items-center justify-center bg-purple-100 rounded-full aspect-square p-6 cursor-pointer hover:bg-purple-200 transition-colors">
+              <el-icon class="text-6xl text-purple-600 mb-2">
                 <component :is="service.icon" />
               </el-icon>
+              <span class="text-purple-900">{{ service.name }}</span>
             </div>
-            <h3 class="text-xl font-bold mb-4">{{ service.title }}</h3>
-            <p class="text-gray-600">{{ service.description }}</p>
           </div>
-        </el-card>
-      </div>
-    </div>
-
-    <div class="bg-white py-20 px-8">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <h2 class="text-3xl font-bold mb-4">为什么选择我们</h2>
-          <p class="text-gray-600">专业的团队，先进的技术，优质的服务</p>
-        </div>
-
-        <div class="grid grid-cols-3 gap-8">
-          <el-card v-for="(feature, index) in features" :key="index" :body-style="{ padding: '2rem' }">
-            <el-icon :size="40" class="text-primary mb-4">
-              <component :is="feature.icon" />
+          <div class="absolute top-4 right-4">
+            <el-icon class="text-purple-600 text-2xl">
+              <Plus />
             </el-icon>
-            <h3 class="text-xl font-bold mb-4">{{ feature.title }}</h3>
-            <p class="text-gray-600">{{ feature.description }}</p>
-          </el-card>
+          </div>
+        </div>
+        <!-- 右侧快捷操作 -->
+        <div
+          class="w-1/3 bg-purple-600 rounded-2xl p-8 flex flex-col justify-center items-center text-white cursor-pointer hover:bg-purple-700 transition-colors">
+          <div>
+            <a href="/add-transfer">
+              <h2 class="text-4xl font-bold mb-4">立即使用</h2>
+              <div>
+                <el-icon class="text-4xl"><ArrowRight /></el-icon>
+              </div>
+          </a>
+          </div>
+          <p class="text-lg opacity-80 mb-8">开启智能物流服务</p>
+          
+            
+          
         </div>
       </div>
     </div>
 
 
-    </div>
   </div>
 </template>
 
@@ -68,110 +70,35 @@
 import { useRouter } from "vue-router";
 import CommonHeader from '@/components/layout/CommonHeader.vue'
 import { ref } from 'vue';
-import {
-  Monitor,
-  Box,
-  Service,
-  MessageBox,
-  Shop,
-  TrendCharts,
-  Headset,
-  ArrowRightBold,
-} from '@element-plus/icons-vue';
+// import {
+//   Monitor,
+//   Box,
+//   Service,
+//   MessageBox,
+//   Shop,
+//   TrendCharts,
+//   Headset,
+//   ArrowRightBold,
+// } from '@element-plus/icons-vue';
+import { Plus, ArrowRight, Box, Search, User, Lock } from '@element-plus/icons-vue';
+const warehouseImage = 'https://ai-public.mastergo.com/ai/img_res/a68e4f6d0fc21bcce90156ffec5372c6.jpg';
+const services = ref([
+{ name: 'QC 质检', icon: Search },
+{ name: '智能打包', icon: Box },
+{ name: '客户管理', icon: User },
+{ name: '物流保险', icon: Lock },
+]);
 
 const router = useRouter();
-const services = ref([
-  {
-    icon: Monitor,
-    title: '仓库导览',
-    description: '智能化仓储空间管理，实时监控库存状态'
-  },
-  {
-    icon: Service,
-    title: '质量控制',
-    description: '全流程质量把控，确保货物完整性'
-  },
-  {
-    icon: Box,
-    title: '智能打包',
-    description: '自动化包装系统，提高作业效率'
-  },
-  {
-    icon: MessageBox,
-    title: '货物保险',
-    description: '全面的保险方案，保障货物安全'
-  }
-]);
-
-const features = ref([
-  {
-    icon: Shop,
-    title: '智能化管理',
-    description: '采用人工智能技术，实现仓储全流程自动化管理'
-  },
-  {
-    icon: TrendCharts,
-    title: '数据分析',
-    description: '深度数据分析，助力企业决策优化'
-  },
-  {
-    icon: Headset,
-    title: '7×24 小时服务',
-    description: '专业团队全天候在线，随时解决您的问题'
-  }
-]);
 
 
 </script>
 
 <style lang="less" scoped>
-.use-rightNow{
-  width: 200px;
-  height: 60px;
-  background-color: #c803be;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.service-card {
-  transition: all 0.3s ease;
-}
-
-.service-card:hover {
-  transform: translateY(-5px);
-}
-
-.gradient-bg {
-  background: linear-gradient(135deg, #c803be 0%, #f95bf1 100%);
-}
-.text-white{
-  color: #fff;
-}
-:deep(.el-button) {
-  font-weight: normal;
-}
-
-:deep(.el-button--primary) {
-  background-color: #8B5CF6;
-  border-color: #8B5CF6;
-}
-
-:deep(.el-button--primary:hover) {
-  background-color: #A78BFA;
-  border-color: #A78BFA;
-}
-
-:deep(.el-header) {
-  padding: 0;
-}
-
-:deep(.el-footer) {
-  padding: 0;
-}
-
-:deep(.el-card) {
-  border: 1px solid #f0f0f0;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+.background-color {
+      background-color: #e0e0e0;
+    }
+.el-icon-margin-top {
+  margin-top: 5px;
 }
 </style>
