@@ -61,6 +61,7 @@
       </el-main>
     </el-container>
   </el-container>
+  <common-footer />
 </template>
 
 <script setup>
@@ -70,6 +71,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useLangStore } from '@/stores/lang'
 import { storeToRefs } from 'pinia'
 import CommonHeader from '@/components/layout/CommonHeader.vue'
+import CommonFooter from '@/components/layout/CommonFooter.vue'
 
 import { 
   Search,
@@ -124,13 +126,14 @@ const handleTransfer = async () => {
 @import '@/styles/variables.less';
 
 .layout-container {
-  min-height: 100vh;
+  min-height: calc(100vh - 60px - 107px);
   width: 1240px;
   margin: 0 auto;
   .aside {
     background-color: #fff;
     border-right: 1px solid @border-color;
     padding-top: 60px;
+    height: 430px;
     
     .user-panel {
       padding: 20px;

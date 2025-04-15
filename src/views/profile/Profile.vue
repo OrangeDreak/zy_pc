@@ -1,66 +1,6 @@
-<!-- <template>
-    <div class="account">
-      <el-tabs>
-        <el-tab-pane key="1" >
-          <div  class="content">
-            <div class="sessionBox">
-              <div v-if="!informationLoading" class="informationBox">
-                <div class="left">
-                  <el-avatar v-if="!formData.avatar" style="flex-shrink: 0" :size="100">
-                    <template #icon><UserOutlined /></template>
-                  </el-avatar>
-                  <el-avatar
-                    v-if="formData.avatar"
-                    style="flex-shrink: 0"
-                    :size="100"
-                    :src="formData.avatar"
-                  />
-                  <div class="userID">
-                    <span style="margin-right: 5px">ID:{{ formData.id }} </span>
-                    <CopyOutlined @click="copyId(formData.id)" />
-                  </div>
-                </div>
-
-                <div class="right">
-                <div class="top">
-                  <div class="leftOne">
-                    <div class="leftOneTop">
-                      <span class="userName">{{ formData.nickname }}</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="bottom">
-                  <div class="bottomCol">
-                    <div class="itemBottom">
-                      昵称 : {{ formData.nickname }}
-                    </div>
-                    <div class="itemBottom">
-                      <div>邮箱 : {{ formData.email || "--" }}</div>
-                      <template v-if="formData.status === 2">
-                        <img class="warn" src="@/assets/images/icon/warn.png" alt="" />
-                        <div class="flag" @click="goActivate">
-                          <div class="tip">
-                            {{ $t("emailActivateBtn2") }}
-                            <img src="@/assets/images/icon/arrow-right2.png" alt="" />
-                          </div>
-                        </div>
-                      </template>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              </div>
-            </div>
-            
-          </div>
-        </el-tab-pane>
-      </el-tabs>
-    </div>
-  </template>
-   -->
   <template>
-  <div class="bg-gray-50 min-h-[1024px] mt-4">
-    <div class="min-h-[1024px]">
+  <div class="mt-4">
+    <div>
       <div
         class=" bg-white rounded-lg shadow-lg p-8"
         style="--el-color-primary: #c803be"
