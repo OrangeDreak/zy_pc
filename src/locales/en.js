@@ -47,7 +47,7 @@ export default {
       name: 'Name',
       postcode: 'Postcode',
       phoneNumber: 'Tel',
-      email: 'Emial',
+      email: 'Email',
       address: 'Address',
     },
     orderCount: 'Order Count',
