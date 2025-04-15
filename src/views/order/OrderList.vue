@@ -93,7 +93,7 @@
         </el-table-column>
         <el-table-column
           prop="logisticsNumber"
-          width="350"
+          min-width="350"
           :label="$t('package.table.expressDelivery')"
         >
           <template #default="{ row }">

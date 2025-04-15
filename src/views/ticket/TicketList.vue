@@ -38,8 +38,8 @@
       <div class="order-list-content">
         <el-table :data="ticketList" style="width: 100%" stripe @row-dblclick="handleView" :highlight-current-row="true">
           <el-table-column prop="title" :label="$t('ticket.title')" width="500" />
-          <el-table-column prop="gmtCreate" :label="$t('commont.createTime')" width="250" />
-          <el-table-column :label="$t('ticket.status')" width="150" >
+          <el-table-column prop="gmtCreate" :label="$t('commont.createTime')" />
+          <el-table-column :label="$t('ticket.status')" >
                <template #default="{ row }">
                   <el-tag>
                      {{ formatTitleC(row, "statusDesc", "trans") }}

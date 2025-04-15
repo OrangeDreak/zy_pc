@@ -310,7 +310,7 @@ const finish = (data) => {
 
     .search-area {
       display: flex;
-      width: 460px;
+      width: 560px;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
@@ -323,11 +323,11 @@ const finish = (data) => {
     }
 
     .income {
-      color: #67c23a;
+      color: #c803be;
     }
 
     .expense {
-      color: #f56c6c;
+      color: #67c23a;
     }
 
     .pagination {
