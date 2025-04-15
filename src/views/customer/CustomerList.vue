@@ -242,7 +242,7 @@
   
   <style scoped>
   .order-list {
-    padding: 20px;
+    padding: 20px 0;
   }
   .user-info{
     display: flex;
