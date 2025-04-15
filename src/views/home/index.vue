@@ -58,12 +58,14 @@
       </div>
     </div>
 
+    <common-footer />
   </div>
 </template>
 
 <script setup>
 import { useRouter } from "vue-router";
 import CommonHeader from '@/components/layout/CommonHeader.vue'
+import CommonFooter from '@/components/layout/CommonFooter.vue'
 import { ref } from 'vue';
 import { Plus, ArrowRight, Box, Search, User, Lock } from '@element-plus/icons-vue';
 const warehouseImage = 'https://ai-public.mastergo.com/ai/img_res/a68e4f6d0fc21bcce90156ffec5372c6.jpg';
