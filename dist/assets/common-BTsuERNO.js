@@ -1,0 +1,1 @@
+import{r as t}from"./request-Db42XEdn.js";const a=e=>t({url:"/app/area/listByLevel",method:"get",params:e}),s=e=>t({url:"/app/article/agreementList",method:"get",params:e}),g=e=>t({url:"/app/article/detail",method:"get",params:e});export{g as a,a as b,s as g};
