@@ -21,11 +21,14 @@
           </el-link>
         </div> -->
         <div class="section-tip">
-          <el-alert type="warning" :closable="false" show-icon>
+          <div class="section-tip-icon">
+            <el-icon><LocationFilled /></el-icon>
+          </div>
+          <div>
             <p>联系人：QCelf</p>
-          <p>电话：17840804025</p>
-          <p>地址：广东省东莞市塘厦镇向阳路331号(佳邮国际进门左手边1楼)</p>
-          </el-alert>
+            <p>电话：17840804025</p>
+            <p>地址：广东省东莞市塘厦镇向阳路331号(佳邮国际进门左手边1楼)</p>
+          </div>
         </div>
       </div>
 
@@ -93,7 +96,7 @@
                     >
                       {{order.userAddressId ?  $t('transfer.addOrder.form.editAddress') : $t('transfer.addOrder.form.addAddress') }}
                       <el-tooltip :content="$t('customers.addressHelp')" placement="top">
-                        <el-icon class="address-help"><QuestionFilled /></el-icon>
+                        <el-icon class="address-help"><Plus /></el-icon>
                       </el-tooltip>
                     </el-button>
                   </div>
@@ -191,6 +194,7 @@ import {
   QuestionFilled,
   Camera,
   Plus,
+  LocationFilled,
   Search,
 } from '@element-plus/icons-vue';
 import AddressForm from './AddressForm.vue';
@@ -481,6 +485,16 @@ const removeOrder = (orderIndex) => {
 
       .section-tip {
         margin-top: 20px;
+        display: flex;
+        align-items: center;
+        background: #ff80fa;
+        border-radius: 8px;
+        padding: 20px 20px 10px;
+        color: #fff;
+        .section-tip-icon{
+          font-size: 46px;
+          margin-right: 20px;
+        }
       }
 
       .recent-address {

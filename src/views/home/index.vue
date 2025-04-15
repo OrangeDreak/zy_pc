@@ -3,7 +3,7 @@
     <!-- 使用公共头部 -->
     <common-header />
 
-    <div class="min-h-screen bg-gray-50">
+    <div class="min-h-screen bg-gray-50 w-1240">
       <!-- 顶部公告栏 -->
       <div class="w-full bg-purple-600 text-white px-6 py-3 flex justify-between items-center rounded-lg mb-8">
         <span class="text-sm">最新公告：新增增值服务 2 项、跨境物流线路 3 条</span>
@@ -31,7 +31,7 @@
           <div class="grid grid-cols-2 gap-6">
             <div v-for="(service, index) in services" :key="index"
               class="flex flex-col items-center justify-center bg-purple-100 rounded-full aspect-square p-6 cursor-pointer hover:bg-purple-200 transition-colors">
-              <el-icon class="text-6xl text-purple-600 mb-2">
+              <el-icon class="text-6xl text-purple-600 mb-2 icon-large">
                 <component :is="service.icon" />
               </el-icon>
               <span class="text-purple-900">{{ service.name }}</span>
@@ -46,22 +46,17 @@
         <!-- 右侧快捷操作 -->
         <div
           class="w-1/3 bg-purple-600 rounded-2xl p-8 flex flex-col justify-center items-center text-white cursor-pointer hover:bg-purple-700 transition-colors">
-          <div>
-            <a href="/add-transfer">
-              <h2 class="text-4xl font-bold mb-4">立即使用</h2>
-              <div>
-                <el-icon class="text-4xl"><ArrowRight /></el-icon>
-              </div>
+          <div class="home-btn">
+            <a href="/add-transfer" class="flex items-center">
+              <h2 class="text-4xl font-bold mb-0">立即使用</h2>
+              <el-icon><ArrowRight /></el-icon>
           </a>
           </div>
-          <p class="text-lg opacity-80 mb-8">开启智能物流服务</p>
-          
-            
-          
+          <p class="text-lg opacity-80 mt-8">开启智能物流服务</p>
+
         </div>
       </div>
     </div>
-
 
   </div>
 </template>
@@ -70,16 +65,6 @@
 import { useRouter } from "vue-router";
 import CommonHeader from '@/components/layout/CommonHeader.vue'
 import { ref } from 'vue';
-// import {
-//   Monitor,
-//   Box,
-//   Service,
-//   MessageBox,
-//   Shop,
-//   TrendCharts,
-//   Headset,
-//   ArrowRightBold,
-// } from '@element-plus/icons-vue';
 import { Plus, ArrowRight, Box, Search, User, Lock } from '@element-plus/icons-vue';
 const warehouseImage = 'https://ai-public.mastergo.com/ai/img_res/a68e4f6d0fc21bcce90156ffec5372c6.jpg';
 const services = ref([
@@ -95,10 +80,29 @@ const router = useRouter();
 </script>
 
 <style lang="less" scoped>
+.estima {
+  padding-top: 80px;
+}
+.w-1240{
+  width: 1240px;
+  margin: 0 auto;
+}
 .background-color {
       background-color: #e0e0e0;
     }
 .el-icon-margin-top {
   margin-top: 5px;
+}
+.home-btn{
+  border-radius: 10px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.1);
+  line-height: 60px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+.icon-large {
+  font-size: 46px; /* 根据需要调整大小 */
+  color: #6b46c1; /* 根据需要调整颜色 */
 }
 </style>

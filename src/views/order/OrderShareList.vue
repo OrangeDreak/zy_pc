@@ -256,6 +256,8 @@ export default defineComponent({
 <style lang="less" scoped>
 .order-list {
   padding: 20px;
+  width: 1240px;
+  margin: 0 auto;
 }
 .estimate-info {
   display: flex;

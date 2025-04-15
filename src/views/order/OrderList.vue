@@ -93,7 +93,7 @@
         </el-table-column>
         <el-table-column
           prop="logisticsNumber"
-          width="350"
+          min-width="350"
           :label="$t('package.table.expressDelivery')"
         >
           <template #default="{ row }">
@@ -237,7 +237,8 @@
         </el-table-column>
         <el-table-column
           :label="$t('commont.operation')"
-          width="200"
+          width="180"
+          fixed="right"
           align="center"
         >
           <template #default="{ row }">
@@ -686,7 +687,7 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .order-list {
-  padding: 20px;
+  padding: 20px 0;
 }
 .estimate-info {
   display: flex;

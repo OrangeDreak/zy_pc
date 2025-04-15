@@ -237,6 +237,7 @@ const finish = (data) => {
 @import '@/styles/variables.less';
 
 .my-assets {
+  margin-top: 20px;
   .assets-card {
     background: @primary-color;
     padding: 30px;
@@ -273,12 +274,15 @@ const finish = (data) => {
 
       .el-button {
         --el-button-bg-color: rgba(255, 255, 255, 0.2);
-        --el-button-border-color: rgba(255, 255, 255, 0.3);
+        // --el-button-border-color: rgba(255, 255, 255, 0.3);
         --el-button-hover-bg-color: rgba(255, 255, 255, 0.3);
-        --el-button-hover-border-color: rgba(255, 255, 255, 0.4);
+        // --el-button-hover-border-color: rgba(255, 255, 255, 0.4);
         --el-button-active-bg-color: rgba(255, 255, 255, 0.4);
-        --el-button-active-border-color: rgba(255, 255, 255, 0.5);
+        // --el-button-active-border-color: rgba(255, 255, 255, 0.5);
         --el-button-text-color: #fff;
+        --el-button-text-hover-color: #fff !important;
+        --el-button-text-active-color: #fff !important;
+        color: #fff !important;
 
         &.el-button--primary {
           --el-button-bg-color: #fff;
@@ -287,7 +291,10 @@ const finish = (data) => {
           --el-button-hover-border-color: #f5f7fa;
           --el-button-active-bg-color: #e4e7ed;
           --el-button-active-border-color: #e4e7ed;
-          --el-button-text-color: @primary-color;
+          --el-button-text-color: @primary-color !important;
+          --el-button-text-hover-color: @primary-color !important;
+          --el-button-text-active-color: @primary-color !important;
+          color: @primary-color !important;
         }
       }
 
@@ -310,7 +317,7 @@ const finish = (data) => {
 
     .search-area {
       display: flex;
-      width: 460px;
+      width: 560px;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
@@ -323,11 +330,11 @@ const finish = (data) => {
     }
 
     .income {
-      color: #67c23a;
+      color: #c803be;
     }
 
     .expense {
-      color: #f56c6c;
+      color: #67c23a;
     }
 
     .pagination {
