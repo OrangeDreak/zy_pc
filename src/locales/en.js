@@ -23,6 +23,25 @@ export default {
       logout: 'Logout'
     }
   },
+  bottom: {
+    customerService: 'Customer Service',
+    customerServiceList: {
+      helpCenter: 'Help Center',
+      contactUs: 'Contact Us',
+      aboutUs: 'About Us'
+    },
+    warehouseCorrelation: 'Warehouse',
+    warehouseCorrelationList: {
+      freeQualityInspection: 'Free Quality Check',
+      freeStorage: 'Free Storage',
+    },
+    logisticsCorrelation: 'Shipping',
+    logisticsCorrelationList: {
+      insuranceService: 'Insurance Service',
+      mailingRestriction: 'Mailing Restriction',
+      mailingPolicy: 'Mailing Policy',
+    }
+  },
   menu: {
     profile: 'Profile',
     myAccount: 'My Account',

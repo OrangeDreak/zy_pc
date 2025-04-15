@@ -23,6 +23,25 @@ export default {
       logout: '退出登录'
     }
   },
+  bottom: {
+    customerService: '客户服务',
+    customerServiceList: {
+      helpCenter: '帮助中心',
+      contactUs: '联系我们',
+      AboutUs: '关于我们'
+    },
+    warehouseCorrelation: '仓库相关',
+    warehouseCorrelationList: {
+      freeQualityInspection: '免费质检',
+      freeStorage: '免费仓储',
+    },
+    logisticsCorrelation: '仓库相关',
+    logisticsCorrelationList: {
+      insuranceService: '保险服务',
+      mailingRestriction: '邮寄限制',
+      mailingPolicy: '邮寄政策',
+    }
+  },
   menu: {
     profile: '个人中心',
     myAccount: '会员中心',
