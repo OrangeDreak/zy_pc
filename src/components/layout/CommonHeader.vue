@@ -37,34 +37,31 @@
             {{ $t('header.register') }}
           </el-button>
         </div>
-        <el-dropdown @command="handleLangChange">
-          <span class="lang-switch">
-            {{ currentLang === 'zh' ? '中文' : 'English' }}
-            <el-icon>
-              <ArrowDown />
-            </el-icon>
-          </span>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item command="zh">中文</el-dropdown-item>
-              <el-dropdown-item command="en">English</el-dropdown-item>
-            </el-dropdown-menu>
+
+        <el-popover
+          placement="bottom"
+          :width="200"
+          trigger="click"
+        >
+          <template #reference>
+            <span class="lang-switch">
+              {{ currentLang === 'zh' ? '中文' : 'English' }} / {{ currentCurrency === 'CNY' ? 'CNY' : 'USD' }}
+              <el-icon>
+                <ArrowDown />
+              </el-icon>
+            </span>
           </template>
-        </el-dropdown>
-        <el-dropdown @command="handleCurrencyChange">
-          <span class="lang-switch">
-            {{ currentCurrency === 'CNY' ? 'CNY' : 'USD' }}
-            <el-icon>
-              <ArrowDown />
-            </el-icon>
-          </span>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item command="CNY">CNY</el-dropdown-item>
-              <el-dropdown-item command="USD">USD</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
+          <div class="popover-title">语言</div>
+          <div class="popover-content">
+            <div class="popover-item" :class="{ active: currentLang === 'zh' }" @click="handleLangChange('zh')">中文</div>
+            <div class="popover-item" :class="{ active: currentLang === 'en' }" @click="handleLangChange('en')">English</div>
+          </div>
+          <div class="popover-title">币种</div>
+          <div class="popover-content">
+            <div class="popover-item" :class="{ active: currentCurrency === 'CNY' }" @click="handleCurrencyChange('CNY')">CNY</div>
+            <div class="popover-item" :class="{ active: currentCurrency === 'USD' }" @click="handleCurrencyChange('USD')">USD</div>
+          </div>
+        </el-popover>
       </div>
     </div>
     <div class="intercom-kf" @click="showKf">
@@ -300,6 +297,25 @@ const handleCurrencyChange = (currency) => {
     margin-top: 20px;
     text-align: center;
     margin: 0 auto;
+  }
+}
+.popover-content {
+  padding: 10px 0;
+  display: flex;
+  gap: 10px;
+  .popover-item {
+    padding: 4px 12px;
+    border-radius: 8px;
+    border: 1px solid #e4e7ed;
+    cursor: pointer;
+    font-size: 14px;
+    &:hover {
+      background-color: #f5f7fa;
+    }
+  }
+  .active{
+    border: 1px solid #c803be;
+    color: #c803be;
   }
 }
 </style>
