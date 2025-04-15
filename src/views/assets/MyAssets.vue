@@ -237,6 +237,7 @@ const finish = (data) => {
 @import '@/styles/variables.less';
 
 .my-assets {
+  margin-top: 20px;
   .assets-card {
     background: @primary-color;
     padding: 30px;

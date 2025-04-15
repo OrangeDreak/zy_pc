@@ -125,7 +125,8 @@ const handleTransfer = async () => {
 
 .layout-container {
   min-height: 100vh;
-
+  width: 1240px;
+  margin: 0 auto;
   .aside {
     background-color: #fff;
     border-right: 1px solid @border-color;

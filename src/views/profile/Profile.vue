@@ -59,7 +59,7 @@
   </template>
    -->
   <template>
-  <div class="bg-gray-50 min-h-[1024px]">
+  <div class="bg-gray-50 min-h-[1024px] mt-4">
     <div class="min-h-[1024px]">
       <div
         class=" bg-white rounded-lg shadow-lg p-8"

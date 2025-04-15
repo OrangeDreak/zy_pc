@@ -3,7 +3,7 @@
     <!-- 使用公共头部 -->
     <common-header />
 
-    <div class="min-h-screen bg-gray-50">
+    <div class="min-h-screen bg-gray-50 w-1240">
       <!-- 顶部公告栏 -->
       <div class="w-full bg-purple-600 text-white px-6 py-3 flex justify-between items-center rounded-lg mb-8">
         <span class="text-sm">最新公告：新增增值服务 2 项、跨境物流线路 3 条</span>
@@ -80,6 +80,13 @@ const router = useRouter();
 </script>
 
 <style lang="less" scoped>
+.estima {
+  padding-top: 80px;
+}
+.w-1240{
+  width: 1240px;
+  margin: 0 auto;
+}
 .background-color {
       background-color: #e0e0e0;
     }

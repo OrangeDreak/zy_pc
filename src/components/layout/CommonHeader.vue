@@ -171,7 +171,7 @@ const handleCurrencyChange = (currency) => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // max-width: 1440px;
+  max-width: 1240px;
   margin: 0 auto;
 
   .header-left {
