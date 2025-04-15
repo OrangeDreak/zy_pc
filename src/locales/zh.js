@@ -28,7 +28,7 @@ export default {
     customerServiceList: {
       helpCenter: '帮助中心',
       contactUs: '联系我们',
-      AboutUs: '关于我们'
+      aboutUs: '关于我们'
     },
     warehouseCorrelation: '仓库相关',
     warehouseCorrelationList: {

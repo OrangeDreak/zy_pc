@@ -5,8 +5,8 @@
         <div class="title">{{ $t('bottom.customerService') }}</div>
         <ul>
           <li><a href="#">{{ $t('bottom.customerServiceList.helpCenter') }}</a></li>
-          <li><a href="/article-detail?articleId=73">{{ $t('bottom.customerServiceList.contactUs') }}</a></li>
-          <li><a href="/article-detail?articleId=96">{{ $t('bottom.customerServiceList.aboutUs') }}</a></li>
+          <li><a href="/article?id=73">{{ $t('bottom.customerServiceList.contactUs') }}</a></li>
+          <li><a href="/article?id=96">{{ $t('bottom.customerServiceList.aboutUs') }}</a></li>
         </ul>
       </div>
       <!-- <div class="item help">
@@ -19,16 +19,16 @@
       <div class="item agreement">
         <div class="title">{{ $t('bottom.warehouseCorrelation') }}</div>
         <ul>
-          <li><a href="/article-detail?articleId=78">{{ $t('bottom.warehouseCorrelationList.freeQualityInspection') }}</a></li>
-          <li><a href="/article-detail?articleId=77">{{ $t('bottom.warehouseCorrelationList.freeStorage') }}</a></li>
+          <li><a href="/article?id=78">{{ $t('bottom.warehouseCorrelationList.freeQualityInspection') }}</a></li>
+          <li><a href="/article?id=77">{{ $t('bottom.warehouseCorrelationList.freeStorage') }}</a></li>
         </ul>
       </div>
       <div class="item link">
         <div class="title">{{ $t('bottom.logisticsCorrelation') }}</div>
         <ul>
-          <li><a href="/article-detail?articleId=76">{{ $t('bottom.logisticsCorrelationList.insuranceService') }}</a></li>
-          <li><a href="/article-detail?articleId=66">{{ $t('bottom.logisticsCorrelationList.mailingRestriction') }}</a></li>
-          <li><a href="/article-detail?articleId=95">{{ $t('bottom.logisticsCorrelationList.mailingPolicy') }}</a></li>
+          <li><a href="/article?id=76">{{ $t('bottom.logisticsCorrelationList.insuranceService') }}</a></li>
+          <li><a href="/article?id=66">{{ $t('bottom.logisticsCorrelationList.mailingRestriction') }}</a></li>
+          <li><a href="/article?id=95">{{ $t('bottom.logisticsCorrelationList.mailingPolicy') }}</a></li>
         </ul>
       </div>
     </div>

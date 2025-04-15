@@ -252,6 +252,7 @@
       <a-spin></a-spin>
     </div>
   </div>
+  <common-footer />
 </template>
 
 <script setup>
@@ -267,6 +268,7 @@ import { formatTitle, formatPrice } from "@/utils/tools";
 import { useI18n } from 'vue-i18n'
 const i18n = useI18n();
 import CommonHeader from '@/components/layout/CommonHeader.vue'
+import CommonFooter from '@/components/layout/CommonFooter.vue'
 
 
 

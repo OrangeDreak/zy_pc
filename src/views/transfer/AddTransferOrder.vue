@@ -184,6 +184,7 @@
     <!-- 地址表单对话框 -->
     <address-form v-model="showAddress" :subCode="orders[currentOrderIndex].userNo" :formData="orders[currentOrderIndex]" @submit="handleAddressSubmit" />
   </div>
+  <common-footer />
 </template>
 
 <script setup>
@@ -201,6 +202,7 @@ import AddressForm from './AddressForm.vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import CommonHeader from '@/components/layout/CommonHeader.vue'
+import CommonFooter from '@/components/layout/CommonFooter.vue'
 import { transfer } from '@/api/transfer'
 
 const router = useRouter();
