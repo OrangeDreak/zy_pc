@@ -24,19 +24,19 @@
             <div v-else class="paySuccessText">{{ $t("pay.paySuccessTip") }}</div>
 
             <div class="paySuccessBtnBox">
-              <a-button
+              <el-button
                 v-if="route.query.path === 'recharge' || route.query.path === 'repayment'"
                 type="primary"
                 class="chaKan"
                 @click="goPage('/my-assets')"
-                >{{ $t("pay.goback_assets") }}</a-button
+                >{{ $t("pay.goback_assets") }}</el-button
               >
-              <a-button
+              <el-button
                 v-else
                 type="primary"
                 class="chaKan"
                 @click="goPage('/orders')"
-                >{{ $t("pay.viewOrder") }}</a-button
+                >{{ $t("pay.viewOrder") }}</el-button
               >
             </div>
           </template>
@@ -160,6 +160,8 @@ onMounted(async () => {
             border: 1px solid #cccccc;
           }
           .chaKan {
+            height: 40px;
+            font-size: 18px;
           }
         }
       }

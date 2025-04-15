@@ -78,17 +78,18 @@
             >
           </div>
         </div>
-        <a-button class="back" @click="router.back()">{{
+        <el-button class="back" @click="router.back()">{{
           route.query.source === "recharge" ? $t("pay.cancelRecharge") : $t("pay.cancel_pay")
-        }}</a-button>
-        <a-button
+        }}</el-button>
+        <el-button
           type="primary"
+          class="confirmPayBtn"
           :disabled="subDisabled"
           :loading="subLoading"
           @click="handlePay"
           >{{
             route.query.source === "recharge" ? $t("pay.property_recharge_title") : $t("pay.confirmPay")
-          }}</a-button
+          }}</el-button
         >
       </div>
     </a-spin>
@@ -583,6 +584,11 @@ const confirm = () => {
           font-size: 16px;
           border: 1px solid #cccccc;
           border-radius: 4px;
+          margin-left: 20px;
+          height: 48px;
+        }
+        .confirmPayBtn{
+          height: 48px;
         }
         .confirmPayLeft {
           display: flex;
