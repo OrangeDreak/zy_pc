@@ -487,10 +487,10 @@ const removeOrder = (orderIndex) => {
         margin-top: 20px;
         display: flex;
         align-items: center;
-        background: #ff80fa;
+        background: #fcf2fc;
         border-radius: 8px;
         padding: 20px 20px 10px;
-        color: #fff;
+        color: #c803be;
         .section-tip-icon{
           font-size: 46px;
           margin-right: 20px;
