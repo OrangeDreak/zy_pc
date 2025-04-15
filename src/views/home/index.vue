@@ -3,7 +3,7 @@
     <!-- 使用公共头部 -->
     <common-header />
 
-    <div class="min-h-screen bg-gray-50 w-1240">
+    <div class="p-8 bg-gray-50 w-1240">
       <!-- 顶部公告栏 -->
       <div class="w-full bg-purple-600 text-white px-6 py-3 flex justify-between items-center rounded-lg mb-8">
         <span class="text-sm">最新公告：新增增值服务 2 项、跨境物流线路 3 条</span>
@@ -105,6 +105,9 @@ const router = useRouter();
 }
 .icon-large {
   font-size: 46px; /* 根据需要调整大小 */
-  color: #6b46c1; /* 根据需要调整颜色 */
+  color: #c803be; /* 根据需要调整颜色 */
+}
+.bg-purple-600{
+  background-color: #a7029f;
 }
 </style>
