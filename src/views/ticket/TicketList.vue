@@ -49,7 +49,7 @@
           <el-table-column  :label="$t('commont.operation')" width="150">
             <template #default="scope">
               <div v-if="scope.row.unReadMsgNum">
-                 <el-badge :value="scope.row.unReadMsgNum" class="item">
+                 <el-badge :value="scope.row.unReadMsgNum" class="unReadMsgNum">
                     <el-button type="primary" link @click="handleView(scope.row)">{{$t('ticket.view')}}</el-button>
                  </el-badge>
               </div>
@@ -349,5 +349,9 @@
     align-items: center;
     background: #fff;
     padding: 10px 20px;
+  }
+  .unReadMsgNum {
+    top: 7px;
+    right: 0px
   }
   </style>
