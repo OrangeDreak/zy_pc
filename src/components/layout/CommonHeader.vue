@@ -67,7 +67,7 @@
         </el-dropdown>
       </div>
     </div>
-    <div class="intercom-kf">
+    <div class="intercom-kf" @click="showKf">
       <!-- <img class="intercom-kf" src="@/assets/images/icon/kf.png" alt="" /> -->
       <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
         <!-- 圆形背景 -->
@@ -84,6 +84,14 @@
         <circle cx="38" cy="30" r="2" fill="#c803be" />
       </svg>
     </div>
+    <!-- 对话框 -->
+    <el-dialog v-model="dialogVisible" title="联系我们" width="30%" :before-close="handleClose">
+      <div class="contact-info">
+        <p>联系邮箱: example@example.com</p>
+        <img src="@/assets/images/common/qrcode.jpg" alt="QR Code" class="qrcode" />
+        <p>扫码添加客服微信</p>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -107,7 +115,7 @@ const { locale } = useI18n();
 
 const searchKeyword = ref("");
 const userAvatar = ref("./assets/images/common/user-default.png");
-
+const dialogVisible = ref(false); // 对话框显示状态
 // 处理用户下拉菜单
 const handleCommand = (command) => {
   if (command === "logout") {
@@ -118,6 +126,14 @@ const handleCommand = (command) => {
   } else if (command === "orders") {
     router.push("/orders");
   }
+};
+const showKf = () => {
+  dialogVisible.value = true; // 显示对话框
+};
+
+const handleClose = (done) => {
+  dialogVisible.value = false; // 隐藏对话框
+  done();
 };
 const handleEstimate = async () => {
   router.push("/estimate");
@@ -273,6 +289,17 @@ const handleCurrencyChange = (currency) => {
 
   &:hover {
     transform: scale(1.2);
+  }
+}
+.contact-info {
+  text-align: center;
+
+  .qrcode {
+    width: 200px;
+    height: 260px;
+    margin-top: 20px;
+    text-align: center;
+    margin: 0 auto;
   }
 }
 </style>
