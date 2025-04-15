@@ -19,7 +19,10 @@ export default {
     },
     user: {
       profile: 'Profile',
-      orders: 'Orders',
+      customers: 'My Customers',
+      orders: 'My Orders',
+      wallet: 'My Wallet',
+      ticket: 'My Tickets',
       logout: 'Logout'
     }
   },
@@ -49,7 +52,7 @@ export default {
     transferOrder: 'My Orders',
     warehouse: 'My Warehouse',
     package: 'My Packages',
-    assets: 'My Assets',
+    assets: 'My Wallet',
     addTransfer: 'Add Order',
     dashboard: 'Dashboard',
     settings: 'Settings',
@@ -58,7 +61,7 @@ export default {
     ticket: 'My Tickets'
   },
   customers: {
-    add: 'Add Customers',
+    add: '+Add Customers',
     code: 'Customers Code',
     codeHelp: 'Customers Code Describe',
     info: {

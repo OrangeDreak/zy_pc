@@ -19,7 +19,10 @@ export default {
     },
     user: {
       profile: '个人资料',
+      customers: '我的客户',
+      wallet: '我的资产',
       orders: '我的订单',
+      ticket: '我的工单',
       logout: '退出登录'
     }
   },
