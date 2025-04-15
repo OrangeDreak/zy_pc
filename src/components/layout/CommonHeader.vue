@@ -2,7 +2,8 @@
   <div class="border-bottom">
     <div class="common-header">
       <div class="header-left">
-        <div class="logo" @click="$router.push('/')"><img src="@/assets/images/common/logo.jpg" height="60px"> </img></div>
+        <div class="logo" @click="$router.push('/')"><img src="@/assets/images/common/logo.jpg" height="60px"> </img>
+        </div>
       </div>
 
       <div class="header-right">
@@ -11,24 +12,37 @@
           <div class="nav-item text-cursor" @click="handleTransfer">{{ $t('header.nav.transfer') }}</div>
           <!-- <div class="nav-item">{{ $t('header.nav.help') }}</div> -->
         </div>
-        <el-dropdown @command="handleCommand">
+        <el-dropdown v-if="authStore.token" @command="handleCommand">
           <span class="user-info">
             <img class="user-img" height="32px" width="32px" src="@/assets/images/common/user-default.png" />
             <span class="username">{{ authStore.userInfo.username }}</span>
-            <el-icon><ArrowDown /></el-icon>
+            <el-icon>
+              <ArrowDown />
+            </el-icon>
           </span>
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item command="profile">{{ $t('header.user.profile') }}</el-dropdown-item>
               <el-dropdown-item command="orders">{{ $t('header.user.orders') }}</el-dropdown-item>
-              <el-dropdown-item v-if="authStore.token" command="logout">{{ $t('header.user.logout') }}</el-dropdown-item>
+              <el-dropdown-item command="logout">{{ $t('header.user.logout')
+                }}</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
+        <div v-else>
+          <el-button  @click="$router.push('/login')" class="login-btn" type="primary">
+            {{ $t('header.login') }}
+          </el-button>
+          <el-button  @click="$router.push('/register')" class="login-btn" >
+            {{ $t('header.register') }}
+          </el-button>
+        </div>
         <el-dropdown @command="handleLangChange">
           <span class="lang-switch">
             {{ currentLang === 'zh' ? '中文' : 'English' }}
-            <el-icon><ArrowDown /></el-icon>
+            <el-icon>
+              <ArrowDown />
+            </el-icon>
           </span>
           <template #dropdown>
             <el-dropdown-menu>
@@ -38,33 +52,37 @@
           </template>
         </el-dropdown>
         <el-dropdown @command="handleCurrencyChange">
-                  <span class="lang-switch">
-                    {{ currentCurrency === 'CNY' ? 'CNY' : 'USD' }}
-                    <el-icon><ArrowDown /></el-icon>
-                  </span>
-                  <template #dropdown>
-                    <el-dropdown-menu>
-                      <el-dropdown-item command="CNY">CNY</el-dropdown-item>
-                      <el-dropdown-item command="USD">USD</el-dropdown-item>
-                    </el-dropdown-menu>
-                  </template>
+          <span class="lang-switch">
+            {{ currentCurrency === 'CNY' ? 'CNY' : 'USD' }}
+            <el-icon>
+              <ArrowDown />
+            </el-icon>
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="CNY">CNY</el-dropdown-item>
+              <el-dropdown-item command="USD">USD</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
         </el-dropdown>
       </div>
     </div>
     <div class="intercom-kf">
       <!-- <img class="intercom-kf" src="@/assets/images/icon/kf.png" alt="" /> -->
       <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- 圆形背景 -->
-  <circle cx="32" cy="32" r="30" fill="#c803be"/>
-  
-  <!-- 白色微信风格气泡 -->
-  <path d="M24 22H40C42 22 44 24 44 26V34C44 36 42 38 40 38H32L28 42V38H24C22 38 20 36 20 34V26C20 24 22 22 24 22Z" fill="white" fill-opacity="0.9"/>
-  
-  <!-- 气泡内的小圆点1 -->
-  <circle cx="30" cy="30" r="2" fill="#c803be"/>
-  <!-- 气泡内的小圆点2 -->
-  <circle cx="38" cy="30" r="2" fill="#c803be"/>
-</svg>
+        <!-- 圆形背景 -->
+        <circle cx="32" cy="32" r="30" fill="#c803be" />
+
+        <!-- 白色微信风格气泡 -->
+        <path
+          d="M24 22H40C42 22 44 24 44 26V34C44 36 42 38 40 38H32L28 42V38H24C22 38 20 36 20 34V26C20 24 22 22 24 22Z"
+          fill="white" fill-opacity="0.9" />
+
+        <!-- 气泡内的小圆点1 -->
+        <circle cx="30" cy="30" r="2" fill="#c803be" />
+        <!-- 气泡内的小圆点2 -->
+        <circle cx="38" cy="30" r="2" fill="#c803be" />
+      </svg>
     </div>
   </div>
 </template>
@@ -122,6 +140,7 @@ const handleCurrencyChange = (currency) => {
 
 <style lang="less" scoped>
 @import "@/styles/variables.less";
+
 .border-bottom {
   height: 60px;
   border-bottom: 1px solid @border-color;
@@ -134,6 +153,7 @@ const handleCurrencyChange = (currency) => {
   z-index: 100;
   background-color: #fff;
 }
+
 .common-header {
   display: flex;
   justify-content: space-between;
@@ -146,12 +166,14 @@ const handleCurrencyChange = (currency) => {
     align-items: center;
     gap: 40px;
     overflow: hidden;
+
     .logo {
       font-size: 24px;
       font-weight: bold;
       color: @primary-color;
       overflow: hidden;
       cursor: pointer;
+      padding-top: 2px;
       img {
         height: 56px;
       }
@@ -213,9 +235,11 @@ const handleCurrencyChange = (currency) => {
       align-items: center;
       gap: 8px;
       cursor: pointer;
+
       .user-img {
         border-radius: 32px;
       }
+
       .username {
         font-size: 14px;
         color: @text-regular;
@@ -236,6 +260,7 @@ const handleCurrencyChange = (currency) => {
     }
   }
 }
+
 .intercom-kf {
   width: 50px;
   height: 50px;
@@ -245,8 +270,9 @@ const handleCurrencyChange = (currency) => {
   bottom: 200px;
   z-index: 2147483006;
   transition: 0.2s all;
+
   &:hover {
     transform: scale(1.2);
   }
 }
-</style> 
+</style>

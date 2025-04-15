@@ -10,6 +10,8 @@ export default {
   header: {
     search: 'Search products',
     searchButton: 'Search',
+    login: 'Login',
+    register: 'Register',
     nav: {
       freightEstimate: 'Freight Estimate',
       transfer: 'Add Order',

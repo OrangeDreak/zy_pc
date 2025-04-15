@@ -10,6 +10,8 @@ export default {
   header: {
     search: '请输入商品关键词',
     searchButton: '搜索',
+    login: '登录',
+    register: '注册',
     nav: {
       freightEstimate: '运费预估',
       transfer: '添加订单',

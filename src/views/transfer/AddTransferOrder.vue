@@ -93,7 +93,7 @@
                     >
                       {{order.userAddressId ?  $t('transfer.addOrder.form.editAddress') : $t('transfer.addOrder.form.addAddress') }}
                       <el-tooltip :content="$t('customers.addressHelp')" placement="top">
-                        <el-icon class="address-help"><QuestionFilled /></el-icon>
+                        <el-icon class="address-help"><Plus /></el-icon>
                       </el-tooltip>
                     </el-button>
                   </div>
