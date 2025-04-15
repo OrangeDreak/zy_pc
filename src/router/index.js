@@ -51,16 +51,22 @@ const routes = [
     meta: { title: '订单详情' }
   },
   {
-      path: '/pay',
-      name: 'Pay',
-      component: () => import('@/views/order-pay/pay.vue'),
-      meta: { title: '支付' }
+    path: '/pay',
+    name: 'Pay',
+    component: () => import('@/views/order-pay/pay.vue'),
+    meta: { title: '支付' }
   },
   {
-      path: '/pay-success',
-      name: 'PaySuccess',
-      component: () => import('@/views/order-pay/order-success.vue'),
-      meta: { title: '支付成功' }
+    path: '/pay-success',
+    name: 'PaySuccess',
+    component: () => import('@/views/order-pay/order-success.vue'),
+    meta: { title: '支付成功' }
+  },
+  {
+    path: '/article',
+    name: 'Article',
+    component: () => import('@/views/article/article.vue'),
+    meta: { title: '内容详情' }
   },
   {
     path: '/',
@@ -134,10 +140,10 @@ const routes = [
         meta: { title: '个人中心', requiresAuth: true }
       },
       {
-         path: 'ticket',
-         name: 'Ticket',
-         component: () => import('@/views/ticket/TicketList.vue'),
-         meta: { title: '我的工单', requiresAuth: true }
+        path: 'ticket',
+        name: 'Ticket',
+        component: () => import('@/views/ticket/TicketList.vue'),
+        meta: { title: '我的工单', requiresAuth: true }
       },
     ]
   }
@@ -162,7 +168,7 @@ router.beforeEach((to, from, next) => {
   // } else {
   //   next()
   // }
-  
+
   next() // 直接放行所有路由
 })
 
