@@ -7,3 +7,17 @@ export const getArea = (params) => {
     params,
   });
 }
+export const getAgreementList = (params) => {
+  return request({
+    url: "/app/article/agreementList",
+    method: "get",
+    params,
+  });
+}
+export const getArticle = (params) => {
+  return request({
+    url: "/app/article/detail",
+    method: "get",
+    params,
+  });
+}

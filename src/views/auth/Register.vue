@@ -81,7 +81,7 @@
             <el-form-item class="agreement">
               <el-checkbox v-model="registerForm.agreement">
                 {{ $t('login.agree') }}
-                <el-link type="primary" @click="showAgreement('user')"
+                <el-link type="primary" @click="showAgreement('agreement')"
                   >《QC elf{{ $t('login.agreement') }}》</el-link
                 >
               </el-checkbox>
@@ -107,6 +107,12 @@
         </el-card>
       </div>
     </div>
+    <!-- 对话框 -->
+    <el-dialog v-model="dialogVisible" width="1320" :before-close="handleClose">
+      <div class="dialog-content">
+        <Article id="0" type="agreement"></Article>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -116,12 +122,14 @@ import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
 import { auth } from "@/api/auth";
 import CommonHeader from "@/components/layout/CommonHeader.vue";
+import Article from "../article/article.vue";
 import { ArrowDown, Message, Lock, Promotion } from "@element-plus/icons-vue";
 
 const router = useRouter();
 const formRef = ref(null);
 const loading = ref(false);
 const currentTime = ref("");
+const dialogVisible = ref(false);
 
 const registerForm = ref({
   username: "",
@@ -193,10 +201,15 @@ onUnmounted(() => {
   }
 });
 
-const showAgreement = (type) => {
-  // TODO: 显示用户协议或隐私声明
-  ElMessage.info(`查看${type === "user" ? "用户协议" : "隐私声明"}`);
+const showAgreement = () => {
+  dialogVisible.value = true; // 显示对话框
 };
+
+const handleClose = (done) => {
+  dialogVisible.value = false; // 隐藏对话框
+  done();
+};
+
 
 const handleGetCaptcha = async() => {
   // TODO: 获取验证码
@@ -354,5 +367,10 @@ const handleRegister = async () => {
 }
 .code-btn{
   margin-right: -11px;
+}
+.dialog-content{
+  height: 700px;
+  overflow: scroll;
+  margin-top: -20px;
 }
 </style> 
