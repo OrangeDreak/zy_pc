@@ -513,7 +513,7 @@ onMounted(() => {
 .btn-box {
   :deep(.ant-btn) {
     // background-color: rgba(0, 0, 0, 0.2);
-    background-color: #0bd5d2;
+    background-color: #c803be;
     color: #fff;
     font-size: 14px;
     font-weight: 500;
@@ -542,11 +542,11 @@ onMounted(() => {
   :deep(.ant-btn) {
     // background-color: rgba(0, 0, 0, 0.2);
     background-color: #fff;
-    color: #0bd5d2;
+    color: #c803be;
     font-size: 14px;
     font-weight: 500;
     line-height: 14px;
-    border-color: #0bd5d2;
+    border-color: #c803be;
     padding: 0 26px;
     // border: none;
     .ant-btn:hover,
