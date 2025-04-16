@@ -71,7 +71,6 @@ onMounted(() => {
 @import '@/styles/variables.less';
 
 .container {
-  min-height: 100vh;
   margin: 0 auto;
   padding-top: 80px;
   .content-title{
@@ -81,10 +80,12 @@ onMounted(() => {
     padding-bottom: 20px;
   }
   .content {
+    min-height: calc(100vh - 250px);
     width: 1280px;
     margin: 0 auto;
     background: #fff;
     padding: 20px;
+    margin-bottom: 20px;
     .content-content{
       font-size: 16px;
       line-height: 30px;
