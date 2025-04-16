@@ -182,7 +182,7 @@
           console.error("无法复制内容到剪切板:", err);
         });
       // 处理shareCount点击事件
-      ElMessage.success(`分享订单成功`);
+      ElMessage.success(`复制成功`);
     };
       // 添加地址
       const handleAddAddress = () => {
