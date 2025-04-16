@@ -38,12 +38,23 @@ export default {
       freeQualityInspection: '免费质检',
       freeStorage: '免费仓储',
     },
-    logisticsCorrelation: '仓库相关',
+    logisticsCorrelation: '物流相关',
     logisticsCorrelationList: {
       insuranceService: '保险服务',
       mailingRestriction: '邮寄限制',
       mailingPolicy: '邮寄政策',
     }
+  },
+  home: {
+    serviceIntroduction: '服务介绍',
+    WarehouseTour: '仓库导览',
+    ExploreOur: '探索我们的智能仓储设施',
+    QcInspection: 'QC 质检',
+    SmartPackaging: '智能打包',
+    customerManagement: '客户管理',
+    logisticsInsurance: '物流保险',
+    immediateUse: '立即使用',
+    EnableIntelligent: '开启智能物流服务',
   },
   menu: {
     profile: '个人中心',

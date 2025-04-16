@@ -26,6 +26,17 @@ export default {
       logout: 'Logout'
     }
   },
+  home: {
+    serviceIntroduction: 'Service Introduction',
+    WarehouseTour: 'Warehouse tour',
+    ExploreOur: 'Explore our smart storage facilities',
+    QcInspection: 'Qc Inspection',
+    SmartPackaging: 'Smart Packaging',
+    customerManagement: 'Customer Management',
+    logisticsInsurance: 'Logistics Insurance',
+    immediateUse: 'Immediate Use',
+    EnableIntelligent: 'Enable intelligent logistics services',
+  },
   bottom: {
     customerService: 'Customer Service',
     customerServiceList: {
@@ -122,7 +133,7 @@ export default {
   addTransfer: {
     button: 'Copy Address Information',
     contacts: 'Contacts',
-    tel: 'Tel',
+    tel: 'PhoneNumber',
     address: 'Address'
   },
   //添加/编辑地址相关

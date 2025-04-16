@@ -27,7 +27,7 @@
         </div>
         <!-- 中间服务介绍 -->
         <div class="w-1/3 bg-white rounded-2xl p-8 relative background-color" >
-          <h2 class="text-2xl font-bold mb-8">服务介绍</h2>
+          <h2 class="text-2xl font-bold mb-8">{{ $t('home.serviceIntroduction') }}</h2>
           <div class="grid grid-cols-2 gap-6">
             <div v-for="(service, index) in services" :key="index"
               class="flex flex-col items-center justify-center bg-purple-100 rounded-full aspect-square p-6 cursor-pointer hover:bg-purple-200 transition-colors">
@@ -48,11 +48,11 @@
           class="w-1/3 bg-purple-600 rounded-2xl p-8 flex flex-col justify-center items-center text-white cursor-pointer hover:bg-purple-700 transition-colors">
           <div class="home-btn">
             <a href="/add-transfer" class="flex items-center">
-              <h2 class="text-4xl font-bold mb-0">立即使用</h2>
+              <h2 class="text-4xl font-bold mb-0">{{ $t('home.immediateUse') }}</h2>
               <el-icon><ArrowRight /></el-icon>
           </a>
           </div>
-          <p class="text-lg opacity-80 mt-8">开启智能物流服务</p>
+          <p class="text-lg opacity-80 mt-8">{{ $t('home.EnableIntelligent') }}</p>
 
         </div>
       </div>
@@ -68,12 +68,15 @@ import CommonHeader from '@/components/layout/CommonHeader.vue'
 import CommonFooter from '@/components/layout/CommonFooter.vue'
 import { ref } from 'vue';
 import { Plus, ArrowRight, Box, Search, User, Lock } from '@element-plus/icons-vue';
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 const warehouseImage = 'https://ai-public.mastergo.com/ai/img_res/a68e4f6d0fc21bcce90156ffec5372c6.jpg';
 const services = ref([
-{ name: 'QC 质检', icon: Search },
-{ name: '智能打包', icon: Box },
-{ name: '客户管理', icon: User },
-{ name: '物流保险', icon: Lock },
+{ name: t('home.QcInspection'), icon: Search },
+{ name: t('home.SmartPackaging'), icon: Box },
+{ name: t('home.customerManagement'), icon: User },
+{ name: t('home.logisticsInsurance'), icon: Lock },
 ]);
 
 const router = useRouter();
