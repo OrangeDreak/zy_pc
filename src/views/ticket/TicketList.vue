@@ -257,6 +257,12 @@
   </script>
   
   <style scoped>
+  :deep .unReadMsgNum .el-badge__content.is-fixed {
+      top: 3px;
+  }
+  :deep .unReadMsgNum .el-button {
+      height: 35px;
+  }
   .order-list {
     padding: 20px;
   }
