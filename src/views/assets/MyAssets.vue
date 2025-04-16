@@ -12,9 +12,9 @@
         <div class="frozen">({{ $t('assets.balance.frozen') }}：{{ formatPrice(balanceInfo, "nonWithdrawBalance") }})</div>
       </div>
       <div class="actions">
-        <el-button  @click="handleWithdraw">
+        <!-- <el-button  @click="handleWithdraw">
           {{ $t('assets.balance.withdraw') }}
-        </el-button>
+        </el-button> -->
         <el-button type="primary" @click="handleRecharge">
           {{ $t('assets.balance.recharge') }}
         </el-button>
