@@ -19,8 +19,30 @@ export default {
     },
     user: {
       profile: '个人资料',
+      customers: '我的客户',
+      wallet: '我的资产',
       orders: '我的订单',
+      ticket: '我的工单',
       logout: '退出登录'
+    }
+  },
+  bottom: {
+    customerService: '客户服务',
+    customerServiceList: {
+      helpCenter: '帮助中心',
+      contactUs: '联系我们',
+      aboutUs: '关于我们'
+    },
+    warehouseCorrelation: '仓库相关',
+    warehouseCorrelationList: {
+      freeQualityInspection: '免费质检',
+      freeStorage: '免费仓储',
+    },
+    logisticsCorrelation: '仓库相关',
+    logisticsCorrelationList: {
+      insuranceService: '保险服务',
+      mailingRestriction: '邮寄限制',
+      mailingPolicy: '邮寄政策',
     }
   },
   menu: {

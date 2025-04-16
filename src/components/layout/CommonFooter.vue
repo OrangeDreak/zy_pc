@@ -2,39 +2,41 @@
   <div class="content">
     <div class="top">
       <div class="item">
-        <div class="title">客户服务</div>
+        <div class="title">{{ $t('bottom.customerService') }}</div>
         <ul>
-          <li><a href="#">帮助中心</a></li>
-          <li><a href="#">联系我们</a></li>
-          <li><a href="#">关于我们</a></li>
+          <li><a href="#">{{ $t('bottom.customerServiceList.helpCenter') }}</a></li>
+          <li><a href="/article?id=73">{{ $t('bottom.customerServiceList.contactUs') }}</a></li>
+          <li><a href="/article?id=96">{{ $t('bottom.customerServiceList.aboutUs') }}</a></li>
         </ul>
       </div>
-      <div class="item help">
+      <!-- <div class="item help">
         <div class="title">订单相关</div>
         <ul>
           <li><a href="#">免费退换</a></li>
           <li><a href="#">代购声明</a></li>
         </ul>
-      </div>
+      </div> -->
       <div class="item agreement">
-        <div class="title">仓库相关</div>
+        <div class="title">{{ $t('bottom.warehouseCorrelation') }}</div>
         <ul>
-          <li><a href="#">免费质检</a></li>
-          <li><a href="#">免费仓储</a></li>
+          <li><a href="/article?id=78">{{ $t('bottom.warehouseCorrelationList.freeQualityInspection') }}</a></li>
+          <li><a href="/article?id=77">{{ $t('bottom.warehouseCorrelationList.freeStorage') }}</a></li>
         </ul>
       </div>
       <div class="item link">
-        <div class="title">物流相关</div>
+        <div class="title">{{ $t('bottom.logisticsCorrelation') }}</div>
         <ul>
-          <li><a href="#">免费保险</a></li>
-          <li><a href="#">邮寄限制</a></li>
-          <li><a href="#">邮寄政策</a></li>
+          <li><a href="/article?id=76">{{ $t('bottom.logisticsCorrelationList.insuranceService') }}</a></li>
+          <li><a href="/article?id=66">{{ $t('bottom.logisticsCorrelationList.mailingRestriction') }}</a></li>
+          <li><a href="/article?id=95">{{ $t('bottom.logisticsCorrelationList.mailingPolicy') }}</a></li>
         </ul>
       </div>
     </div>
   </div>
 </template>
 <script setup>
+
+
 const goArticle = (url) => {
   window.open(url, '_blank');
 };

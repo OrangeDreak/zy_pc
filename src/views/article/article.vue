@@ -6,6 +6,7 @@
      <div class="content-content" v-html="decodeURIComponent(content)"></div>
     </div>
   </div>
+  <common-footer />
 </template>
 
 <script setup>
@@ -15,6 +16,7 @@ import { useRoute, useRouter } from "vue-router";
 import { ElMessage } from 'element-plus'
 import { getAgreementList, getArticle } from '@/api/common'
 import CommonHeader from "@/components/layout/CommonHeader.vue";
+import CommonFooter from '@/components/layout/CommonFooter.vue'
 
 const router = useRouter()
 const route = useRoute();

@@ -23,7 +23,10 @@
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item command="profile">{{ $t('header.user.profile') }}</el-dropdown-item>
+              <el-dropdown-item command="customers">{{ $t('header.user.customers') }}</el-dropdown-item>
               <el-dropdown-item command="orders">{{ $t('header.user.orders') }}</el-dropdown-item>
+              <el-dropdown-item command="wallet">{{ $t('header.user.wallet') }}</el-dropdown-item>
+              <el-dropdown-item command="ticket">{{ $t('header.user.ticket') }}</el-dropdown-item>
               <el-dropdown-item command="logout">{{ $t('header.user.logout')
                 }}</el-dropdown-item>
             </el-dropdown-menu>
@@ -120,8 +123,14 @@ const handleCommand = (command) => {
     router.push("/login");
   } else if (command === "profile") {
     router.push("/profile");
+  } else if (command === "customers") {
+    router.push("/customers");
   } else if (command === "orders") {
     router.push("/orders");
+  } else if (command === "wallet") {
+    router.push("/my-assets");
+  } else if (command === "ticket") {
+    router.push("/ticket");
   }
 };
 const showKf = () => {

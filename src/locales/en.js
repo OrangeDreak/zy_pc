@@ -19,8 +19,30 @@ export default {
     },
     user: {
       profile: 'Profile',
-      orders: 'Orders',
+      customers: 'My Customers',
+      orders: 'My Orders',
+      wallet: 'My Wallet',
+      ticket: 'My Tickets',
       logout: 'Logout'
+    }
+  },
+  bottom: {
+    customerService: 'Customer Service',
+    customerServiceList: {
+      helpCenter: 'Help Center',
+      contactUs: 'Contact Us',
+      aboutUs: 'About Us'
+    },
+    warehouseCorrelation: 'Warehouse',
+    warehouseCorrelationList: {
+      freeQualityInspection: 'Free Quality Check',
+      freeStorage: 'Free Storage',
+    },
+    logisticsCorrelation: 'Shipping',
+    logisticsCorrelationList: {
+      insuranceService: 'Insurance Service',
+      mailingRestriction: 'Mailing Restriction',
+      mailingPolicy: 'Mailing Policy',
     }
   },
   menu: {
@@ -30,7 +52,7 @@ export default {
     transferOrder: 'My Orders',
     warehouse: 'My Warehouse',
     package: 'My Packages',
-    assets: 'My Assets',
+    assets: 'My Wallet',
     addTransfer: 'Add Order',
     dashboard: 'Dashboard',
     settings: 'Settings',
@@ -39,7 +61,7 @@ export default {
     ticket: 'My Tickets'
   },
   customers: {
-    add: 'Add Customers',
+    add: '+Add Customers',
     code: 'Customers Code',
     codeHelp: 'Customers Code Describe',
     info: {
