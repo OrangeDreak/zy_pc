@@ -119,6 +119,12 @@ export default {
       }
     }
   },
+  addTransfer: {
+    button: 'Copy Address Information',
+    contacts: 'Contacts',
+    tel: 'Tel',
+    address: 'Address'
+  },
   //添加/编辑地址相关
   addressForm: {
     title: 'Add/Edit Customer Info',

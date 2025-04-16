@@ -157,7 +157,7 @@
         >
           <template #default="{ row }">
             <el-tag>
-              {{ row.statusDesc }}
+              {{ row.statusDescEn }}
             </el-tag>
           </template>
         </el-table-column>

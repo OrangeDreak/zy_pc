@@ -188,8 +188,15 @@ export default {
     oneClickDelivery: '一键发货',
   },
   //添加/编辑地址相关
+  addTransfer: {
+    button: '复制地址信息',
+    contacts: '联系人',
+    tel: '联系方式',
+    address: '收货地址'
+  },
   addressForm: {
     title: '添加/修改客户信息',
+    
     customerCode: '客户编码',
     customerCodeTip: '请输入用户编码',
     country: '国家',

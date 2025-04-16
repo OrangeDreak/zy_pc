@@ -25,9 +25,9 @@
             <el-icon><LocationFilled /></el-icon>
           </div>
           <div>
-            <p>联系人：QCelf</p>
-            <p>电话：17840804025</p>
-            <p>地址：广东省东莞市塘厦镇向阳路331号(佳邮国际进门左手边1楼)</p>
+            <p>{{ $t('addTransfer.contacts') }}：QCelf</p>
+            <p>{{ $t('addTransfer.tel') }}：17840804025</p>
+            <p>{{ $t('addTransfer.address') }}：广东省东莞市塘厦镇向阳路331号(佳邮国际进门左手边1楼)</p>
           </div>
         </div>
       </div>
