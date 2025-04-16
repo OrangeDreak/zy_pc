@@ -1,72 +1,74 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import { i18n } from '../config/i18n' 
+const { t } = i18n.global;
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: () => import('@/views/home/index.vue'),
-    meta: { title: '首页' }
+    meta: { title: 'routes.Home' }
   },
   {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/auth/Login.vue'),
-    meta: { title: '登录' }
+    meta: { title: 'routes.Login' }
   },
   {
     path: '/forget',
     name: 'Forget',
     component: () => import('@/views/auth/Forget.vue'),
-    meta: { title: '找回密码' }
+    meta: { title: 'routes.Forget' }
   },
   {
     path: '/register',
     name: 'Register',
     component: () => import('@/views/auth/Register.vue'),
-    meta: { title: '注册' }
+    meta: { title: 'routes.Register' }
   },
   {
     path: '/add-transfer',
     name: 'AddTransfer',
     component: () => import('@/views/transfer/AddTransferOrder.vue'),
-    meta: { title: '添加订单' }
+    meta: { title: 'routes.AddTransfer' }
   },
   {
     path: '/order-share-transfer',
     name: 'OrderShareList',
     component: () => import('@/views/order/OrderShareList.vue'),
-    meta: { title: '我的订单' }
+    meta: { title: 'routes.OrderShareList' }
   },
   {
     path: '/estimate',
     name: 'Estimate',
     component: () => import('@/views/estimate/index.vue'),
-    meta: { title: '运费预估' }
+    meta: { title: 'routes.Estimate' }
   },
   {
     path: '/share/:id',
     name: 'ShareOrder',
     component: () => import('@/views/transfer/ShareOrder.vue'),
-    meta: { title: '订单详情' }
+    meta: { title: 'routes.ShareOrder' }
   },
   {
     path: '/pay',
     name: 'Pay',
     component: () => import('@/views/order-pay/pay.vue'),
-    meta: { title: '支付' }
+    meta: { title: 'routes.Pay' }
   },
   {
     path: '/pay-success',
     name: 'PaySuccess',
     component: () => import('@/views/order-pay/order-success.vue'),
-    meta: { title: '支付成功' }
+    meta: { title: 'routes.PaySuccess' }
   },
   {
     path: '/article',
     name: 'Article',
     component: () => import('@/views/article/article.vue'),
-    meta: { title: '内容详情' }
+    meta: { title: 'routes.Article' }
   },
   {
     path: '/',
@@ -77,77 +79,77 @@ const routes = [
         path: 'users',
         name: 'Users',
         component: () => import('@/views/user/UserList.vue'),
-        meta: { title: '用户管理', requiresAuth: true }
+        meta: { title: 'routes.Users', requiresAuth: true }
       },
       {
         path: 'login-logs',
         name: 'LoginLogs',
         component: () => import('@/views/log/LoginLog.vue'),
-        meta: { title: '登录日志', requiresAuth: true }
+        meta: { title: 'routes.LoginLogs', requiresAuth: true }
       },
       {
         path: 'transfer-list',
         name: 'TransferList',
         component: () => import('@/views/transfer/TransferList.vue'),
-        meta: { title: '我的转运列表', requiresAuth: true }
+        meta: { title: 'routes.TransferList', requiresAuth: true }
       },
       {
         path: 'warehouse',
         name: 'MyWarehouse',
         component: () => import('@/views/warehouse/MyWarehouse.vue'),
-        meta: { title: '我的仓库', requiresAuth: true }
+        meta: { title: 'routes.Warehouse', requiresAuth: true }
       },
       {
         path: 'package',
         name: 'MyPackage',
         component: () => import('@/views/package/MyPackage.vue'),
-        meta: { title: '我的包裹', requiresAuth: true }
+        meta: { title: 'routes.Package', requiresAuth: true }
       },
       {
         path: 'package-detail',
         name: 'PackageDetail',
         component: () => import('@/views/package/PackageDetail.vue'),
-        meta: { title: '包裹详情', requiresAuth: true }
+        meta: { title: 'routes.PackageDetail', requiresAuth: true }
       },
       {
         path: 'my-assets',
         name: 'MyAssets',
         component: () => import('@/views/assets/MyAssets.vue'),
-        meta: { title: '我的资产', requiresAuth: true }
+        meta: { title: 'routes.MyAssets', requiresAuth: true }
       },
       {
         path: 'submit-transfer',
         name: 'SubmitTransfer',
         component: () => import('@/views/warehouse/SubmitTransfer.vue'),
-        meta: { title: '提交转运', requiresAuth: true }
+        meta: { title: 'routes.SubmitTransfer', requiresAuth: true }
       },
       {
         path: 'orders',
         name: 'OrderList',
         component: () => import('@/views/order/OrderList.vue'),
-        meta: { title: '我的订单', requiresAuth: true }
+        meta: { title: 'routes.OrderList', requiresAuth: true }
       },
       {
         path: 'customers',
         name: 'CustomerList',
         component: () => import('@/views/customer/CustomerList.vue'),
-        meta: { title: '我的客户', requiresAuth: true }
+        meta: { title: 'routes.CustomerList', requiresAuth: true }
       },
       {
         path: 'profile',
         name: 'Profile',
         component: () => import('@/views/profile/Profile.vue'),
-        meta: { title: '个人中心', requiresAuth: true }
+        meta: { title: 'routes.Profile', requiresAuth: true }
       },
       {
         path: 'ticket',
         name: 'Ticket',
         component: () => import('@/views/ticket/TicketList.vue'),
-        meta: { title: '我的工单', requiresAuth: true }
+        meta: { title: 'routes.Ticket', requiresAuth: true }
       },
     ]
   }
-]
+];
 
 const router = createRouter({
   history: createWebHistory(),
@@ -161,7 +163,7 @@ router.beforeEach((to, from, next) => {
   // const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
 
   // 更新页面标题
-  document.title = to.meta.title ? `${to.meta.title} - QC elf` : 'QC elf'
+  document.title = to.meta.title ? `${t(to.meta.title)} - QC elf` : 'QC elf'
 
   // if (requiresAuth && !authStore.token) {
   //   next('/login')

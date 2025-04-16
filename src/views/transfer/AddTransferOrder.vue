@@ -14,7 +14,7 @@
 
       <!-- 仓库地址信息 -->
       <div class="section warehouse-section">
-        <div class="section-title">{{ $t('transfer.addOrder.warehouse.title') }} <el-button class="ml-2" type="primary" plain @click="copyToClipboard">复制信息</el-button></div>
+        <div class="section-title">{{ $t('transfer.addOrder.warehouse.title') }} <el-button class="ml-2" type="primary" plain @click="copyToClipboard">复制地址信息</el-button></div>
         <!-- <div class="section-content">
           <el-link type="primary" @click="getWarehouseAddress">
             {{ $t('transfer.addOrder.warehouse.getAddress') }}
