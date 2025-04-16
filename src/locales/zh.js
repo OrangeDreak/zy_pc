@@ -19,6 +19,7 @@ export default {
     Pay: '支付',
     PaySuccess: '支付成功',
     Article: '内容详情',
+    ArticleList: '帮助中心',
     Users: '用户管理',
     LoginLogs: '登录日志',
     TransferList: '我的转运列表',

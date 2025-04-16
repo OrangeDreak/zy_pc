@@ -19,6 +19,7 @@ export default {
     Pay: 'Pay',
     PaySuccess: 'Payment Successful',
     Article: 'Content Details',
+    ArticleList: 'Article List',
     Users: 'User Management',
     LoginLogs: 'Login Logs',
     TransferList: 'My Transfer List',

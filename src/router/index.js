@@ -71,6 +71,12 @@ const routes = [
     meta: { title: 'routes.Article' }
   },
   {
+    path: '/article-list',
+    name: 'ArticleList',
+    component: () => import('@/views/article/article-list.vue'),
+    meta: { title: 'routes.ArticleList' }
+  },
+  {
     path: '/',
     name: 'Layout',
     component: () => import('@/layouts/MainLayout.vue'),
