@@ -13,8 +13,8 @@ export default {
     login: 'Login',
     register: 'Register',
     nav: {
-      freightEstimate: 'Freight Estimate',
-      transfer: 'Add Order',
+      freightEstimate: 'Estimation',
+      transfer: 'Create Order',
       help: 'Help Center'
     },
     user: {
