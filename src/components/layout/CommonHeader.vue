@@ -67,22 +67,23 @@
         </el-popover>
       </div>
     </div>
-    <div class="intercom-kf" @click="showKf">
-      <!-- <img class="intercom-kf" src="@/assets/images/icon/kf.png" alt="" /> -->
-      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- 圆形背景 -->
-        <circle cx="32" cy="32" r="30" fill="#c803be" />
+    <div class="intercom-kf">
+      <img @click="toDiscord" class="intercom-icon" src="@/assets/images/common/common_discord.png" alt="" />
+      <el-popconfirm
+        confirm-button-text="Copy"
+        cancel-button-text=" "
+        :icon="Message"
+        icon-color="#c803be"
+        title="service@qcelf.com"
+        @confirm="confirmCopy"
+        width="200"
+      >
+        <template #reference>
+          <img class="intercom-icon" src="@/assets/images/common/common_email.png" alt="" />
+        </template>
+      </el-popconfirm>
 
-        <!-- 白色微信风格气泡 -->
-        <path
-          d="M24 22H40C42 22 44 24 44 26V34C44 36 42 38 40 38H32L28 42V38H24C22 38 20 36 20 34V26C20 24 22 22 24 22Z"
-          fill="white" fill-opacity="0.9" />
-
-        <!-- 气泡内的小圆点1 -->
-        <circle cx="30" cy="30" r="2" fill="#c803be" />
-        <!-- 气泡内的小圆点2 -->
-        <circle cx="38" cy="30" r="2" fill="#c803be" />
-      </svg>
+      <img @click="toFk" class="intercom-icon" src="@/assets/images/common/common_fk.png" alt="" />
     </div>
     <!-- 对话框 -->
     <el-dialog v-model="dialogVisible" title="联系我们" width="30%" :before-close="handleClose">
@@ -103,7 +104,8 @@ import { useLangStore } from "@/stores/lang";
 import { useCurrencyStore } from "@/stores/currency";
 import { useI18n } from "vue-i18n";
 import { storeToRefs } from "pinia";
-import { Search, ArrowDown } from "@element-plus/icons-vue";
+import { Search, ArrowDown, Message } from "@element-plus/icons-vue";
+import { ElMessage } from "element-plus"
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -136,10 +138,28 @@ const handleCommand = (command) => {
 const showKf = () => {
   dialogVisible.value = true; // 显示对话框
 };
-
+const confirmCopy = () => {
+  const mailText = "service@qcelf.com";
+  navigator.clipboard
+    .writeText(mailText)
+    .then(() => {
+      console.log("内容已成功复制到剪切板");
+    })
+    .catch((err) => {
+      console.error("无法复制内容到剪切板:", err);
+    });
+  ElMessage.success(`复制成功`);
+  
+}
 const handleClose = (done) => {
   dialogVisible.value = false; // 隐藏对话框
   done();
+};
+const toDiscord = () => {
+  window.open("https://discord.gg/pMvUUf2zMJ", "_blank");
+};
+const toFk = () => {
+  router.push("/ticket");
 };
 const handleEstimate = async () => {
   router.push("/estimate");
@@ -285,21 +305,24 @@ const handleCurrencyChange = (currency) => {
 
 .intercom-kf {
   width: 50px;
-  height: 50px;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
   cursor: pointer;
   position: fixed;
   right: 60px;
   bottom: 200px;
   z-index: 2147483006;
   transition: 0.2s all;
-
-  &:hover {
-    transform: scale(1.2);
+  cursor: pointer;
+  .intercom-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 16px;
   }
 }
 .contact-info {
   text-align: center;
-
   .qrcode {
     width: 200px;
     height: 260px;
@@ -322,7 +345,7 @@ const handleCurrencyChange = (currency) => {
       background-color: #f5f7fa;
     }
   }
-  .active{
+  .active {
     border: 1px solid #c803be;
     color: #c803be;
   }

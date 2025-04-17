@@ -4,9 +4,7 @@ import ElementPlus from 'element-plus'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import App from './App.vue'
 import router from './router'
-import { createI18n } from 'vue-i18n'
-import en from './locales/en'
-import zh from './locales/zh'
+import { i18n } from './config/i18n' 
 import Antd from "ant-design-vue"
 import svgIcon from "@/components/SvgIcon/index.vue";
 import 'ant-design-vue/dist/reset.css';
@@ -41,19 +39,6 @@ app.component('svg-icon', svgIcon);
 app.use(createPinia())
 app.use(router)
 app.use(Antd)
-
-const i18n = createI18n({
-  legacy: false,
-  locale: localStorage.getItem('lang') || 'zh',
-  fallbackLocale: 'zh',
-  messages: {
-    en,
-    zh
-  },
-  sync: true,
-  silentTranslationWarn: true,
-})
-
 app.use(i18n)
 
 app.mount('#app')

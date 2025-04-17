@@ -14,7 +14,7 @@
 
       <!-- 仓库地址信息 -->
       <div class="section warehouse-section">
-        <div class="section-title">{{ $t('transfer.addOrder.warehouse.title') }}</div>
+        <div class="section-title">{{ $t('transfer.addOrder.warehouse.title') }} <el-button class="ml-2" type="primary" plain @click="copyToClipboard">{{ $t('addTransfer.button') }}</el-button></div>
         <!-- <div class="section-content">
           <el-link type="primary" @click="getWarehouseAddress">
             {{ $t('transfer.addOrder.warehouse.getAddress') }}
@@ -25,9 +25,9 @@
             <el-icon><LocationFilled /></el-icon>
           </div>
           <div>
-            <p>联系人：QCelf</p>
-            <p>电话：17840804025</p>
-            <p>地址：广东省东莞市塘厦镇向阳路331号(佳邮国际进门左手边1楼)</p>
+            <p>{{ $t('addTransfer.contacts') }}：QCelf</p>
+            <p>{{ $t('addTransfer.tel') }}：17840804025</p>
+            <p>{{ $t('addTransfer.address') }}：广东省东莞市塘厦镇向阳路331号(佳邮国际进门左手边1楼)</p>
           </div>
         </div>
       </div>
@@ -217,6 +217,19 @@ const currentOrderIndex = ref(0);
 const customCodeLoading = ref(false);
 const customCodeOptions = ref([]);
 
+
+const copyToClipboard = () => {
+  const text = `联系人：QCelf\n电话：17840804025\n地址：广东省东莞市塘厦镇向阳路331号(佳邮国际进门左手边1楼)`;
+  navigator.clipboard
+    .writeText(text)
+    .then(() => {
+      console.log("内容已成功复制到剪切板");
+    })
+    .catch((err) => {
+      console.error("无法复制内容到剪切板:", err);
+    });
+  ElMessage.success('信息已复制到剪贴板');
+};
 // 模拟远程搜索方法
 const remoteSearchCustomCode = async (orderIndex,query) => {
   orders.value[orderIndex].userNo = query;

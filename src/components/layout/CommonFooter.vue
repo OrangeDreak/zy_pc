@@ -4,7 +4,7 @@
       <div class="item">
         <div class="title">{{ $t('bottom.customerService') }}</div>
         <ul>
-          <li><a href="#">{{ $t('bottom.customerServiceList.helpCenter') }}</a></li>
+          <li><a href="/article-list">{{ $t('bottom.customerServiceList.helpCenter') }}</a></li>
           <li><a href="/article?id=73">{{ $t('bottom.customerServiceList.contactUs') }}</a></li>
           <li><a href="/article?id=96">{{ $t('bottom.customerServiceList.aboutUs') }}</a></li>
         </ul>

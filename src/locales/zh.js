@@ -7,6 +7,32 @@ export default {
     total: '共',
     page: '条',
   },
+  routes: {
+    Home: '首页',
+    Login: '登录',
+    Forget: '找回密码',
+    Register: '注册',
+    AddTransfer: '添加订单',
+    OrderShareList: '我的订单',
+    Estimate: '运费预估',
+    ShareOrder: '订单详情',
+    Pay: '支付',
+    PaySuccess: '支付成功',
+    Article: '内容详情',
+    ArticleList: '帮助中心',
+    Users: '用户管理',
+    LoginLogs: '登录日志',
+    TransferList: '我的转运列表',
+    Warehouse: '我的仓库',
+    Package: '我的包裹',
+    PackageDetail: '包裹详情',
+    MyAssets: '我的资产',
+    SubmitTransfer: '提交转运',
+    OrderList: '我的订单',
+    CustomerList: '我的客户',
+    Profile: '个人中心',
+    Ticket: '我的工单',
+  },
   header: {
     search: '请输入商品关键词',
     searchButton: '搜索',
@@ -38,12 +64,23 @@ export default {
       freeQualityInspection: '免费质检',
       freeStorage: '免费仓储',
     },
-    logisticsCorrelation: '仓库相关',
+    logisticsCorrelation: '物流相关',
     logisticsCorrelationList: {
       insuranceService: '保险服务',
       mailingRestriction: '邮寄限制',
       mailingPolicy: '邮寄政策',
     }
+  },
+  home: {
+    serviceIntroduction: '服务介绍',
+    WarehouseTour: '仓库导览',
+    ExploreOur: '探索我们的智能仓储设施',
+    QcInspection: 'QC 质检',
+    SmartPackaging: '智能打包',
+    customerManagement: '客户管理',
+    logisticsInsurance: '物流保险',
+    immediateUse: '立即使用',
+    EnableIntelligent: '开启智能物流服务',
   },
   menu: {
     profile: '个人中心',
@@ -188,8 +225,15 @@ export default {
     oneClickDelivery: '一键发货',
   },
   //添加/编辑地址相关
+  addTransfer: {
+    button: '复制地址信息',
+    contacts: '联系人',
+    tel: '联系方式',
+    address: '收货地址'
+  },
   addressForm: {
     title: '添加/修改客户信息',
+    
     customerCode: '客户编码',
     customerCodeTip: '请输入用户编码',
     country: '国家',

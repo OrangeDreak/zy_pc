@@ -21,3 +21,10 @@ export const getArticle = (params) => {
     params,
   });
 }
+export const getArticleList = (params) => {
+  return request({
+    url: "/app/article/articleList",
+    method: "get",
+    params,
+  });
+}

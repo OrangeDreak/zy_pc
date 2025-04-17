@@ -7,6 +7,32 @@ export default {
     total: 'total',
     page: 'page',
   },
+  routes: {
+    Home: 'Home',
+    Login: 'Login',
+    Forget: 'Forget Password',
+    Register: 'Register',
+    AddTransfer: 'Add Order',
+    OrderShareList: 'My Orders',
+    Estimate: 'Freight Estimation',
+    ShareOrder: 'Order Details',
+    Pay: 'Pay',
+    PaySuccess: 'Payment Successful',
+    Article: 'Content Details',
+    ArticleList: 'Article List',
+    Users: 'User Management',
+    LoginLogs: 'Login Logs',
+    TransferList: 'My Transfer List',
+    Warehouse: 'My Warehouse',
+    Package: 'My Packages',
+    PackageDetail: 'Package Details',
+    MyAssets: 'My Assets',
+    SubmitTransfer: 'Submit Transfer',
+    OrderList: 'My Orders',
+    CustomerList: 'My Customers',
+    Profile: 'Profile',
+    Ticket: 'My Tickets',
+  },
   header: {
     search: 'Search products',
     searchButton: 'Search',
@@ -25,6 +51,17 @@ export default {
       ticket: 'My Tickets',
       logout: 'Logout'
     }
+  },
+  home: {
+    serviceIntroduction: 'Service Introduction',
+    WarehouseTour: 'Warehouse tour',
+    ExploreOur: 'Explore our smart storage facilities',
+    QcInspection: 'Qc Inspection',
+    SmartPackaging: 'Smart Packaging',
+    customerManagement: 'Customer Management',
+    logisticsInsurance: 'Logistics Insurance',
+    immediateUse: 'Immediate Use',
+    EnableIntelligent: 'Enable intelligent logistics services',
   },
   bottom: {
     customerService: 'Customer Service',
@@ -118,6 +155,12 @@ export default {
         }
       }
     }
+  },
+  addTransfer: {
+    button: 'Copy Address Information',
+    contacts: 'Contacts',
+    tel: 'PhoneNumber',
+    address: 'Address'
   },
   //添加/编辑地址相关
   addressForm: {
