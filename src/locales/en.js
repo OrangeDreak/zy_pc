@@ -53,15 +53,15 @@ export default {
     }
   },
   home: {
-    serviceIntroduction: 'Service Introduction',
+    serviceIntroduction: 'What do we provide',
     WarehouseTour: 'Warehouse tour',
     ExploreOur: 'Explore our smart storage facilities',
-    QcInspection: 'Qc Inspection',
-    SmartPackaging: 'Smart Packaging',
-    customerManagement: 'Customer Management',
-    logisticsInsurance: 'Logistics Insurance',
-    immediateUse: 'Immediate Use',
-    EnableIntelligent: 'Enable intelligent logistics services',
+    QcInspection: 'Quality Check',
+    SmartPackaging: 'Packing Service',
+    customerManagement: 'CRM System',
+    logisticsInsurance: 'Insurance',
+    immediateUse: 'Start Now',
+    EnableIntelligent: 'QCelf will free you from worries of shipping',
   },
   bottom: {
     customerService: 'Customer Service',
